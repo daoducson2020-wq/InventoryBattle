@@ -2,6 +2,6 @@ Logs/
 Temp/
 UserSettings/
 .vscode/
-*.csproj/
-*.slnx/
+*.csproj
+*.slnx
 Library/
