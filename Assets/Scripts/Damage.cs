@@ -5,7 +5,7 @@ public class Damage : MonoBehaviour
     private Health target;
     private float nextAtkTime;
     [SerializeField]
-    private Weapon weapon;
+    private ItemData ItemData;
 
 
     private void Awake()
@@ -26,8 +26,8 @@ public class Damage : MonoBehaviour
     {
         if(Time.time >= nextAtkTime)
         {
-            target.TakeDamage(weapon.Damage);
-            nextAtkTime = Time.time + weapon.AtkCoolDown;
+            target.TakeDamage(ItemData.Damage);
+            nextAtkTime = Time.time + ItemData.AttackRate;
         }
     }
 }

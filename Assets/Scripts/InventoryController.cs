@@ -21,9 +21,9 @@ public class InventoryController : MonoBehaviour
     private InventoryItem selectedItem;
     private InventoryItem overlapItem;
     private InventoryItem itemToHighlight;
+    private ItemData draggedItemPreview;
     private InventoryHighlight inventoryHighlight;
     private RectTransform rectTransform; //item image
-    private Vector2Int oldPosition;
     
     private void Awake()
     {
@@ -35,6 +35,11 @@ public class InventoryController : MonoBehaviour
         if (selectedItem != null)
         {
             rectTransform.position = Input.mousePosition;
+
+            if (Input.GetMouseButtonUp(0) && TrySellSelectedItem())
+            {
+                return;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.A))
@@ -52,7 +57,8 @@ public class InventoryController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2Int tileGridPosition = GetSelectedPosition();
+            Vector2Int tileGridPosition = GetSelectedPosition(
+                selectedItem != null ? selectedItem.ItemData : null);
 
             if (selectedItem == null)
             {
@@ -79,27 +85,73 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    private Vector2Int GetSelectedPosition()
+    private bool TrySellSelectedItem()
+    {
+        ShopManager shopManager = FindAnyObjectByType<ShopManager>();
+        if (shopManager == null || !shopManager.IsPointerOverShop(Input.mousePosition))
+        {
+            return false;
+        }
+
+        if (selectedItem.ItemData.price < 0)
+        {
+            Debug.LogError("Cannot sell an item with a negative price.", selectedItem);
+            return false;
+        }
+
+        PlayerWallet wallet = PlayerWallet.Instance;
+        if (wallet == null)
+        {
+            Debug.LogError("An inventory item cannot be sold without a PlayerWallet.", this);
+            return false;
+        }
+
+        if (!wallet.TryAddGold(selectedItem.ItemData.price))
+        {
+            Debug.LogError("Cannot add the sale price to the player's gold.", wallet);
+            return false;
+        }
+
+        Destroy(selectedItem.gameObject);
+        selectedItem = null;
+        rectTransform = null;
+        return true;
+    }
+
+    private Vector2Int GetSelectedPosition(ItemData itemData)
     {
         Vector2 position = Input.mousePosition;
-        if (selectedItem != null)
+        if (itemData != null)
         {
-            position.x -= (selectedItem.ItemData.ItemWidth - 1) * ItemGrid.TILE_SIZE / 2;
-            position.y += (selectedItem.ItemData.ItemHeight - 1) * ItemGrid.TILE_SIZE / 2;
+            position.x -= (itemData.ItemWidth - 1) * ItemGrid.TILE_SIZE / 2;
+            position.y += (itemData.ItemHeight - 1) * ItemGrid.TILE_SIZE / 2;
         }
         return selectedItemGrid.GetTileGridPosition(position);
     }
 
     private void HandleHighlight()
     {
-        Vector2Int positionOnGrid = GetSelectedPosition();
-        if (oldPosition == positionOnGrid)
+        ItemData activeItemData = draggedItemPreview != null
+            ? draggedItemPreview
+            : selectedItem != null ? selectedItem.ItemData : null;
+        if (activeItemData != null)
         {
-            return;
+            Vector2Int positionOnGrid = GetSelectedPosition(activeItemData);
+            inventoryHighlight.Show(selectedItemGrid.IsInsideGrid(
+                positionOnGrid.x,
+                positionOnGrid.y,
+                activeItemData.ItemWidth,
+                activeItemData.ItemHeight));
+            inventoryHighlight.SetSize(activeItemData);
+            inventoryHighlight.SetPosition(
+                selectedItemGrid,
+                activeItemData,
+                positionOnGrid.x,
+                positionOnGrid.y);
         }
-        oldPosition = positionOnGrid;
-        if (selectedItem == null)
+        else
         {
+            Vector2Int positionOnGrid = GetSelectedPosition(null);
             itemToHighlight = selectedItemGrid.GetItem(positionOnGrid.x, positionOnGrid.y);
             if (inventoryHighlight != null && itemToHighlight != null)
             {
@@ -111,19 +163,31 @@ public class InventoryController : MonoBehaviour
             {
                 inventoryHighlight.Show(true);
                 inventoryHighlight.SetSize();
-                inventoryHighlight.SetPosition(GetSelectedPosition());
+                inventoryHighlight.SetPosition(positionOnGrid);
             }
         }
-        else
+    }
+
+    public void SetDraggedItemPreview(ItemData itemData)
+    {
+        draggedItemPreview = itemData;
+    }
+
+    public bool TryDetachItemForDrag(InventoryItem item, ItemGrid itemGrid)
+    {
+        if (item == null || itemGrid == null)
         {
-            inventoryHighlight.Show(selectedItemGrid.IsInsideGrid(
-                                                    positionOnGrid.x,
-                                                    positionOnGrid.y,
-                                                    selectedItem.ItemData.ItemWidth,
-                                                    selectedItem.ItemData.ItemHeight));
-            inventoryHighlight.SetSize(selectedItem);
-            inventoryHighlight.SetPosition(selectedItemGrid, selectedItem, positionOnGrid.x, positionOnGrid.y);
+            return false;
         }
+
+        if (selectedItem == item)
+        {
+            selectedItem = null;
+            rectTransform = null;
+            return true;
+        }
+
+        return itemGrid.TryRemoveItem(item);
     }
 
     private void CreateRandomItem()
@@ -134,5 +198,27 @@ public class InventoryController : MonoBehaviour
         rectTransform.SetParent(canvasTransform);
         int selectedItemID = Random.Range(0, items.Count);
         randomItem.Set(items[selectedItemID]);
+    }
+
+    public InventoryItem CreateInventoryItem(ItemData itemData, Vector2 screenPosition)
+    {
+        if (itemPrefab == null || canvasTransform == null || itemData == null)
+        {
+            Debug.LogError("Cannot create an inventory item because its prefab, canvas, or item data is missing.", this);
+            return null;
+        }
+
+        GameObject itemObject = Instantiate(itemPrefab, canvasTransform);
+        InventoryItem inventoryItem = itemObject.GetComponent<InventoryItem>();
+        if (inventoryItem == null)
+        {
+            Debug.LogError("The inventory item prefab does not have an InventoryItem component.", itemObject);
+            Destroy(itemObject);
+            return null;
+        }
+
+        inventoryItem.Set(itemData);
+        itemObject.GetComponent<RectTransform>().position = screenPosition;
+        return inventoryItem;
     }
 }

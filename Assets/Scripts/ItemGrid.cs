@@ -85,6 +85,43 @@ public class ItemGrid : MonoBehaviour
         return true;
     }
 
+    public bool TryPlaceNewItemAtScreenPosition(InventoryItem item, Vector2 screenPosition)
+    {
+        if (item == null || item.ItemData == null)
+        {
+            Debug.LogError("Cannot place an inventory item without item data.", this);
+            return false;
+        }
+
+        Vector2 position = screenPosition;
+        position.x -= (item.ItemData.ItemWidth - 1) * TILE_SIZE / 2;
+        position.y += (item.ItemData.ItemHeight - 1) * TILE_SIZE / 2;
+        Vector2Int tileGridPosition = GetTileGridPosition(position);
+
+        if (!IsInsideGrid(
+                tileGridPosition.x,
+                tileGridPosition.y,
+                item.ItemData.ItemWidth,
+                item.ItemData.ItemHeight))
+        {
+            return false;
+        }
+
+        for (int x = 0; x < item.ItemData.ItemWidth; x++)
+        {
+            for (int y = 0; y < item.ItemData.ItemHeight; y++)
+            {
+                if (inventoryItemSlot[tileGridPosition.x + x, tileGridPosition.y + y] != null)
+                {
+                    return false;
+                }
+            }
+        }
+
+        InventoryItem overlapItem = null;
+        return PlaceItem(item, tileGridPosition.x, tileGridPosition.y, ref overlapItem);
+    }
+
     public Vector2 CalculatePositionOnGrid(InventoryItem item, int posX, int posY)
     {
         return new Vector2(posX * TILE_SIZE + TILE_SIZE * item.ItemData.ItemWidth / 2,
@@ -100,6 +137,25 @@ public class ItemGrid : MonoBehaviour
         }
         UpdateGrid(pickItemAt);
         return pickItemAt;
+    }
+
+    public bool TryRemoveItem(InventoryItem item)
+    {
+        if (item == null || item.ItemData == null || inventoryItemSlot == null)
+        {
+            return false;
+        }
+
+        int posX = item.onGridPositionX;
+        int posY = item.onGridPositionY;
+        if (!IsInsideGrid(posX, posY, item.ItemData.ItemWidth, item.ItemData.ItemHeight)
+            || inventoryItemSlot[posX, posY] != item)
+        {
+            return false;
+        }
+
+        UpdateGrid(item);
+        return true;
     }
 
     private void InitInventorySlot(int x, int y)

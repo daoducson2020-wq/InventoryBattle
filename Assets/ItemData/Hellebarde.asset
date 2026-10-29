@@ -19,3 +19,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 9f536476df66770499a4d3a3008b859d, type: 3}
   itemWidth: 3
   itemHeight: 6
+  price: 7

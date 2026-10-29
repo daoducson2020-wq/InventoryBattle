@@ -15,8 +15,19 @@ public class InventoryHighlight : MonoBehaviour
         {
             return;
         }
-        Vector2 size = new Vector2(item.ItemData.ItemWidth * ItemGrid.TILE_SIZE,
-                                item.ItemData.ItemHeight * ItemGrid.TILE_SIZE);
+        SetSize(item.ItemData);
+    }
+
+    public void SetSize(ItemData itemData)
+    {
+        if (itemData == null)
+        {
+            return;
+        }
+
+        Vector2 size = new Vector2(
+            itemData.ItemWidth * ItemGrid.TILE_SIZE,
+            itemData.ItemHeight * ItemGrid.TILE_SIZE);
         highlight.sizeDelta = size;
     }
 
@@ -54,7 +65,24 @@ public class InventoryHighlight : MonoBehaviour
 
     public void SetPosition(ItemGrid grid, InventoryItem item, int posX, int posY)
     {
-        Vector2 position = grid.CalculatePositionOnGrid(item, posX, posY);
+        if (item == null)
+        {
+            return;
+        }
+
+        SetPosition(grid, item.ItemData, posX, posY);
+    }
+
+    public void SetPosition(ItemGrid grid, ItemData itemData, int posX, int posY)
+    {
+        if (grid == null || itemData == null)
+        {
+            return;
+        }
+
+        Vector2 position = new Vector2(
+            posX * ItemGrid.TILE_SIZE + ItemGrid.TILE_SIZE * itemData.ItemWidth / 2,
+            -(posY * ItemGrid.TILE_SIZE + ItemGrid.TILE_SIZE * itemData.ItemHeight / 2));
         highlight.localPosition = position;
     }
 }

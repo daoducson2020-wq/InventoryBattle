@@ -237,7 +237,8 @@ Transform:
   m_LocalPosition: {x: -0.66, y: 0.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 789413209}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &376200730
@@ -801,12 +802,12 @@ Transform:
   m_GameObject: {fileID: 789413208}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.67, y: -0.060000017, z: 0}
+  m_LocalPosition: {x: 7.33, y: -0.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1465494605}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 188548881}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &789413210
 MonoBehaviour:
@@ -1159,12 +1160,12 @@ Transform:
   m_GameObject: {fileID: 1247357468}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.67, y: -0.060000017, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -3.2855701, y: 0.59308, z: 0}
+  m_LocalScale: {x: 0.39896, y: 0.39896, z: 0.39896}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1980086592}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2144666878}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1357154597
 GameObject:
@@ -1750,7 +1751,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2012244440}
   - component: {fileID: 2012244439}
-  - component: {fileID: 2012244438}
   m_Layer: 0
   m_Name: Baseball Bat
   m_TagString: Untagged
@@ -1758,19 +1758,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2012244438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2012244437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 985cc16ed6b3c7a48ad822389903c2f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Damage
-  weapon: {fileID: 0}
 --- !u!212 &2012244439
 SpriteRenderer:
   serializedVersion: 3
@@ -1891,6 +1878,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 782333126}
+  - {fileID: 1247357471}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
@@ -1903,5 +1891,3 @@ SceneRoots:
   - {fileID: 188548881}
   - {fileID: 1202260414}
   - {fileID: 376200733}
-  - {fileID: 789413209}
-  - {fileID: 1247357471}
