@@ -56,7 +56,6 @@
     <Compile Include="Assets\Scripts\ItemGrid.cs" />
     <Compile Include="Assets\Scripts\PlayerWallet.cs" />
     <Compile Include="Assets\Scripts\ShopManager.cs" />
-    <Compile Include="Assets\Scripts\DragAnđDrop.cs" />
     <Compile Include="Assets\Scripts\ShopSlot.cs" />
     <Compile Include="Assets\Scripts\GridInteract.cs" />
     <Compile Include="Assets\Scripts\Damage.cs" />
@@ -66,6 +65,7 @@
     <Compile Include="Assets\Scripts\InventoryController.cs" />
     <Compile Include="Assets\Scripts\Health.cs" />
     <Compile Include="Assets\Scripts\InventoryItem.cs" />
+    <Compile Include="Assets\Scripts\DragAndDrop.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
