@@ -3,15 +3,32 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
-    [HideInInspector] public ItemGrid selectedItemGrid;
+    [HideInInspector] private ItemGrid selectedItemGrid;
+    public ItemGrid SelectedItemGrid
+    {
+        get => selectedItemGrid;
+        set 
+        {
+            selectedItemGrid = value;
+            inventoryHighlight.SetParent(value);
+        }
+    }
+
     [SerializeField] private List<ItemData> items;
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Transform canvasTransform;
 
     private InventoryItem selectedItem;
     private InventoryItem overlapItem;
+    private InventoryItem itemToHighlight;
+    private InventoryHighlight inventoryHighlight;
     private RectTransform rectTransform; //item image
-    private bool selectedItemFromGrid;
+    private Vector2Int oldPosition;
+    
+    private void Awake()
+    {
+        inventoryHighlight = GetComponent<InventoryHighlight>();
+    }
 
     private void Update()
     {
@@ -25,25 +42,17 @@ public class InventoryController : MonoBehaviour
             CreateRandomItem();
         }
 
-        if (selectedItem != null && selectedItemFromGrid && Input.GetMouseButtonUp(0))
-        {
-            TrySellSelectedItem();
-        }
-
         if (selectedItemGrid == null)
         {
+            inventoryHighlight.Show(false);
             return;
         }
 
+        HandleHighlight();
+
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2 position = Input.mousePosition;
-            if (selectedItem != null)
-            {
-                position.x -= (selectedItem.ItemData.ItemWidth - 1) * ItemGrid.TILE_SIZE / 2;
-                position.y += (selectedItem.ItemData.ItemHeight - 1) * ItemGrid.TILE_SIZE / 2;
-            }
-            Vector2Int tileGridPosition = selectedItemGrid.GetTileGridPosition(position);
+            Vector2Int tileGridPosition = GetSelectedPosition();
 
             if (selectedItem == null)
             {
@@ -51,7 +60,6 @@ public class InventoryController : MonoBehaviour
                 if (selectedItem != null)
                 {
                     rectTransform = selectedItem.GetComponent<RectTransform>();
-                    selectedItemFromGrid = true;
                 }
             }
             else
@@ -60,94 +68,71 @@ public class InventoryController : MonoBehaviour
                 if (placeSuccess)
                 {
                     selectedItem = null;
-                    selectedItemFromGrid = false;
                     if (overlapItem != null)
                     {
                         selectedItem = overlapItem;
                         overlapItem = null;
                         rectTransform = selectedItem.GetComponent<RectTransform>();
-                        selectedItemFromGrid = true;
                     }
                 }
             }
         }
     }
 
-    private void TrySellSelectedItem()
+    private Vector2Int GetSelectedPosition()
     {
-        ShopManager shopManager = FindAnyObjectByType<ShopManager>();
-        if (shopManager == null || !shopManager.IsPointerOverShop(Input.mousePosition))
+        Vector2 position = Input.mousePosition;
+        if (selectedItem != null)
+        {
+            position.x -= (selectedItem.ItemData.ItemWidth - 1) * ItemGrid.TILE_SIZE / 2;
+            position.y += (selectedItem.ItemData.ItemHeight - 1) * ItemGrid.TILE_SIZE / 2;
+        }
+        return selectedItemGrid.GetTileGridPosition(position);
+    }
+
+    private void HandleHighlight()
+    {
+        Vector2Int positionOnGrid = GetSelectedPosition();
+        if (oldPosition == positionOnGrid)
         {
             return;
         }
-
-        if (selectedItem.ItemData == null || selectedItem.ItemData.price < 0)
+        oldPosition = positionOnGrid;
+        if (selectedItem == null)
         {
-            Debug.LogError("Cannot sell an inventory item with invalid item data or price.", selectedItem);
-            return;
+            itemToHighlight = selectedItemGrid.GetItem(positionOnGrid.x, positionOnGrid.y);
+            if (inventoryHighlight != null && itemToHighlight != null)
+            {
+                inventoryHighlight.Show(true);
+                inventoryHighlight.SetSize(itemToHighlight);
+                inventoryHighlight.SetPosition(selectedItemGrid, itemToHighlight);
+            }
+            else
+            {
+                inventoryHighlight.Show(true);
+                inventoryHighlight.SetSize();
+                inventoryHighlight.SetPosition(GetSelectedPosition());
+            }
         }
-
-        PlayerWallet wallet = PlayerWallet.Instance;
-        if (wallet == null)
+        else
         {
-            Debug.LogError("Cannot sell an inventory item without a PlayerWallet.", this);
-            return;
+            inventoryHighlight.Show(selectedItemGrid.IsInsideGrid(
+                                                    positionOnGrid.x,
+                                                    positionOnGrid.y,
+                                                    selectedItem.ItemData.ItemWidth,
+                                                    selectedItem.ItemData.ItemHeight));
+            inventoryHighlight.SetSize(selectedItem);
+            inventoryHighlight.SetPosition(selectedItemGrid, selectedItem, positionOnGrid.x, positionOnGrid.y);
         }
-
-        int sellPrice = Mathf.FloorToInt(selectedItem.ItemData.price * 0.8f);
-        if (!wallet.TryAddGold(sellPrice))
-        {
-            Debug.LogError("The wallet could not accept the sale proceeds.", wallet);
-            return;
-        }
-
-        Destroy(selectedItem.gameObject);
-        selectedItem = null;
-        rectTransform = null;
-        selectedItemFromGrid = false;
     }
 
     private void CreateRandomItem()
     {
-        if (items == null || items.Count == 0)
-        {
-            Debug.LogError("InventoryController requires at least one item to create a random item.", this);
-            return;
-        }
-
-        InventoryItem randomItem = CreateInventoryItem(items[Random.Range(0, items.Count)], Input.mousePosition);
-        if (randomItem == null) return;
-
+        InventoryItem randomItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
         selectedItem = randomItem;
         rectTransform = randomItem.GetComponent<RectTransform>();
-        selectedItemFromGrid = false;
-    }
-
-    public InventoryItem CreateInventoryItem(ItemData item, Vector2 screenPosition)
-    {
-        if (item == null)
-        {
-            Debug.LogError("Cannot create an inventory item without item data.", this);
-            return null;
-        }
-
-        if (itemPrefab == null || canvasTransform == null)
-        {
-            Debug.LogError("InventoryController requires an item prefab and canvas transform.", this);
-            return null;
-        }
-
-        GameObject itemObject = Instantiate(itemPrefab, canvasTransform);
-        InventoryItem inventoryItem = itemObject.GetComponent<InventoryItem>();
-        if (inventoryItem == null)
-        {
-            Debug.LogError("Inventory item prefab is missing the InventoryItem component.", itemObject);
-            Destroy(itemObject);
-            return null;
-        }
-
-        inventoryItem.Set(item);
-        inventoryItem.GetComponent<RectTransform>().position = screenPosition;
-        return inventoryItem;
+        rectTransform.SetParent(canvasTransform);
+        int selectedItemID = Random.Range(0, items.Count);
+        randomItem.Set(items[selectedItemID]);
     }
 }
