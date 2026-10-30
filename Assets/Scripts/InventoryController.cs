@@ -77,15 +77,24 @@ public class InventoryController : MonoBehaviour
                 }
             }
         }
+        if (selectedItem != null && Input.GetMouseButtonDown(1))
+        {
+            RotateItem();
+        }
     }
 
+    private void RotateItem()
+    {
+        selectedItem.Rotate();
+    }
+    
     private Vector2Int GetSelectedPosition()
     {
         Vector2 position = Input.mousePosition;
         if (selectedItem != null)
         {
-            position.x -= (selectedItem.ItemData.ItemWidth - 1) * ItemGrid.TILE_SIZE / 2;
-            position.y += (selectedItem.ItemData.ItemHeight - 1) * ItemGrid.TILE_SIZE / 2;
+            position.x -= (selectedItem.Width - 1) * ItemGrid.TILE_SIZE / 2;
+            position.y += (selectedItem.Height - 1) * ItemGrid.TILE_SIZE / 2;
         }
         return selectedItemGrid.GetTileGridPosition(position);
     }
@@ -119,8 +128,8 @@ public class InventoryController : MonoBehaviour
             inventoryHighlight.Show(selectedItemGrid.IsInsideGrid(
                                                     positionOnGrid.x,
                                                     positionOnGrid.y,
-                                                    selectedItem.ItemData.ItemWidth,
-                                                    selectedItem.ItemData.ItemHeight));
+                                                    selectedItem.Width,
+                                                    selectedItem.Height));
             inventoryHighlight.SetSize(selectedItem);
             inventoryHighlight.SetPosition(selectedItemGrid, selectedItem, positionOnGrid.x, positionOnGrid.y);
         }

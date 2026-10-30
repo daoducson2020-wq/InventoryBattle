@@ -8,7 +8,23 @@ public class InventoryItem : MonoBehaviour
 
     public int onGridPositionX;
     public int onGridPositionY;
-    
+    private bool rotated = false;
+    private float angleRotation = 0f;
+    public int Height
+    {
+        get
+        {
+            return rotated == false ? itemData.ItemHeight : itemData.ItemWidth;
+        }
+    }
+    public int Width
+    {
+        get
+        {
+            return rotated == false ? itemData.ItemWidth : itemData.ItemHeight;
+        }
+    }
+
     public void Set(ItemData item)
     {
         itemData = item;
@@ -16,5 +32,13 @@ public class InventoryItem : MonoBehaviour
         Vector2 size = new Vector2(itemData.ItemWidth * ItemGrid.TILE_SIZE,
                                     itemData.ItemHeight * ItemGrid.TILE_SIZE);
         GetComponent<RectTransform>().sizeDelta = size;
+    }
+
+    public void Rotate()
+    {
+        rotated = !rotated;
+        angleRotation += 90f;
+        RectTransform itemIcon = GetComponent<RectTransform>();
+        itemIcon.rotation = Quaternion.Euler(0, 0, angleRotation);
     }
 }

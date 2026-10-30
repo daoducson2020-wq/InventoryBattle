@@ -53,12 +53,12 @@ public class ItemGrid : MonoBehaviour
 
     public bool PlaceItem(InventoryItem item, int posX, int posY, ref InventoryItem overlapItem)
     {
-        if (!IsInsideGrid(posX, posY, item.ItemData.ItemWidth, item.ItemData.ItemHeight))
+        if (!IsInsideGrid(posX, posY, item.Width, item.Height))
         {
             return false;
         }
 
-        if (!IsOccupied(posX, posY, item.ItemData.ItemWidth, item.ItemData.ItemHeight, ref overlapItem))
+        if (!IsOccupied(posX, posY, item.Width, item.Height, ref overlapItem))
         {
             overlapItem = null;
             return false;
@@ -71,9 +71,9 @@ public class ItemGrid : MonoBehaviour
 
         RectTransform rect = item.GetComponent<RectTransform>();
         rect.SetParent(rectTransform);
-        for (int x = 0; x < item.ItemData.ItemWidth; x++)
+        for (int x = 0; x < item.Width; x++)
         {
-            for (int y = 0; y < item.ItemData.ItemHeight; y++)
+            for (int y = 0; y < item.Height; y++)
             {
                 inventoryItemSlot[posX + x, posY + y] = item;
             }
@@ -87,8 +87,8 @@ public class ItemGrid : MonoBehaviour
 
     public Vector2 CalculatePositionOnGrid(InventoryItem item, int posX, int posY)
     {
-        return new Vector2(posX * TILE_SIZE + TILE_SIZE * item.ItemData.ItemWidth / 2,
-                    -(posY * TILE_SIZE + TILE_SIZE * item.ItemData.ItemHeight / 2));
+        return new Vector2(posX * TILE_SIZE + TILE_SIZE * item.Width / 2,
+                    -(posY * TILE_SIZE + TILE_SIZE * item.Height / 2));
     }
 
     public InventoryItem PickUpItem(int x, int y)
@@ -112,9 +112,9 @@ public class ItemGrid : MonoBehaviour
 
     private void UpdateGrid(InventoryItem item)
     {
-        for (int i = 0; i < item.ItemData.ItemWidth; i++)
+        for (int i = 0; i < item.Width; i++)
         {
-            for (int j = 0; j < item.ItemData.ItemHeight; j++)
+            for (int j = 0; j < item.Height; j++)
             {
                 inventoryItemSlot[item.onGridPositionX + i, item.onGridPositionY + j] = null;
             }

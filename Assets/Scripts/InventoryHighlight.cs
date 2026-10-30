@@ -15,8 +15,8 @@ public class InventoryHighlight : MonoBehaviour
         {
             return;
         }
-        Vector2 size = new Vector2(item.ItemData.ItemWidth * ItemGrid.TILE_SIZE,
-                                item.ItemData.ItemHeight * ItemGrid.TILE_SIZE);
+        Vector2 size = new Vector2(item.Width * ItemGrid.TILE_SIZE,
+                                item.Height * ItemGrid.TILE_SIZE);
         highlight.sizeDelta = size;
     }
 
