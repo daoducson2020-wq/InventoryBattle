@@ -11,11 +11,15 @@ public class InventoryHighlight : MonoBehaviour
 
     public void SetSize(InventoryItem item)
     {
-        if (item == null)
-        {
-            return;
-        }
-        SetSize(item.ItemData);
+        // if (item == null)
+        // {
+        //     return;
+        // }
+        // SetSize(item.ItemData);
+        Vector2 size = new Vector2(
+            item.Width * ItemGrid.TILE_SIZE,
+            item.Height * ItemGrid.TILE_SIZE);
+        highlight.sizeDelta = size;
     }
 
     public void SetSize(ItemData itemData)
@@ -63,15 +67,18 @@ public class InventoryHighlight : MonoBehaviour
         highlight.localPosition = pos;
     }
 
-    public void SetPosition(ItemGrid grid, InventoryItem item, int posX, int posY)
-    {
-        if (item == null)
-        {
-            return;
-        }
+    // public void SetPosition(ItemGrid grid, InventoryItem item, int posX, int posY)
+    // {
+    //     if (item == null)
+    //     {
+    //         return;
+    //     }
 
-        SetPosition(grid, item.ItemData, posX, posY);
-    }
+    //     Vector2 position = new Vector2(
+    //         posX * ItemGrid.TILE_SIZE + ItemGrid.TILE_SIZE * item.Width / 2,
+    //         -(posY * ItemGrid.TILE_SIZE + ItemGrid.TILE_SIZE * item.Height / 2));
+    //     highlight.localPosition = position;
+    // }
 
     public void SetPosition(ItemGrid grid, ItemData itemData, int posX, int posY)
     {
@@ -83,6 +90,12 @@ public class InventoryHighlight : MonoBehaviour
         Vector2 position = new Vector2(
             posX * ItemGrid.TILE_SIZE + ItemGrid.TILE_SIZE * itemData.ItemWidth / 2,
             -(posY * ItemGrid.TILE_SIZE + ItemGrid.TILE_SIZE * itemData.ItemHeight / 2));
+        highlight.localPosition = position;
+    }
+
+    public void SetPosition(ItemGrid grid, InventoryItem item, int posX, int posY)
+    {
+        Vector2 position = grid.CalculatePositionOnGrid(item, posX, posY);
         highlight.localPosition = position;
     }
 }

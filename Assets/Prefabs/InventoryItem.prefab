@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5602229524822839387}
   - component: {fileID: 8430498501555353686}
   - component: {fileID: 4994975633467891878}
+  - component: {fileID: 4665562790472274989}
   m_Layer: 0
   m_Name: InventoryItem
   m_TagString: Untagged
@@ -88,5 +89,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2874f9302b5e3a447bf9281d91e9061d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItem
-  sizeWidth: 1
-  sizeHeight: 1
+  itemData: {fileID: 0}
+  onGridPositionX: 0
+  onGridPositionY: 0
+  rotated: 0
+--- !u!114 &4665562790472274989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9069431195650482471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 985cc16ed6b3c7a48ad822389903c2f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Damage
+  ItemData: {fileID: 0}

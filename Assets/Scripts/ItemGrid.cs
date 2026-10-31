@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class ItemGrid : MonoBehaviour
 {
-    public const float TILE_SIZE = 32;
+    public const float TILE_SIZE = 64;
 
     [SerializeField] private int gridSizeWidth = 20;
     [SerializeField] private int gridSizeHeight = 10;
-
+    [SerializeField] private Canvas rootCanvas;
     private RectTransform rectTransform; //inventory image size
     private Vector2 positionOnGrid = new();
     private Vector2Int tileGridPosition = new();
@@ -23,8 +23,8 @@ public class ItemGrid : MonoBehaviour
     {
         positionOnGrid.x = mousePosition.x - rectTransform.position.x;
         positionOnGrid.y = rectTransform.position.y - mousePosition.y;
-        tileGridPosition.x = (int)(positionOnGrid.x / TILE_SIZE);
-        tileGridPosition.y = (int)(positionOnGrid.y / TILE_SIZE);
+        tileGridPosition.x = (int)(positionOnGrid.x / (TILE_SIZE * rootCanvas.scaleFactor));
+        tileGridPosition.y = (int)(positionOnGrid.y / (TILE_SIZE * rootCanvas.scaleFactor));
 
         return tileGridPosition;
     }
@@ -53,12 +53,12 @@ public class ItemGrid : MonoBehaviour
 
     public bool PlaceItem(InventoryItem item, int posX, int posY, ref InventoryItem overlapItem)
     {
-        if (!IsInsideGrid(posX, posY, item.ItemData.ItemWidth, item.ItemData.ItemHeight))
+        if (!IsInsideGrid(posX, posY, item.Width, item.Height))
         {
             return false;
         }
 
-        if (!IsOccupied(posX, posY, item.ItemData.ItemWidth, item.ItemData.ItemHeight, ref overlapItem))
+        if (!IsOccupied(posX, posY, item.Width, item.Height, ref overlapItem))
         {
             overlapItem = null;
             return false;
@@ -71,9 +71,9 @@ public class ItemGrid : MonoBehaviour
 
         RectTransform rect = item.GetComponent<RectTransform>();
         rect.SetParent(rectTransform);
-        for (int x = 0; x < item.ItemData.ItemWidth; x++)
+        for (int x = 0; x < item.Width; x++)
         {
-            for (int y = 0; y < item.ItemData.ItemHeight; y++)
+            for (int y = 0; y < item.Height; y++)
             {
                 inventoryItemSlot[posX + x, posY + y] = item;
             }
@@ -94,22 +94,22 @@ public class ItemGrid : MonoBehaviour
         }
 
         Vector2 position = screenPosition;
-        position.x -= (item.ItemData.ItemWidth - 1) * TILE_SIZE / 2;
-        position.y += (item.ItemData.ItemHeight - 1) * TILE_SIZE / 2;
+        position.x -= (item.Width - 1) * TILE_SIZE / 2;
+        position.y += (item.Height - 1) * TILE_SIZE / 2;
         Vector2Int tileGridPosition = GetTileGridPosition(position);
 
         if (!IsInsideGrid(
                 tileGridPosition.x,
                 tileGridPosition.y,
-                item.ItemData.ItemWidth,
-                item.ItemData.ItemHeight))
+                item.Width,
+                item.Height))
         {
             return false;
         }
 
-        for (int x = 0; x < item.ItemData.ItemWidth; x++)
+        for (int x = 0; x < item.Width; x++)
         {
-            for (int y = 0; y < item.ItemData.ItemHeight; y++)
+            for (int y = 0; y < item.Height; y++)
             {
                 if (inventoryItemSlot[tileGridPosition.x + x, tileGridPosition.y + y] != null)
                 {
@@ -124,8 +124,8 @@ public class ItemGrid : MonoBehaviour
 
     public Vector2 CalculatePositionOnGrid(InventoryItem item, int posX, int posY)
     {
-        return new Vector2(posX * TILE_SIZE + TILE_SIZE * item.ItemData.ItemWidth / 2,
-                    -(posY * TILE_SIZE + TILE_SIZE * item.ItemData.ItemHeight / 2));
+        return new Vector2(posX * TILE_SIZE + TILE_SIZE * item.Width / 2,
+                    -(posY * TILE_SIZE + TILE_SIZE * item.Height / 2));
     }
 
     public InventoryItem PickUpItem(int x, int y)
@@ -148,7 +148,7 @@ public class ItemGrid : MonoBehaviour
 
         int posX = item.onGridPositionX;
         int posY = item.onGridPositionY;
-        if (!IsInsideGrid(posX, posY, item.ItemData.ItemWidth, item.ItemData.ItemHeight)
+        if (!IsInsideGrid(posX, posY, item.Width, item.Height)
             || inventoryItemSlot[posX, posY] != item)
         {
             return false;
@@ -168,9 +168,9 @@ public class ItemGrid : MonoBehaviour
 
     private void UpdateGrid(InventoryItem item)
     {
-        for (int i = 0; i < item.ItemData.ItemWidth; i++)
+        for (int i = 0; i < item.Width; i++)
         {
-            for (int j = 0; j < item.ItemData.ItemHeight; j++)
+            for (int j = 0; j < item.Height; j++)
             {
                 inventoryItemSlot[item.onGridPositionX + i, item.onGridPositionY + j] = null;
             }

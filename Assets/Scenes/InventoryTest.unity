@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 543765358}
   m_Layer: 0
   m_Name: Grid
-  m_TagString: InventorySlot
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -469,7 +469,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 89, y: 610}
+  m_AnchoredPosition: {x: 103, y: 855}
   m_SizeDelta: {x: 640, y: 320}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &543765355
@@ -492,7 +492,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -9163426285224168042, guid: 95adc5caff0e5fc4d82c9a45981669e3, type: 3}
+  m_Sprite: {fileID: 4677764091989194358, guid: 1bd47a1379d844344a5886dc01d420c4, type: 3}
   m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -522,8 +522,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a152eaa3f6a440c42838494b09a24689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemGrid
-  gridSizeWidth: 20
-  gridSizeHeight: 10
+  gridSizeWidth: 10
+  gridSizeHeight: 5
+  rootCanvas: {fileID: 435512177}
 --- !u!114 &543765358
 MonoBehaviour:
   m_ObjectHideFlags: 0
