@@ -101,7 +101,6 @@ public class ShopManager : MonoBehaviour
         layout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         layout.constraintCount = ShopColumns;
         layout.startAxis = GridLayoutGroup.Axis.Horizontal;
-        layout.spacing = new Vector2(layout.spacing.x, 30f);
     }
 
     private void ClearShop()
