@@ -55,7 +55,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ItemGrid.cs" />
     <Compile Include="Assets\Scripts\PlayerWallet.cs" />
+    <Compile Include="Assets\Scripts\SaveFunction\GameSession.cs" />
     <Compile Include="Assets\Scripts\ShopManager.cs" />
+    <Compile Include="Assets\Scripts\SaveFunction\SaveLoadUI.cs" />
     <Compile Include="Assets\Scripts\ShopSlot.cs" />
     <Compile Include="Assets\Scripts\GridInteract.cs" />
     <Compile Include="Assets\Scripts\Damage.cs" />
@@ -63,9 +65,11 @@
     <Compile Include="Assets\Scripts\ItemData.cs" />
     <Compile Include="Assets\Scripts\InventoryController.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\SaveFunction\SaveData.cs" />
     <Compile Include="Assets\Scripts\Health.cs" />
     <Compile Include="Assets\Scripts\InventoryItem.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\SaveFunction\SaveSystem.cs" />
     <Compile Include="Assets\Scripts\SceneChangeManager.cs" />
     <Compile Include="Assets\Scripts\DragAndDrop.cs" />
   </ItemGroup>

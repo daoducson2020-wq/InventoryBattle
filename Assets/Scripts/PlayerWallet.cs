@@ -6,8 +6,12 @@ public class PlayerWallet : MonoBehaviour
     public static PlayerWallet Instance;
 
     [Header("Currency Settings")]
-    public int currentGold = 1000; // Số vàng khởi điểm của người chơi
+
+    [SerializeField] private int beginGold = 100; // Số vàng khởi điểm của người chơi
+    private int currentGold;
     public TextMeshProUGUI goldText;
+
+    public int CurrentGold => currentGold;
 
     void Awake()
     {
@@ -17,7 +21,24 @@ public class PlayerWallet : MonoBehaviour
 
     void Start()
     {
-        UpdateGoldUI();
+        if(GameSession.Instance != null && GameSession.Instance.HasSaveGold)
+        {
+            currentGold = GameSession.Instance.CurrentGold;
+        }else
+        {
+            currentGold = beginGold;
+            SaveGold();
+        }
+        if(goldText != null)
+            UpdateGoldUI();
+    }
+
+    private void SaveGold()
+    {
+        if(GameSession.Instance != null)
+        {
+            GameSession.Instance.SaveGold(currentGold);
+        }
     }
 
     // Kiểm tra và trừ tiền khi mua hàng
@@ -32,6 +53,7 @@ public class PlayerWallet : MonoBehaviour
         if (currentGold >= amount)
         {
             currentGold -= amount;
+            SaveGold();
             UpdateGoldUI();
             return true;
         }
@@ -62,8 +84,17 @@ public class PlayerWallet : MonoBehaviour
         }
 
         currentGold += amount;
+        SaveGold();
         UpdateGoldUI();
         return true;
+    }
+
+    public void SetGold(int gold)
+    {
+        currentGold = gold;
+        SaveGold();
+        if(goldText != null)
+            UpdateGoldUI();
     }
 
     private void UpdateGoldUI()
