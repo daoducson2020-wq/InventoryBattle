@@ -424,10 +424,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3dca18434196ab47849dd5dbe8a74d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
-  saveLoadUI: {fileID: 1887421337}
-  saveSystem: {fileID: 1887421338}
-  continueButton: {fileID: 1942400244}
-  deleteSaveButton: {fileID: 2123547053}
+  saveLoadUI: {fileID: 0}
+  saveSystem: {fileID: 0}
+  continueButton: {fileID: 0}
+  deleteSaveButton: {fileID: 0}
 --- !u!4 &642246030
 Transform:
   m_ObjectHideFlags: 0

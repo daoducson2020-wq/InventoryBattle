@@ -1,4 +1,5 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ItemGrid : MonoBehaviour
@@ -7,16 +8,27 @@ public class ItemGrid : MonoBehaviour
 
     [SerializeField] private int gridSizeWidth = 20;
     [SerializeField] private int gridSizeHeight = 10;
+    [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Canvas rootCanvas;
     private RectTransform rectTransform; //inventory image size
     private Vector2 positionOnGrid = new();
     private Vector2Int tileGridPosition = new();
     private InventoryItem[,] inventoryItemSlot;
+    public InventoryItem[,] Inventory => inventoryItemSlot;
 
-    private void Start()
+    private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         InitInventorySlot(gridSizeWidth, gridSizeHeight);
+    }
+
+    private void Start()
+    {
+        int size = GameSession.Instance.PlayerInventoryDatas.Count;
+        if (GameSession.Instance != null && size > 0)
+        {
+            LoadItem(GameSession.Instance.PlayerInventoryDatas);
+        }
     }
 
     public Vector2Int GetTileGridPosition(Vector2 mousePosition)
@@ -83,6 +95,26 @@ public class ItemGrid : MonoBehaviour
         Vector2 position = CalculatePositionOnGrid(item, posX, posY);
         rect.localPosition = position;
         return true;
+    }
+
+    [ContextMenu("Print Inventory from instance")]
+    private void DebugPrintInven()
+    {
+        // Debug.Log("item created: " + itemHold);
+        // for (int i = 0; i < 10; i++)
+        // {
+        //     for (int j = 0; j < 10; j++)
+        //     {
+        //         if (inventoryItemSlot[i,j] == null)
+        //         {
+        //             Debug.Log("(null)");
+        //         }
+        //         else
+        //         {
+        //             Debug.Log(inventoryItemSlot[i,j].ItemID);
+        //         }
+        //     }
+        // }
     }
 
     public bool TryPlaceNewItemAtScreenPosition(InventoryItem item, Vector2 screenPosition)
@@ -156,6 +188,40 @@ public class ItemGrid : MonoBehaviour
 
         UpdateGrid(item);
         return true;
+    }
+
+    public void LoadItem(List<InventorySaveData> inventoryDatas)
+    {
+        for (int i = 0; i < inventoryDatas.Count(); i++)
+        {
+            PutItem(inventoryDatas[i].itemdata,
+                    inventoryDatas[i].startX,
+                    inventoryDatas[i].startY,
+                    inventoryDatas[i].rotateAngle,
+                    inventoryDatas[i].rotated);
+        }
+    }
+
+    private void PutItem(ItemData data, int posX, int posY, float rotation, bool rotated)
+    {
+        //co bug gi do o day
+        InventoryItem item = Instantiate(itemPrefab).GetComponent<InventoryItem>();
+        item.Set(data);
+        item.rotated = rotated;
+        RectTransform rect = item.GetComponent<RectTransform>();
+        rect.SetParent(rectTransform);
+        for (int x = 0; x < item.Width; x++)
+        {
+            for (int y = 0; y < item.Height; y++)
+            {
+                inventoryItemSlot[posX + x, posY + y] = item;
+            }
+        }
+        item.onGridPositionX = posX;
+        item.onGridPositionY = posY;
+        Vector2 position = CalculatePositionOnGrid(item, posX, posY);
+        rect.localPosition = position;
+        rect.rotation = Quaternion.Euler(0f, 0f, rotation);
     }
 
     private void InitInventorySlot(int x, int y)
