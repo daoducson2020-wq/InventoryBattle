@@ -44,5 +44,6 @@ public class GameSession : MonoBehaviour
         CurrentGold = 0;
         HasSaveGold = false;
         CurrentStage = 0;
+        playerInventoryDatas.Clear();
     }
 }

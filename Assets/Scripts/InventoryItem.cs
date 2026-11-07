@@ -38,6 +38,7 @@ public class InventoryItem : MonoBehaviour
     public void Set(ItemData item)
     {
         itemData = item;
+        itemID = RandomString();
         GetComponent<Image>().sprite = itemData.Icon;
         Vector2 size = new Vector2(itemData.ItemWidth * ItemGrid.TILE_SIZE,
                                     itemData.ItemHeight * ItemGrid.TILE_SIZE);
@@ -50,5 +51,11 @@ public class InventoryItem : MonoBehaviour
         itemRotation += 90f;
         RectTransform itemIcon = GetComponent<RectTransform>();
         itemIcon.rotation = Quaternion.Euler(0, 0, itemRotation);
+    }
+
+    private string RandomString()
+    {
+        string uniqueString = System.Guid.NewGuid().ToString();
+        return uniqueString;
     }
 }

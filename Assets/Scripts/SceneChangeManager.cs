@@ -33,7 +33,7 @@ public class SceneChangeManager : MonoBehaviour
 
     public void LoadStage()
     {
-        if (SceneManager.GetActiveScene().buildIndex != 0)
+        if (SceneManager.GetActiveScene().name != "MainMenuScene")
         {
             GameSession.Instance.SaveItemInInventory(saveLoadUI.SaveInventoryItem());
         }
