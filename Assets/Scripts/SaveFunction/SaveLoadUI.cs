@@ -1,6 +1,5 @@
 using System.Collections;
-using System.Reflection;
-using UnityEditor.SceneManagement;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +7,7 @@ public class SaveLoadUI : MonoBehaviour
 {
     [SerializeField] private SaveSystem saveSystem;
     [SerializeField] private PlayerWallet playerWallet;
+    [SerializeField] private ItemGrid gridItem;
     [SerializeField] private SceneChangeManager sceneChangeManager;
     private static SaveData pendingLoad;
 
@@ -25,10 +25,7 @@ public class SaveLoadUI : MonoBehaviour
         }
 
         playerWallet.SetGold(data.wallet);
-<<<<<<< Updated upstream
-=======
         gridItem.LoadItem(data.inventoryDatas);
->>>>>>> Stashed changes
         sceneChangeManager.SetStage(data.stage);
         pendingLoad = null;
         Debug.Log("Game Loaded Successfully!");
@@ -70,8 +67,6 @@ public class SaveLoadUI : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("ShopScene");
     }
-<<<<<<< Updated upstream
-=======
 
     public List<InventorySaveData> SaveInventoryItem()
     {
@@ -106,5 +101,4 @@ public class SaveLoadUI : MonoBehaviour
         }
         return datas;
     }
->>>>>>> Stashed changes
 }

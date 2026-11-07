@@ -8,6 +8,8 @@ public class GameSession : MonoBehaviour
     public int CurrentGold { get; private set;}
     public bool HasSaveGold { get; private set;}
 
+    private List<InventorySaveData> playerInventoryDatas = new();
+    public List<InventorySaveData> PlayerInventoryDatas => playerInventoryDatas;
 
     private void Awake()
     {
@@ -20,15 +22,12 @@ public class GameSession : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-<<<<<<< Updated upstream
-=======
     public void SaveItemInInventory(List<InventorySaveData> datas)
     {
         playerInventoryDatas.Clear();
         playerInventoryDatas = datas;
     }
     
->>>>>>> Stashed changes
     public void SaveGold(int gold)
     {
         CurrentGold = gold;

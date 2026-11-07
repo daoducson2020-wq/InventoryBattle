@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemGrid : MonoBehaviour
@@ -8,17 +8,11 @@ public class ItemGrid : MonoBehaviour
     [SerializeField] private int gridSizeWidth = 20;
     [SerializeField] private int gridSizeHeight = 10;
     [SerializeField] private Canvas rootCanvas;
+    [SerializeField] private GameObject itemPrefab;
     private RectTransform rectTransform; //inventory image size
     private Vector2 positionOnGrid = new();
     private Vector2Int tileGridPosition = new();
     private InventoryItem[,] inventoryItemSlot;
-<<<<<<< Updated upstream
-
-    private void Start()
-    {
-        rectTransform = GetComponent<RectTransform>();
-        InitInventorySlot(gridSizeWidth, gridSizeHeight);
-=======
     public InventoryItem[,] Inventory => inventoryItemSlot;
 
 
@@ -35,7 +29,6 @@ public class ItemGrid : MonoBehaviour
         {
             LoadItem(GameSession.Instance.PlayerInventoryDatas);
         }
->>>>>>> Stashed changes
     }
 
     public Vector2Int GetTileGridPosition(Vector2 mousePosition)
@@ -177,11 +170,9 @@ public class ItemGrid : MonoBehaviour
         return true;
     }
 
-<<<<<<< Updated upstream
-=======
     public void LoadItem(List<InventorySaveData> inventoryDatas)
     {
-        for (int i = 0; i < inventoryDatas.Count(); i++)
+        for (int i = 0; i < inventoryDatas.Count; i++)
         {
             PutItem(inventoryDatas[i].itemdata,
                     inventoryDatas[i].startX,
@@ -215,7 +206,6 @@ public class ItemGrid : MonoBehaviour
         rect.rotation = Quaternion.Euler(0f, 0f, rotation);
     }
 
->>>>>>> Stashed changes
     private void InitInventorySlot(int x, int y)
     {
         inventoryItemSlot = new InventoryItem[x, y];
