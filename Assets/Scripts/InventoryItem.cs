@@ -9,13 +9,9 @@ public class InventoryItem : MonoBehaviour
     [HideInInspector] public int onGridPositionY;
     [HideInInspector] public bool rotated = false;
 
-<<<<<<< Updated upstream
-    private float itemRotation = 0f;
-=======
     private string itemID;
     public string ItemID => itemID;
     public float itemRotation = 0f;
->>>>>>> Stashed changes
     public int Height
     {
         get 

@@ -4,11 +4,8 @@ using UnityEngine.SceneManagement;
 public class SceneChangeManager : MonoBehaviour
 {
     public static SceneChangeManager Instance;
-<<<<<<< Updated upstream
-=======
     [SerializeField] private SaveLoadUI saveLoadUI;
 
->>>>>>> Stashed changes
     private int currentStage = 1;
     public int CurrentStage => currentStage;
 
@@ -36,13 +33,10 @@ public class SceneChangeManager : MonoBehaviour
 
     public void LoadStage()
     {
-<<<<<<< Updated upstream
-=======
         if (SceneManager.GetActiveScene().buildIndex != 0)
         {
             GameSession.Instance.SaveItemInInventory(saveLoadUI.SaveInventoryItem());
         }
->>>>>>> Stashed changes
         if (SceneManager.GetActiveScene().name == "ShopScene")
         {
             currentStage++;
