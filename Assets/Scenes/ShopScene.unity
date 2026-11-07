@@ -233,6 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SaveLoadUI
   saveSystem: {fileID: 360986026}
   playerWallet: {fileID: 401116822}
+  gridItem: {fileID: 543765357}
   sceneChangeManager: {fileID: 438109583}
 --- !u!1 &401116820
 GameObject:
@@ -538,6 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e46e5fd0dbcb5ab429d19088028b1a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneChangeManager
+  saveLoadUI: {fileID: 360986028}
 --- !u!1 &543765353
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +554,7 @@ GameObject:
   - component: {fileID: 543765357}
   - component: {fileID: 543765358}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -630,6 +632,7 @@ MonoBehaviour:
   gridSizeWidth: 10
   gridSizeHeight: 10
   rootCanvas: {fileID: 435512177}
+  itemPrefab: {fileID: 9069431195650482471, guid: 78bdf2b86d3a71741b3d28c80f6a94a7, type: 3}
 --- !u!114 &543765358
 MonoBehaviour:
   m_ObjectHideFlags: 0
