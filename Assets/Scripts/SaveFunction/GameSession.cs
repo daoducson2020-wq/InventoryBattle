@@ -20,6 +20,15 @@ public class GameSession : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+<<<<<<< Updated upstream
+=======
+    public void SaveItemInInventory(List<InventorySaveData> datas)
+    {
+        playerInventoryDatas.Clear();
+        playerInventoryDatas = datas;
+    }
+    
+>>>>>>> Stashed changes
     public void SaveGold(int gold)
     {
         CurrentGold = gold;

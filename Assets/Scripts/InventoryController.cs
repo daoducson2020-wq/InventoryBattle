@@ -242,7 +242,7 @@ public class InventoryController : MonoBehaviour
     {
         Damage itemDmg = item.GetComponent<Damage>();
         itemDmg.SetWeapon(item.ItemData);
-        itemDmg.IdentifySelfTag();
+        // itemDmg.IdentifySelfTag();
     }
     
     public InventoryItem CreateInventoryItem(ItemData itemData, Vector2 screenPosition)

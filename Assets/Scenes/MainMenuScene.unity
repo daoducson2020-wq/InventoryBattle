@@ -713,6 +713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e46e5fd0dbcb5ab429d19088028b1a22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneChangeManager
+  saveLoadUI: {fileID: 1887421337}
 --- !u!4 &877162314
 Transform:
   m_ObjectHideFlags: 0
@@ -1512,6 +1513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SaveLoadUI
   saveSystem: {fileID: 1887421338}
   playerWallet: {fileID: 0}
+  gridItem: {fileID: 0}
   sceneChangeManager: {fileID: 0}
 --- !u!114 &1887421338
 MonoBehaviour:

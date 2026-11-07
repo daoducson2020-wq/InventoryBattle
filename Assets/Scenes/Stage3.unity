@@ -548,50 +548,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329627248}
   m_CullTransparentMesh: 1
---- !u!1 &343221794
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 343221796}
-  - component: {fileID: 343221795}
-  m_Layer: 0
-  m_Name: GameSession
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &343221795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 343221794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47ed6fe154212cd448f157a62ac513dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameSession
---- !u!4 &343221796
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 343221794}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 962.997, y: 550.0712, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &375940792
 GameObject:
   m_ObjectHideFlags: 0
@@ -4188,6 +4144,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemGrid
   gridSizeWidth: 10
   gridSizeHeight: 10
+<<<<<<< Updated upstream
+=======
+  itemPrefab: {fileID: 9069431195650482471, guid: 78bdf2b86d3a71741b3d28c80f6a94a7, type: 3}
+>>>>>>> Stashed changes
   rootCanvas: {fileID: 1409518781}
 --- !u!114 &1639245499
 MonoBehaviour:
@@ -5270,5 +5230,4 @@ SceneRoots:
   - {fileID: 1409518778}
   - {fileID: 650044549}
   - {fileID: 1329857064}
-  - {fileID: 343221796}
   - {fileID: 155255333}
