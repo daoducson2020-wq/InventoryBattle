@@ -25,6 +25,10 @@ public class SaveLoadUI : MonoBehaviour
         }
 
         playerWallet.SetGold(data.wallet);
+<<<<<<< Updated upstream
+=======
+        gridItem.LoadItem(data.inventoryDatas);
+>>>>>>> Stashed changes
         sceneChangeManager.SetStage(data.stage);
         pendingLoad = null;
         Debug.Log("Game Loaded Successfully!");
@@ -66,4 +70,41 @@ public class SaveLoadUI : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("ShopScene");
     }
+<<<<<<< Updated upstream
+=======
+
+    public List<InventorySaveData> SaveInventoryItem()
+    {
+        List<InventorySaveData> datas = new ();
+        string tempID = null;
+        for (int x = 0; x < gridItem.Inventory.GetLength(0); x++)
+        {
+            for (int y = 0; y < gridItem.Inventory.GetLength(1); y++)
+            {
+                if (gridItem.Inventory[x, y] != null)
+                {
+                    if (tempID == gridItem.Inventory[x, y].ItemID)
+                    {
+                        continue;
+                    }
+                    if (tempID == null || tempID != gridItem.Inventory[x, y].ItemID)
+                    {
+                        tempID = gridItem.Inventory[x, y].ItemID;
+                    }
+                    InventorySaveData data = new()
+                    {
+                        id = gridItem.Inventory[x, y].ItemID,
+                        itemdata = gridItem.Inventory[x, y].ItemData,
+                        startX = gridItem.Inventory[x, y].onGridPositionX,
+                        startY = gridItem.Inventory[x, y].onGridPositionY,
+                        rotateAngle = gridItem.Inventory[x, y].itemRotation,
+                        rotated = gridItem.Inventory[x, y].rotated
+                    };
+                    datas.Add(data);
+                }
+            }
+        }
+        return datas;
+    }
+>>>>>>> Stashed changes
 }

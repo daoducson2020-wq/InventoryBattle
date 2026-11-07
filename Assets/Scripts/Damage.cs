@@ -1,3 +1,4 @@
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Damage : MonoBehaviour
@@ -7,24 +8,18 @@ public class Damage : MonoBehaviour
     [SerializeField] private ItemData itemData;
 
     private string self;
-    
-    // private void Awake()
-    // {
-    //     string self = transform.parent.tag;
-    //     switch (self)
-    //     {
-    //         case "Player":
-    //             target = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Health>();
-    //             break;
-    //         case "Enemy":
-    //             target = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
-    //             break;
-    //     }
-    // }
-    
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name != "ShopScene")
+        {
+            IdentifySelfTag();
+        }
+    }
+
     private void Update()
     {
-        if (self == null)
+        if (SceneManager.GetActiveScene().name == "ShopScene")
         {
             return;    
         }

@@ -12,11 +12,30 @@ public class ItemGrid : MonoBehaviour
     private Vector2 positionOnGrid = new();
     private Vector2Int tileGridPosition = new();
     private InventoryItem[,] inventoryItemSlot;
+<<<<<<< Updated upstream
 
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
         InitInventorySlot(gridSizeWidth, gridSizeHeight);
+=======
+    public InventoryItem[,] Inventory => inventoryItemSlot;
+
+
+    private void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+        InitInventorySlot(gridSizeWidth, gridSizeHeight);
+    }
+
+    private void Start()
+    {
+        int size = GameSession.Instance.PlayerInventoryDatas.Count;
+        if (GameSession.Instance != null && size > 0 && transform.tag == "Player")
+        {
+            LoadItem(GameSession.Instance.PlayerInventoryDatas);
+        }
+>>>>>>> Stashed changes
     }
 
     public Vector2Int GetTileGridPosition(Vector2 mousePosition)
@@ -158,6 +177,45 @@ public class ItemGrid : MonoBehaviour
         return true;
     }
 
+<<<<<<< Updated upstream
+=======
+    public void LoadItem(List<InventorySaveData> inventoryDatas)
+    {
+        for (int i = 0; i < inventoryDatas.Count(); i++)
+        {
+            PutItem(inventoryDatas[i].itemdata,
+                    inventoryDatas[i].startX,
+                    inventoryDatas[i].startY,
+                    inventoryDatas[i].rotateAngle,
+                    inventoryDatas[i].rotated);
+        }
+    }
+
+    private void PutItem(ItemData data, int posX, int posY, float rotation, bool rotated)
+    {
+        InventoryItem item = Instantiate(itemPrefab).GetComponent<InventoryItem>();
+        item.Set(data);
+        item.rotated = rotated;
+        item.itemRotation = rotation;
+        RectTransform rect = item.GetComponent<RectTransform>();
+        rect.SetParent(rectTransform);
+        for (int x = 0; x < item.Width; x++)
+        {
+            for (int y = 0; y < item.Height; y++)
+            {
+                inventoryItemSlot[posX + x, posY + y] = item;
+            }
+        }
+        item.onGridPositionX = posX;
+        item.onGridPositionY = posY;
+        Damage itemDmg = item.GetComponent<Damage>();
+        itemDmg.SetWeapon(item.ItemData);
+        Vector2 position = CalculatePositionOnGrid(item, posX, posY);
+        rect.localPosition = position;
+        rect.rotation = Quaternion.Euler(0f, 0f, rotation);
+    }
+
+>>>>>>> Stashed changes
     private void InitInventorySlot(int x, int y)
     {
         inventoryItemSlot = new InventoryItem[x, y];
