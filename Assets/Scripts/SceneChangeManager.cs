@@ -39,6 +39,7 @@ public class SceneChangeManager : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name == "ShopScene")
         {
+            Time.timeScale = 1f;
             currentStage++;
             SaveStage();
             Debug.Log("Index: " + currentStage);
@@ -46,6 +47,7 @@ public class SceneChangeManager : MonoBehaviour
         }
         else
         {
+            Time.timeScale = 1f;
             Debug.Log("Load: ShopScene");
             SceneManager.LoadScene("ShopScene");
         }

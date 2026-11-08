@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - InventorySlot
+  - Mob
   layers:
   - Default
   - TransparentFX
