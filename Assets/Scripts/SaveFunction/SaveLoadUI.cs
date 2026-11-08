@@ -42,7 +42,8 @@ public class SaveLoadUI : MonoBehaviour
         SaveData data = new()
         {
             wallet = playerWallet.CurrentGold,
-            stage = sceneChangeManager.CurrentStage - 1
+            stage = sceneChangeManager.CurrentStage - 1,
+            inventoryDatas = SaveInventoryItem()
         };
 
         saveSystem.SaveGame(data);
