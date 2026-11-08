@@ -1,0 +1,29 @@
+{
+    "enemyDatas": [
+        {
+            "key": "Gladiator",
+            "value": [
+                {
+                    "id": "69839d6d-23cc-4ed5-9b0f-bccde0107e21",
+                    "itemdata": {
+                        "instanceID": 1099511654594
+                    },
+                    "startX": 2,
+                    "startY": 2,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "fb3f06d9-23ca-4553-af98-c1d7c778472f",
+                    "itemdata": {
+                        "instanceID": 1099511654594
+                    },
+                    "startX": 6,
+                    "startY": 2,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                }
+            ]
+        }
+    ]
+}
