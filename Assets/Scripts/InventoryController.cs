@@ -17,6 +17,7 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private List<ItemData> items;
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Transform canvasTransform;
+    [SerializeField] private Animator animator;
 
     private InventoryItem selectedItem;
     private InventoryItem overlapItem;
@@ -101,8 +102,9 @@ public class InventoryController : MonoBehaviour
 
     private bool TrySellSelectedItem()
     {
-        ShopManager shopManager = FindAnyObjectByType<ShopManager>();
-        if (shopManager == null || !shopManager.IsPointerOverShop(Input.mousePosition))
+        SellPoint sellPoint = FindAnyObjectByType<SellPoint>();
+        int itemPrice = selectedItem.ItemData.price;
+        if (sellPoint == null || !sellPoint.IsPointerOverSellPoint(Input.mousePosition))
         {
             return false;
         }
@@ -120,12 +122,16 @@ public class InventoryController : MonoBehaviour
             return false;
         }
 
-        if (!wallet.TryAddGold(selectedItem.ItemData.price))
+        if (!wallet.TryAddGold(itemPrice - (itemPrice * 20 / 100)))
         {
             Debug.LogError("Cannot add the sale price to the player's gold.", wallet);
             return false;
         }
-
+        if(animator != null)
+        {
+            animator.SetBool("isBurn", true);
+            animator.SetTrigger("Sell");
+        }
         Destroy(selectedItem.gameObject);
         selectedItem = null;
         rectTransform = null;
@@ -242,7 +248,7 @@ public class InventoryController : MonoBehaviour
     {
         Damage itemDmg = item.GetComponent<Damage>();
         itemDmg.SetWeapon(item.ItemData);
-        // itemDmg.IdentifySelfTag();
+        itemDmg.IdentifySelfTag();
     }
     
     public InventoryItem CreateInventoryItem(ItemData itemData, Vector2 screenPosition)
@@ -267,4 +273,3 @@ public class InventoryController : MonoBehaviour
         return inventoryItem;
     }
 }
-

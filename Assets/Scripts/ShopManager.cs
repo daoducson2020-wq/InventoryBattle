@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
@@ -12,11 +13,16 @@ public class ShopManager : MonoBehaviour
     public Transform shopGridPanel;
     public GameObject shopSlotPrefab;
     public int totalGridSlots = ShopColumns * ShopRows;
+    [SerializeField] private TextMeshProUGUI costText;
+    private int refreshCost;
+    [SerializeField] private PlayerWallet playerWallet;
 
     private List<GameObject> spawnedSlots = new List<GameObject>();
 
     void Start()
     {
+        refreshCost = 2;
+        UpdateCostUI(refreshCost);
         ConfigureGridLayout();
         OpenShop();
     }
@@ -28,7 +34,10 @@ public class ShopManager : MonoBehaviour
 
     public void RefreshShop()
     {
-        // Tùy chọn: Có thể trừ một ít tiền vàng khi bấm làm mới cửa hàng ở đây nếu muốn
+        playerWallet.SpendGold(refreshCost);
+        if(refreshCost < 5)
+            refreshCost++;
+        UpdateCostUI(refreshCost);
         ClearShop();
         GenerateRandomShopItems();
     }
@@ -110,5 +119,10 @@ public class ShopManager : MonoBehaviour
             if (slot != null) Destroy(slot);
         }
         spawnedSlots.Clear();
+    }
+
+    public void UpdateCostUI(int cost)
+    {
+        costText.text = "Refresh (" + cost + " Gold)";
     }
 }
