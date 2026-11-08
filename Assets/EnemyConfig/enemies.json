@@ -4,22 +4,32 @@
             "key": "Gladiator",
             "value": [
                 {
-                    "id": "69839d6d-23cc-4ed5-9b0f-bccde0107e21",
+                    "id": "be5531b9-68c3-4d7c-ada8-fcdf4df6c7f3",
                     "itemdata": {
-                        "instanceID": 1099511654594
+                        "instanceID": 1099511654582
                     },
-                    "startX": 2,
-                    "startY": 2,
+                    "startX": 1,
+                    "startY": 1,
                     "rotateAngle": 0.0,
                     "rotated": false
                 },
                 {
-                    "id": "fb3f06d9-23ca-4553-af98-c1d7c778472f",
+                    "id": "2fd980f2-f51e-409f-9b13-3fb8af5606e9",
                     "itemdata": {
-                        "instanceID": 1099511654594
+                        "instanceID": 1099511654582
                     },
-                    "startX": 6,
-                    "startY": 2,
+                    "startX": 4,
+                    "startY": 1,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "602d4fd3-54b3-4951-b03b-7124c1810074",
+                    "itemdata": {
+                        "instanceID": 1099511654582
+                    },
+                    "startX": 7,
+                    "startY": 1,
                     "rotateAngle": 0.0,
                     "rotated": false
                 }

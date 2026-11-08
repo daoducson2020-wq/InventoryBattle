@@ -8,8 +8,12 @@ public class Health : MonoBehaviour
     [SerializeField] private Slider healthBarUI;
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private GameManager gameManager;
+    private EnemyReward enemyReward;
     private int currentHealth;
-
+    public void Awake()
+    {
+        enemyReward = GetComponent<EnemyReward>();
+    }
     public void Start()
     {
 
@@ -22,7 +26,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if(damage <= 0 || currentHealth == 0) return;
+        if (damage <= 0 || currentHealth == 0) return;
 
         currentHealth = Mathf.Max(currentHealth - damage, 0);
 
@@ -30,20 +34,23 @@ public class Health : MonoBehaviour
 
         UpdateHealthText(currentHealth);
 
-        if(currentHealth == 0) Die();
+        if (currentHealth == 0) Die();
     }
 
     public void Die()
     {
         Debug.Log(gameObject.name + " Die!");
-        if(gameObject.tag == "Player" && gameManager != null)
+        if (gameObject.tag == "Player" && gameManager != null)
             gameManager.GameOver();
-        else if(gameObject.tag == "Enemy" && gameManager != null)
+        else if (gameObject.tag == "Enemy" && gameManager != null)
+        {
+            enemyReward.Reward();
             gameManager.WinStage();
+        }
     }
 
     private void UpdateHealthText(int currentHealth)
     {
-        healthText.SetText("HP: {0:0} / {1:0}",(float)currentHealth, (float)maxHealth);
+        healthText.SetText("HP: {0:0} / {1:0}", (float)currentHealth, (float)maxHealth);
     }
 }
