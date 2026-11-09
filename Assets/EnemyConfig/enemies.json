@@ -4,22 +4,22 @@
             "key": "Barbarian",
             "value": [
                 {
-                    "id": "16ba59e0-0586-49d0-9395-5e8a4ddc9f67",
+                    "id": "0ca0256b-91ad-4734-b394-e0568f87e7ab",
                     "itemdata": {
-                        "instanceID": 1099511654590
+                        "instanceID": 1099511654543
                     },
-                    "startX": 2,
-                    "startY": 2,
+                    "startX": 1,
+                    "startY": 1,
                     "rotateAngle": 0.0,
                     "rotated": false
                 },
                 {
-                    "id": "29b604d7-6755-4a87-8165-1323ade14fa7",
+                    "id": "1187ea77-d938-43dd-8035-ff976aaf9290",
                     "itemdata": {
-                        "instanceID": 1099511654590
+                        "instanceID": 1099511654543
                     },
                     "startX": 6,
-                    "startY": 2,
+                    "startY": 1,
                     "rotateAngle": 0.0,
                     "rotated": false
                 }
