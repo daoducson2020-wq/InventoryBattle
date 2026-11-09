@@ -3111,8 +3111,6 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1837218496}
   pauseMenu: {fileID: 440791792}
   winStagePanel: {fileID: 2139371050}
-  battleStartText: {fileID: 1852642805}
-  battleStartTimer: 2
 --- !u!4 &1329857064
 Transform:
   m_ObjectHideFlags: 0
