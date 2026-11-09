@@ -30,7 +30,7 @@ public class ShopSlot : MonoBehaviour
         if (itemVisualObject != null)
         {
             itemVisualObject.SetActive(true);
-            GridDragAndDrop dragScript = itemVisualObject.GetComponent<GridDragAndDrop>();
+            DragAndDrop dragScript = itemVisualObject.GetComponent<DragAndDrop>();
             if (dragScript != null)
             {
                 dragScript.itemData = item;

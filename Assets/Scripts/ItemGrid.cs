@@ -24,10 +24,12 @@ public class ItemGrid : MonoBehaviour
 
     private void Start()
     {
-        int size = GameSession.Instance.PlayerInventoryDatas.Count;
-        if (GameSession.Instance != null && size > 0 && transform.tag == "Player")
+        GameSession gameSession = GameSession.Instance;
+        if (gameSession != null
+            && gameSession.PlayerInventoryDatas.Count > 0
+            && transform.CompareTag("Player"))
         {
-            LoadItem(GameSession.Instance.PlayerInventoryDatas);
+            LoadItem(gameSession.PlayerInventoryDatas);
         }
     }
 
@@ -172,24 +174,89 @@ public class ItemGrid : MonoBehaviour
 
     public void LoadItem(List<InventorySaveData> inventoryDatas)
     {
+        if (inventoryDatas == null)
+        {
+            Debug.LogError("Cannot load inventory because the save data is null.", this);
+            return;
+        }
+
+        foreach (InventoryItem existingItem in GetComponentsInChildren<InventoryItem>(true))
+        {
+            existingItem.gameObject.SetActive(false);
+            Destroy(existingItem.gameObject);
+        }
+        inventoryItemSlot = new InventoryItem[gridSizeWidth, gridSizeHeight];
+
+        HashSet<string> loadedItemIds = new();
         for (int i = 0; i < inventoryDatas.Count; i++)
         {
-            PutItem(inventoryDatas[i].itemdata,
-                    inventoryDatas[i].startX,
-                    inventoryDatas[i].startY,
-                    inventoryDatas[i].rotateAngle,
-                    inventoryDatas[i].rotated);
+            InventorySaveData data = inventoryDatas[i];
+            if (data == null)
+            {
+                Debug.LogWarning("Skipping an empty inventory save entry.", this);
+                continue;
+            }
+
+            if (!string.IsNullOrEmpty(data.id) && loadedItemIds.Contains(data.id))
+            {
+                Debug.LogWarning($"Skipping duplicate inventory item ID '{data.id}'.", this);
+                continue;
+            }
+
+            if (PutItem(data.itemdata, data.startX, data.startY, data.rotateAngle, data.rotated))
+            {
+                if (!string.IsNullOrEmpty(data.id))
+                {
+                    loadedItemIds.Add(data.id);
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"Skipping invalid inventory item at ({data.startX}, {data.startY}).", this);
+            }
         }
     }
 
-    private void PutItem(ItemData data, int posX, int posY, float rotation, bool rotated)
+    private bool PutItem(ItemData data, int posX, int posY, float rotation, bool rotated)
     {
-        InventoryItem item = Instantiate(itemPrefab).GetComponent<InventoryItem>();
+        if (data == null || itemPrefab == null)
+        {
+            return false;
+        }
+
+        GameObject itemObject = Instantiate(itemPrefab, rectTransform);
+        InventoryItem item = itemObject.GetComponent<InventoryItem>();
+        if (item == null)
+        {
+            Debug.LogError("The inventory item prefab does not have an InventoryItem component.", itemPrefab);
+            Destroy(itemObject);
+            return false;
+        }
+
         item.Set(data);
         item.rotated = rotated;
         item.itemRotation = rotation;
+        if (!IsInsideGrid(posX, posY, item.Width, item.Height))
+        {
+            item.gameObject.SetActive(false);
+            Destroy(item.gameObject);
+            return false;
+        }
+
+        for (int x = 0; x < item.Width; x++)
+        {
+            for (int y = 0; y < item.Height; y++)
+            {
+                if (inventoryItemSlot[posX + x, posY + y] != null)
+                {
+                    item.gameObject.SetActive(false);
+                    Destroy(item.gameObject);
+                    return false;
+                }
+            }
+        }
+
         RectTransform rect = item.GetComponent<RectTransform>();
-        rect.SetParent(rectTransform);
         for (int x = 0; x < item.Width; x++)
         {
             for (int y = 0; y < item.Height; y++)
@@ -200,10 +267,14 @@ public class ItemGrid : MonoBehaviour
         item.onGridPositionX = posX;
         item.onGridPositionY = posY;
         Damage itemDmg = item.GetComponent<Damage>();
-        itemDmg.SetWeapon(item.ItemData);
+        if (itemDmg != null)
+        {
+            itemDmg.SetWeapon(item.ItemData);
+        }
         Vector2 position = CalculatePositionOnGrid(item, posX, posY);
         rect.localPosition = position;
         rect.rotation = Quaternion.Euler(0f, 0f, rotation);
+        return true;
     }
 
     private void InitInventorySlot(int x, int y)
@@ -216,11 +287,14 @@ public class ItemGrid : MonoBehaviour
 
     private void UpdateGrid(InventoryItem item)
     {
-        for (int i = 0; i < item.Width; i++)
+        for (int x = 0; x < gridSizeWidth; x++)
         {
-            for (int j = 0; j < item.Height; j++)
+            for (int y = 0; y < gridSizeHeight; y++)
             {
-                inventoryItemSlot[item.onGridPositionX + i, item.onGridPositionY + j] = null;
+                if (inventoryItemSlot[x, y] == item)
+                {
+                    inventoryItemSlot[x, y] = null;
+                }
             }
         }
     }

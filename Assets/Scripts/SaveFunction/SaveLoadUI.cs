@@ -18,14 +18,18 @@ public class SaveLoadUI : MonoBehaviour
 
         SaveData data = pendingLoad;
 
-        if(playerWallet == null || sceneChangeManager == null)
+        if(playerWallet == null || sceneChangeManager == null || gridItem == null)
         {
-            Debug.LogError("Mising Restore references!");
+            Debug.LogError("Missing restore references.", this);
             yield break;
         }
 
         playerWallet.SetGold(data.wallet);
         gridItem.LoadItem(data.inventoryDatas);
+        if (GameSession.Instance != null)
+        {
+            GameSession.Instance.SaveItemInInventory(SaveInventoryItem());
+        }
         sceneChangeManager.SetStage(data.stage);
         pendingLoad = null;
         Debug.Log("Game Loaded Successfully!");
@@ -72,29 +76,22 @@ public class SaveLoadUI : MonoBehaviour
     public List<InventorySaveData> SaveInventoryItem()
     {
         List<InventorySaveData> datas = new ();
-        string tempID = null;
+        HashSet<string> savedItemIds = new();
         for (int x = 0; x < gridItem.Inventory.GetLength(0); x++)
         {
             for (int y = 0; y < gridItem.Inventory.GetLength(1); y++)
             {
-                if (gridItem.Inventory[x, y] != null)
+                InventoryItem item = gridItem.Inventory[x, y];
+                if (item != null && savedItemIds.Add(item.ItemID))
                 {
-                    if (tempID == gridItem.Inventory[x, y].ItemID)
-                    {
-                        continue;
-                    }
-                    if (tempID == null || tempID != gridItem.Inventory[x, y].ItemID)
-                    {
-                        tempID = gridItem.Inventory[x, y].ItemID;
-                    }
                     InventorySaveData data = new()
                     {
-                        id = gridItem.Inventory[x, y].ItemID,
-                        itemdata = gridItem.Inventory[x, y].ItemData,
-                        startX = gridItem.Inventory[x, y].onGridPositionX,
-                        startY = gridItem.Inventory[x, y].onGridPositionY,
-                        rotateAngle = gridItem.Inventory[x, y].itemRotation,
-                        rotated = gridItem.Inventory[x, y].rotated
+                        id = item.ItemID,
+                        itemdata = item.ItemData,
+                        startX = item.onGridPositionX,
+                        startY = item.onGridPositionY,
+                        rotateAngle = item.itemRotation,
+                        rotated = item.rotated
                     };
                     datas.Add(data);
                 }
