@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class Damage : MonoBehaviour
 {
+    [SerializeField] private ItemData itemData;
     private Health target;
     private float nextAtkTime;
-    [SerializeField] private ItemData itemData;
-
+    private float waitTime;
+    private float startCombat = 3f;
     private string self;
 
     private void Start()
@@ -21,13 +22,17 @@ public class Damage : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "ShopScene")
         {
-            return;    
+            return;
         }
-        if(Time.time >= nextAtkTime)
+        if (waitTime >= startCombat)
         {
-            target.TakeDamage(itemData.Damage);
-            nextAtkTime = Time.time + itemData.AttackRate;
+            if (Time.time >= nextAtkTime)
+            {
+                target.TakeDamage(itemData.Damage);
+                nextAtkTime = Time.time + itemData.AttackRate;
+            }
         }
+        waitTime += Time.deltaTime;
     }
 
     public void SetWeapon(ItemData item)
@@ -46,6 +51,6 @@ public class Damage : MonoBehaviour
             case "Enemy":
                 target = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
                 break;
-        }        
+        }
     }
 }
