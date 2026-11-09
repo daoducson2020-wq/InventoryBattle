@@ -17,6 +17,7 @@ MonoBehaviour:
   damage: 8
   attackRate: 5
   icon: {fileID: 21300000, guid: 0e3901f4dc4e3ce46a90f190997c9120, type: 3}
+  iconWithFrame: {fileID: 21300000, guid: 0e3901f4dc4e3ce46a90f190997c9120, type: 3}
   itemWidth: 1
   itemHeight: 2
   price: 7

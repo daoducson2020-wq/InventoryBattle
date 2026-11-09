@@ -76,6 +76,7 @@ public class InventoryController : MonoBehaviour
             selectedItem = selectedItemGrid.PickUpItem(tileGridPosition.x, tileGridPosition.y);
             if (selectedItem != null)
             {
+                selectedItem.ShowIcon();
                 rectTransform = selectedItem.GetComponent<RectTransform>();
                 rectTransform.SetParent(canvasTransform, true);
             }
@@ -86,6 +87,7 @@ public class InventoryController : MonoBehaviour
             if (placeSuccess)
             {
                 PutItemInInventory(selectedItem);
+                selectedItem.ShowIconFrame();
                 selectedItem = null;
                 if (overlapItem != null)
                 {

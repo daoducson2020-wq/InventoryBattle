@@ -156,6 +156,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 640ee8bca1eac7c4f811d7ed054ea6f8, type: 2}
   - {fileID: 11400000, guid: 5289f0e20aaacdf439dc8524effe9a01, type: 2}
   - {fileID: 11400000, guid: e64e99624e6898e4fb4debbf98687b99, type: 2}
+  - {fileID: 11400000, guid: 19726375318b6394fa1434258d3a2178, type: 2}
+  - {fileID: 11400000, guid: e3079c5dd9ca2f14f95e9be5ec1319a6, type: 2}
   shopGridPanel: {fileID: 699168136}
   shopSlotPrefab: {fileID: 8150502822811652479, guid: a0084c46cf55b6e40b5d020174f681d1, type: 3}
   totalGridSlots: 6
@@ -1079,7 +1081,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+  m_Color: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 1, y: 1, z: 1, w: 1}
   m_Maskable: 1
@@ -1692,9 +1694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryController
   items:
-  - {fileID: 11400000, guid: 6c1c80754bdfefb4a918098c74966f8a, type: 2}
-  - {fileID: 11400000, guid: e83f245dfca2a9a43816956f84966fc7, type: 2}
-  - {fileID: 11400000, guid: 1d4eafd10f5fe1642ae68425ce012a1f, type: 2}
+  - {fileID: 11400000, guid: 640ee8bca1eac7c4f811d7ed054ea6f8, type: 2}
   itemPrefab: {fileID: 9069431195650482471, guid: 78bdf2b86d3a71741b3d28c80f6a94a7, type: 3}
   canvasTransform: {fileID: 435512178}
   animator: {fileID: 284947372}
