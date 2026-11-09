@@ -33,9 +33,15 @@ public class ShopManager : MonoBehaviour
 
     public void RefreshShop()
     {
-        playerWallet.SpendGold(costPrice);
-        costPrice++;
-        UpdateTextUI(costPrice);
+        if(!playerWallet.SpendGold(costPrice))
+        {
+            return;
+        }
+        if(costPrice < 5)
+        {
+            costPrice++;
+            UpdateTextUI(costPrice);
+        }
         ClearShop();
         GenerateRandomShopItems();
     }
