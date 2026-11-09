@@ -9,6 +9,7 @@ public class InventoryItem : MonoBehaviour
     [HideInInspector] public int onGridPositionY;
     [HideInInspector] public bool rotated = false;
 
+    public string ItemName => itemData.ItemName;
     private string itemID;
     public string ItemID => itemID;
     public float itemRotation = 0f;

@@ -242,7 +242,7 @@ public class InventoryController : MonoBehaviour
         rectTransform = randomItem.GetComponent<RectTransform>();
         rectTransform.SetParent(canvasTransform);
         int selectedItemID = Random.Range(0, items.Count);
-        randomItem.Set(items[0]);
+        randomItem.Set(items[selectedItemID]);
     }
 
     private void PutItemInInventory(InventoryItem item)

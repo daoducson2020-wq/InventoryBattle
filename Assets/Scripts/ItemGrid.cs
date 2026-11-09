@@ -9,7 +9,8 @@ public class ItemGrid : MonoBehaviour
     [SerializeField] private int gridSizeHeight = 10;
     [SerializeField] private Canvas rootCanvas;
     [SerializeField] private GameObject itemPrefab;
-    private RectTransform rectTransform; //inventory image size
+    [SerializeField] private ItemCollections collections;
+    private RectTransform inventoryPlaceholderImage;
     private Vector2 positionOnGrid = new();
     private Vector2Int tileGridPosition = new();
     private InventoryItem[,] inventoryItemSlot;
@@ -18,7 +19,7 @@ public class ItemGrid : MonoBehaviour
 
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
+        inventoryPlaceholderImage = GetComponent<RectTransform>();
         InitInventorySlot(gridSizeWidth, gridSizeHeight);
     }
 
@@ -35,8 +36,8 @@ public class ItemGrid : MonoBehaviour
 
     public Vector2Int GetTileGridPosition(Vector2 mousePosition)
     {
-        positionOnGrid.x = mousePosition.x - rectTransform.position.x;
-        positionOnGrid.y = rectTransform.position.y - mousePosition.y;
+        positionOnGrid.x = mousePosition.x - inventoryPlaceholderImage.position.x;
+        positionOnGrid.y = inventoryPlaceholderImage.position.y - mousePosition.y;
         tileGridPosition.x = (int)(positionOnGrid.x / (TILE_SIZE * rootCanvas.scaleFactor));
         tileGridPosition.y = (int)(positionOnGrid.y / (TILE_SIZE * rootCanvas.scaleFactor));
 
@@ -84,7 +85,7 @@ public class ItemGrid : MonoBehaviour
         }
 
         RectTransform rect = item.GetComponent<RectTransform>();
-        rect.SetParent(rectTransform);
+        rect.SetParent(inventoryPlaceholderImage);
         for (int x = 0; x < item.Width; x++)
         {
             for (int y = 0; y < item.Height; y++)
@@ -203,7 +204,7 @@ public class ItemGrid : MonoBehaviour
                 continue;
             }
 
-            if (PutItem(data.itemdata, data.startX, data.startY, data.rotateAngle, data.rotated))
+            if (PutItem(data.itemName, data.startX, data.startY, data.rotateAngle, data.rotated))
             {
                 if (!string.IsNullOrEmpty(data.id))
                 {
@@ -217,14 +218,16 @@ public class ItemGrid : MonoBehaviour
         }
     }
 
-    private bool PutItem(ItemData data, int posX, int posY, float rotation, bool rotated)
+    private bool PutItem(string itemName, int posX, int posY, float rotation, bool rotated)
     {
+        ItemData data = collections.GetDataInCollections(itemName);
+        
         if (data == null || itemPrefab == null)
         {
             return false;
         }
 
-        GameObject itemObject = Instantiate(itemPrefab, rectTransform);
+        GameObject itemObject = Instantiate(itemPrefab, inventoryPlaceholderImage);
         InventoryItem item = itemObject.GetComponent<InventoryItem>();
         if (item == null)
         {
@@ -281,7 +284,7 @@ public class ItemGrid : MonoBehaviour
     {
         inventoryItemSlot = new InventoryItem[x, y];
         Vector2 size = new Vector2(x * TILE_SIZE, y * TILE_SIZE);
-        rectTransform.sizeDelta = size;
+        inventoryPlaceholderImage.sizeDelta = size;
     }
 
 

@@ -12,6 +12,7 @@ public class ItemData : ScriptableObject
     [SerializeField] private int itemHeight = 1;
     [SerializeField] public int price;
 
+    public string ItemName => itemName;
     public int Damage => damage;
     public float AttackRate => attackRate;
     public Sprite Icon => icon;

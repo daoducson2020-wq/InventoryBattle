@@ -13,33 +13,26 @@ public class ReadEnemyData : MonoBehaviour
         Load();
     }
 
-    [ContextMenu("Save Enemy Data")]
+    [ContextMenu("DevFeature | Save Enemy Data")]
     public void SaveEnemyData()
     {
         List<InventorySaveData> datas = new ();
-        string tempID = null;
+        HashSet<string> savedItemIds = new();
         for (int x = 0; x < enemyGrid.Inventory.GetLength(0); x++)
         {
             for (int y = 0; y < enemyGrid.Inventory.GetLength(1); y++)
             {
-                if (enemyGrid.Inventory[x, y] != null)
+                InventoryItem item = enemyGrid.Inventory[x, y];
+                if (item != null && savedItemIds.Add(item.ItemID))
                 {
-                    if (tempID == enemyGrid.Inventory[x, y].ItemID)
-                    {
-                        continue;
-                    }
-                    if (tempID == null || tempID != enemyGrid.Inventory[x, y].ItemID)
-                    {
-                        tempID = enemyGrid.Inventory[x, y].ItemID;
-                    }
                     InventorySaveData data = new()
                     {
-                        id = enemyGrid.Inventory[x, y].ItemID,
-                        itemdata = enemyGrid.Inventory[x, y].ItemData,
-                        startX = enemyGrid.Inventory[x, y].onGridPositionX,
-                        startY = enemyGrid.Inventory[x, y].onGridPositionY,
-                        rotateAngle = enemyGrid.Inventory[x, y].itemRotation,
-                        rotated = enemyGrid.Inventory[x, y].rotated
+                        id = item.ItemID,
+                        itemName = item.ItemName,
+                        startX = item.onGridPositionX,
+                        startY = item.onGridPositionY,
+                        rotateAngle = item.itemRotation,
+                        rotated = item.rotated
                     };
                     datas.Add(data);
                 }
@@ -47,7 +40,7 @@ public class ReadEnemyData : MonoBehaviour
         }
 
         EnemySaveData enemySaveData = new();
-        enemySaveData.AddData("Barbarian", datas);
+        enemySaveData.AddData("Chad Cheems", datas);
         string json = JsonUtility.ToJson(enemySaveData, true);
 
         File.WriteAllText(filePath, json);
@@ -66,6 +59,7 @@ public class ReadEnemyData : MonoBehaviour
     public void Load()
     {
         EnemySaveData data = LoadEnemyData();
-        enemyGrid.LoadItem(data.GetValue("Barbarian"));
+        int rnd = Random.Range(0, data.enemyDatas.Count);
+        enemyGrid.LoadItem(data.enemyDatas[rnd].value);
     }
 }

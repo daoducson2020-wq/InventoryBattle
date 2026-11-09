@@ -2006,6 +2006,7 @@ MonoBehaviour:
   gridSizeHeight: 10
   rootCanvas: {fileID: 1409518781}
   itemPrefab: {fileID: 9069431195650482471, guid: 78bdf2b86d3a71741b3d28c80f6a94a7, type: 3}
+  collections: {fileID: 11400000, guid: 64230368d47921f45b0f90c67eb4fc60, type: 2}
 --- !u!114 &884363481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2959,6 +2960,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1837218496}
   pauseMenu: {fileID: 440791792}
   winStagePanel: {fileID: 2139371050}
+  battleStartTextUI: {fileID: 0}
 --- !u!4 &1329857064
 Transform:
   m_ObjectHideFlags: 0
@@ -4151,6 +4153,7 @@ MonoBehaviour:
   gridSizeHeight: 10
   rootCanvas: {fileID: 1409518781}
   itemPrefab: {fileID: 9069431195650482471, guid: 78bdf2b86d3a71741b3d28c80f6a94a7, type: 3}
+  collections: {fileID: 11400000, guid: 64230368d47921f45b0f90c67eb4fc60, type: 2}
 --- !u!114 &1639245499
 MonoBehaviour:
   m_ObjectHideFlags: 0
