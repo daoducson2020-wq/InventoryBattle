@@ -6,10 +6,7 @@ public class ReadEnemyData : MonoBehaviour
 {
     [SerializeField] private ItemGrid enemyGrid;
     
-    
-    
     private string filePath = Application.dataPath + "/EnemyConfig/enemies.json";
-    private Dictionary<string, List<InventorySaveData>> enemies = new();
 
     private void Start()
     {
@@ -48,11 +45,9 @@ public class ReadEnemyData : MonoBehaviour
                 }
             }
         }
-        enemies.Add("Gladiator", datas);
-        EnemySaveData enemySaveData = new()
-        {
-            enemyDatas = enemies
-        };
+
+        EnemySaveData enemySaveData = new();
+        enemySaveData.AddData("Barbarian", datas);
         string json = JsonUtility.ToJson(enemySaveData, true);
 
         File.WriteAllText(filePath, json);
@@ -71,6 +66,6 @@ public class ReadEnemyData : MonoBehaviour
     public void Load()
     {
         EnemySaveData data = LoadEnemyData();
-        enemyGrid.LoadItem(data.enemyDatas["Gladiator"]);
+        enemyGrid.LoadItem(data.GetValue("Barbarian"));
     }
 }
