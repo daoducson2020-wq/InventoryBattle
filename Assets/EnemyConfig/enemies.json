@@ -4,22 +4,121 @@
             "key": "Barbarian",
             "value": [
                 {
-                    "id": "90f05acf-5905-449b-bbee-60623e666858",
-                    "itemdata": {
-                        "instanceID": 1099511654577
-                    },
-                    "startX": 1,
+                    "id": "3bcb44ca-b3f0-403b-952f-24eb5c49549a",
+                    "itemName": "Barbaren Axe",
+                    "startX": 2,
                     "startY": 1,
+                    "rotateAngle": 90.0,
+                    "rotated": true
+                },
+                {
+                    "id": "e954bee3-3c39-4c03-a572-48125880104c",
+                    "itemName": "Barbaren Axe",
+                    "startX": 2,
+                    "startY": 3,
+                    "rotateAngle": 270.0,
+                    "rotated": true
+                }
+            ]
+        },
+        {
+            "key": "Assassin",
+            "value": [
+                {
+                    "id": "7aca2d6d-c0a1-4a32-8d07-07e0cbfc3cf9",
+                    "itemName": "Hekendoich",
+                    "startX": 2,
+                    "startY": 2,
                     "rotateAngle": 0.0,
                     "rotated": false
                 },
                 {
-                    "id": "a316c609-d7b0-407b-9e52-fa012b47a2b1",
-                    "itemdata": {
-                        "instanceID": 1099511654577
-                    },
-                    "startX": 6,
+                    "id": "da4d076a-2ad5-4ced-ad86-5f12cb51b9c7",
+                    "itemName": "Wiplash",
+                    "startX": 4,
+                    "startY": 2,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "ffd93324-d3e6-425b-ae30-0f47fce1842e",
+                    "itemName": "Hekendoich",
+                    "startX": 5,
+                    "startY": 2,
+                    "rotateAngle": 90.0,
+                    "rotated": true
+                }
+            ]
+        },
+        {
+            "key": "Ranger",
+            "value": [
+                {
+                    "id": "93b41e10-024c-4929-9c7a-840456a3d362",
+                    "itemName": "LongBow",
+                    "startX": 3,
                     "startY": 1,
+                    "rotateAngle": 90.0,
+                    "rotated": true
+                },
+                {
+                    "id": "8163d8cf-f996-44fb-b0c3-f6e3ddc4f3b1",
+                    "itemName": "Baseball Bat",
+                    "startX": 3,
+                    "startY": 3,
+                    "rotateAngle": 180.0,
+                    "rotated": false
+                },
+                {
+                    "id": "b0f32046-b741-481f-97d6-99e4463e7c86",
+                    "itemName": "Sichel",
+                    "startX": 4,
+                    "startY": 3,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                }
+            ]
+        },
+        {
+            "key": "Chad Cheems",
+            "value": [
+                {
+                    "id": "0375cc13-f99e-40fc-92b7-3ac89053f39b",
+                    "itemName": "Barbaren Axe",
+                    "startX": 1,
+                    "startY": 2,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "40001afd-c355-4d53-88a1-44c07542055e",
+                    "itemName": "Katana",
+                    "startX": 2,
+                    "startY": 0,
+                    "rotateAngle": 90.0,
+                    "rotated": true
+                },
+                {
+                    "id": "246cff33-0013-4da9-970a-516fc461d309",
+                    "itemName": "Barbaren Axe",
+                    "startX": 2,
+                    "startY": 6,
+                    "rotateAngle": 90.0,
+                    "rotated": true
+                },
+                {
+                    "id": "bb90cf32-f0fe-4952-9e16-37651e2e1efa",
+                    "itemName": "Katana",
+                    "startX": 3,
+                    "startY": 2,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "c8a2f1fc-bc75-41ab-aa87-8f1d7797c148",
+                    "itemName": "Barbaren Axe",
+                    "startX": 5,
+                    "startY": 2,
                     "rotateAngle": 0.0,
                     "rotated": false
                 }

@@ -13,12 +13,12 @@ public class SaveLoadUI : MonoBehaviour
 
     private IEnumerator Start()
     {
-        if(pendingLoad == null) yield break;
+        if (pendingLoad == null) yield break;
         yield return null;
 
         SaveData data = pendingLoad;
 
-        if(playerWallet == null || sceneChangeManager == null || gridItem == null)
+        if (playerWallet == null || sceneChangeManager == null || gridItem == null)
         {
             Debug.LogError("Missing restore references.", this);
             yield break;
@@ -36,8 +36,8 @@ public class SaveLoadUI : MonoBehaviour
     }
 
     public void SaveGame()
-    {   
-        if(saveSystem == null || playerWallet == null)
+    {
+        if (saveSystem == null || playerWallet == null)
         {
             Debug.LogWarning("Missing Save References!");
             return;
@@ -55,7 +55,7 @@ public class SaveLoadUI : MonoBehaviour
 
     public void LoadGame()
     {
-        if(saveSystem == null)
+        if (saveSystem == null)
         {
             Debug.LogWarning("Missing Load References!");
             return;
@@ -63,7 +63,7 @@ public class SaveLoadUI : MonoBehaviour
 
         SaveData data = saveSystem.LoadGame();
 
-        if(data == null)
+        if (data == null)
         {
             Debug.Log("No Save file Found!");
             return;
@@ -75,7 +75,7 @@ public class SaveLoadUI : MonoBehaviour
 
     public List<InventorySaveData> SaveInventoryItem()
     {
-        List<InventorySaveData> datas = new ();
+        List<InventorySaveData> datas = new();
         HashSet<string> savedItemIds = new();
         for (int x = 0; x < gridItem.Inventory.GetLength(0); x++)
         {
@@ -87,7 +87,7 @@ public class SaveLoadUI : MonoBehaviour
                     InventorySaveData data = new()
                     {
                         id = item.ItemID,
-                        itemdata = item.ItemData,
+                        itemName = item.ItemName,
                         startX = item.onGridPositionX,
                         startY = item.onGridPositionY,
                         rotateAngle = item.itemRotation,

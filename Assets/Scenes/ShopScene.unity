@@ -1120,6 +1120,7 @@ MonoBehaviour:
   gridSizeHeight: 8
   rootCanvas: {fileID: 435512177}
   itemPrefab: {fileID: 9069431195650482471, guid: 78bdf2b86d3a71741b3d28c80f6a94a7, type: 3}
+  collections: {fileID: 11400000, guid: 64230368d47921f45b0f90c67eb4fc60, type: 2}
 --- !u!114 &543765358
 MonoBehaviour:
   m_ObjectHideFlags: 0
