@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GridDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private RectTransform rectTransform;
     private Canvas canvas;
@@ -23,7 +23,10 @@ public class GridDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (itemData == null) return;
+        if (itemData == null)
+        {
+            return;
+        }
 
         dragPreviewController = FindAnyObjectByType<InventoryController>();
         if (dragPreviewController != null)
@@ -42,7 +45,10 @@ public class GridDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (itemData == null) return;
+        if (itemData == null)
+        {
+            return;
+        }
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
@@ -134,6 +140,7 @@ public class GridDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             sourceShopSlot.ClearShopSlot();
         }
 
+        Destroy(gameObject);
         return true;
     }
 }

@@ -77,6 +77,7 @@ public class InventoryController : MonoBehaviour
             if (selectedItem != null)
             {
                 rectTransform = selectedItem.GetComponent<RectTransform>();
+                rectTransform.SetParent(canvasTransform, true);
             }
         }
         else

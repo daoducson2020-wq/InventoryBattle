@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum MobType {mob, miniBoss}
+public enum MobType { mob, miniBoss }
 
 public class MobController : MonoBehaviour
 {
@@ -11,17 +11,23 @@ public class MobController : MonoBehaviour
     [SerializeField] private int atkDamage;
     [SerializeField] private float atkCooldown;
     private float nextATKTime;
+    private float waitTime;
+    private float startCombat = 3f;
 
     [SerializeField] private Health playerHealth;
 
 
     private void Update()
     {
-        if(Time.time >= nextATKTime)
+        if (waitTime >= startCombat)
         {
-            playerHealth.TakeDamage(atkDamage);
-            nextATKTime = Time.time + atkCooldown;
+            if (Time.time >= nextATKTime)
+            {
+                playerHealth.TakeDamage(atkDamage);
+                nextATKTime = Time.time + atkCooldown;
+            }
         }
+        waitTime += Time.deltaTime;
     }
 
 
