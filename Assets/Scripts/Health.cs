@@ -51,6 +51,6 @@ public class Health : MonoBehaviour
 
     private void UpdateHealthText(int currentHealth)
     {
-        healthText.SetText("HP: {0:0} / {1:0}", (float)currentHealth, (float)maxHealth);
+        healthText.SetText("{0:0} / {1:0}", (float)currentHealth, (float)maxHealth);
     }
 }

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -8,16 +9,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject winStagePanel;
+    [SerializeField] private BattleStartTextUI battleStartTextUI;
 
     private bool isGameOver;
     private bool isPaused;
     private bool isWin;
-
+    // private bool isCombat;
+    private float counterTimer;
+    private float battleStartTimer = 2f;
+    
+    
     public void Start()
     {
         Time.timeScale = 1f;
         isGameOver = false;
         isPaused = false;
+        // isCombat = false;
         isWin = false;
         if (gameOverPanel != null)
         {
@@ -81,6 +88,12 @@ public class GameManager : MonoBehaviour
     {
         if (isGameOver) return;
         if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
+
+        if (counterTimer >= battleStartTimer)
+        {
+            battleStartTextUI.PlayAnim();   
+        }
+        counterTimer += Time.deltaTime;
     }
 
     public void WinStage()
@@ -90,6 +103,4 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         winStagePanel.SetActive(true);
     }
-
-    
 }
