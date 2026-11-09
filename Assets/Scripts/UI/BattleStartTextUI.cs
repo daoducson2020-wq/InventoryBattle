@@ -17,10 +17,4 @@ public class BattleStartTextUI : MonoBehaviour
         battleStartText.text = "Fight!";
         animator.SetBool("Start", true);
     }
-    
-    private void EndBattleTextAnim()
-    {
-        animator.SetBool("Start", false);
-        battleStartText.enabled = false;
-    }
 }
