@@ -3,19 +3,19 @@ using UnityEngine.EventSystems;
 
 public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    private RectTransform rectTransform;
     private Canvas canvas;
     private CanvasGroup canvasGroup;
-    private Transform originalParent;
-    private Vector3 originalPosition;
+    private RectTransform draggedItemRectTransform;
+    private InventoryItem draggedInventoryItem;
     private InventoryController dragPreviewController;
+    private float originalAlpha;
+    private bool originalBlocksRaycasts;
 
     [HideInInspector] public ItemData itemData;       // Dữ liệu vật phẩm được gán từ Shop Slot
     [HideInInspector] public ShopSlot sourceShopSlot; // Tham chiếu đến ô cửa hàng chứa vật phẩm này
 
     void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
@@ -23,45 +23,56 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (itemData == null)
+        if (itemData == null || canvas == null)
         {
             return;
         }
 
         dragPreviewController = FindAnyObjectByType<InventoryController>();
-        if (dragPreviewController != null)
+        if (dragPreviewController == null)
         {
-            dragPreviewController.SetDraggedItemPreview(itemData);
+            Debug.LogError("A shop item cannot be dragged without an InventoryController.", this);
+            return;
         }
 
-        originalParent = transform.parent;
-        originalPosition = rectTransform.localPosition;
+        draggedInventoryItem = dragPreviewController.CreateInventoryItem(itemData, eventData.position);
+        if (draggedInventoryItem == null)
+        {
+            return;
+        }
 
-        // Đưa item lên Canvas chính để hiển thị nổi lên trên cùng khi kéo
-        transform.SetParent(canvas.transform, true);
-        canvasGroup.blocksRaycasts = false; // Tắt raycast để dò tìm điểm thả phía dưới
-        canvasGroup.alpha = 0.7f;
+        draggedItemRectTransform = draggedInventoryItem.GetComponent<RectTransform>();
+        originalAlpha = canvasGroup.alpha;
+        originalBlocksRaycasts = canvasGroup.blocksRaycasts;
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.alpha = 0f;
+        dragPreviewController.SetDraggedItemPreview(draggedInventoryItem);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (itemData == null)
+        if (draggedInventoryItem == null)
         {
             return;
         }
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        draggedItemRectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+    }
+
+    private void Update()
+    {
+        if (draggedInventoryItem != null && Input.GetMouseButtonDown(1))
+        {
+            draggedInventoryItem.Rotate();
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (itemData == null)
+        if (draggedInventoryItem == null)
         {
             ClearDragPreview();
             return;
         }
-
-        canvasGroup.blocksRaycasts = true;
-        canvasGroup.alpha = 1f;
 
         GameObject dropTarget = eventData.pointerCurrentRaycast.gameObject;
         ItemGrid itemGrid = dropTarget != null
@@ -70,12 +81,19 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         if (itemGrid != null && TryPurchaseIntoGrid(itemGrid, eventData.position))
         {
+            sourceShopSlot?.ClearShopSlot();
+            Destroy(gameObject);
+            draggedInventoryItem = null;
+            draggedItemRectTransform = null;
             ClearDragPreview();
             return;
         }
 
-        transform.SetParent(originalParent);
-        rectTransform.anchoredPosition = originalPosition;
+        Destroy(draggedInventoryItem.gameObject);
+        draggedInventoryItem = null;
+        draggedItemRectTransform = null;
+        canvasGroup.blocksRaycasts = originalBlocksRaycasts;
+        canvasGroup.alpha = originalAlpha;
         ClearDragPreview();
     }
 
@@ -96,13 +114,6 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             return false;
         }
 
-        InventoryController inventoryController = FindAnyObjectByType<InventoryController>();
-        if (inventoryController == null)
-        {
-            Debug.LogError("A shop item cannot be purchased without an InventoryController.", this);
-            return false;
-        }
-
         PlayerWallet wallet = PlayerWallet.Instance;
         if (wallet == null)
         {
@@ -116,31 +127,18 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             return false;
         }
 
-        InventoryItem inventoryItem = inventoryController.CreateInventoryItem(itemData, screenPosition);
-        if (inventoryItem == null)
-        {
-            return false;
-        }
-
+        InventoryItem inventoryItem = draggedInventoryItem;
         if (!itemGrid.TryPlaceNewItemAtScreenPosition(inventoryItem, screenPosition))
         {
-            Destroy(inventoryItem.gameObject);
             return false;
         }
 
         if (!wallet.SpendGold(itemData.price))
         {
             itemGrid.TryRemoveItem(inventoryItem);
-            Destroy(inventoryItem.gameObject);
             return false;
         }
 
-        if (sourceShopSlot != null)
-        {
-            sourceShopSlot.ClearShopSlot();
-        }
-
-        Destroy(gameObject);
         return true;
     }
 }

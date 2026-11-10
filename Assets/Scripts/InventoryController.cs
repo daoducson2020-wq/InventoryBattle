@@ -22,7 +22,7 @@ public class InventoryController : MonoBehaviour
     private InventoryItem selectedItem;
     private InventoryItem overlapItem;
     private InventoryItem itemToHighlight;
-    private ItemData draggedItemPreview;
+    private InventoryItem draggedItemPreview;
     private InventoryHighlight inventoryHighlight;
     private RectTransform rectTransform; //item image
 
@@ -155,69 +155,49 @@ public class InventoryController : MonoBehaviour
     private Vector2Int GetSelectedPosition()
     {
         Vector2 position = Input.mousePosition;
-        if (selectedItem != null)
+        InventoryItem activeItem = selectedItem != null ? selectedItem : draggedItemPreview;
+        if (activeItem != null)
         {
-            position.x -= (selectedItem.Width - 1) * ItemGrid.TILE_SIZE / 2;
-            position.y += (selectedItem.Height - 1) * ItemGrid.TILE_SIZE / 2;
+            position.x -= (activeItem.Width - 1) * ItemGrid.TILE_SIZE / 2;
+            position.y += (activeItem.Height - 1) * ItemGrid.TILE_SIZE / 2;
         }
         return selectedItemGrid.GetTileGridPosition(position);
     }
 
     private void HandleHighlight()
     {
-        // ItemData activeItemData = draggedItemPreview != null
-        //     ? draggedItemPreview
-        //     : selectedItem != null ? selectedItem.ItemData : null;
-        // if (activeItemData != null)
-        // {
-        //     Vector2Int positionOnGrid = GetSelectedPosition(activeItemData);
-        //     inventoryHighlight.Show(selectedItemGrid.IsInsideGrid(
-        //         positionOnGrid.x,
-        //         positionOnGrid.y,
-        //         activeItemData.ItemWidth,
-        //         activeItemData.ItemHeight));
-        //     inventoryHighlight.SetSize(activeItemData);
-        //     inventoryHighlight.SetPosition(
-        //         selectedItemGrid,
-        //         activeItemData,
-        //         positionOnGrid.x,
-        //         positionOnGrid.y);
-        // }
-        // else
-        // {
-            Vector2Int positionOnGrid = GetSelectedPosition();
-            if (selectedItem == null)
-            {
-                itemToHighlight = selectedItemGrid.GetItem(positionOnGrid.x, positionOnGrid.y);
-                if (inventoryHighlight != null && itemToHighlight != null)
-                {
-                    inventoryHighlight.Show(true);
-                    inventoryHighlight.SetSize(itemToHighlight);
-                    inventoryHighlight.SetPosition(selectedItemGrid, itemToHighlight);
-                }
-                else
-                {
-                    inventoryHighlight.Show(true);
-                    inventoryHighlight.SetSize();
-                    inventoryHighlight.SetPosition(GetSelectedPosition());
-                }
-            }
-            else
-            {
-                inventoryHighlight.Show(selectedItemGrid.IsInsideGrid(
-                                                        positionOnGrid.x,
-                                                        positionOnGrid.y,
-                                                        selectedItem.Width,
-                                                        selectedItem.Height));
-                inventoryHighlight.SetSize(selectedItem);
-                inventoryHighlight.SetPosition(selectedItemGrid, selectedItem, positionOnGrid.x, positionOnGrid.y);
-            }
-        // }
+        Vector2Int positionOnGrid = GetSelectedPosition();
+        InventoryItem activeItem = selectedItem != null ? selectedItem : draggedItemPreview;
+        if (activeItem != null)
+        {
+            inventoryHighlight.Show(selectedItemGrid.IsInsideGrid(
+                positionOnGrid.x,
+                positionOnGrid.y,
+                activeItem.Width,
+                activeItem.Height));
+            inventoryHighlight.SetSize(activeItem);
+            inventoryHighlight.SetPosition(selectedItemGrid, activeItem, positionOnGrid.x, positionOnGrid.y);
+            return;
+        }
+
+        itemToHighlight = selectedItemGrid.GetItem(positionOnGrid.x, positionOnGrid.y);
+        if (itemToHighlight != null)
+        {
+            inventoryHighlight.Show(true);
+            inventoryHighlight.SetSize(itemToHighlight);
+            inventoryHighlight.SetPosition(selectedItemGrid, itemToHighlight);
+        }
+        else
+        {
+            inventoryHighlight.Show(true);
+            inventoryHighlight.SetSize();
+            inventoryHighlight.SetPosition(positionOnGrid);
+        }
     }
 
-    public void SetDraggedItemPreview(ItemData itemData)
+    public void SetDraggedItemPreview(InventoryItem item)
     {
-        draggedItemPreview = itemData;
+        draggedItemPreview = item;
     }
 
     public bool TryDetachItemForDrag(InventoryItem item, ItemGrid itemGrid)
