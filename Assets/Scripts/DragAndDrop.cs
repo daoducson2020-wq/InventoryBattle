@@ -82,6 +82,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         if (itemGrid != null && TryPurchaseIntoGrid(itemGrid, eventData.position))
         {
+            draggedInventoryItem.ShowIconFrame();
             sourceShopSlot?.ClearShopSlot();
             Destroy(gameObject);
             draggedInventoryItem = null;
