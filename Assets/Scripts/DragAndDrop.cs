@@ -36,6 +36,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         }
 
         draggedInventoryItem = dragPreviewController.CreateInventoryItem(itemData, eventData.position);
+        draggedInventoryItem.ShowIcon();
         if (draggedInventoryItem == null)
         {
             return;
