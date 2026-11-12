@@ -2113,7 +2113,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 641.3763, y: 639.9532}
+  m_SizeDelta: {x: 508.2003, y: 512.5679}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &884363477
 MonoBehaviour:
@@ -2177,8 +2177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a152eaa3f6a440c42838494b09a24689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemGrid
-  gridSizeWidth: 10
-  gridSizeHeight: 10
+  gridSizeWidth: 8
+  gridSizeHeight: 8
   rootCanvas: {fileID: 1409518781}
   itemPrefab: {fileID: 9069431195650482471, guid: 78bdf2b86d3a71741b3d28c80f6a94a7, type: 3}
   collections: {fileID: 11400000, guid: 64230368d47921f45b0f90c67eb4fc60, type: 2}
