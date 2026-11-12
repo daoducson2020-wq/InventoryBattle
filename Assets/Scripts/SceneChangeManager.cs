@@ -33,6 +33,14 @@ public class SceneChangeManager : MonoBehaviour
 
     public void ReturnToMap()
     {
+        if (SceneManager.GetActiveScene().name != "MainMenuScene"
+            && saveLoadUI != null
+            && GameSession.Instance != null)
+        {
+            GameSession.Instance.SaveItemInInventory(saveLoadUI.SaveInventoryItem());
+        }
+
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MapScene");
     }
 
