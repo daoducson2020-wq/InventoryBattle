@@ -53,11 +53,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
-        if(GameSession.Instance != null)
-        {
-            GameSession.Instance.CurrentStage = 1;
-            SceneChangeManager.Instance.LoadStage();
-        }
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     public void ReturnToMainMenu()

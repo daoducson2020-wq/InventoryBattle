@@ -31,26 +31,9 @@ public class SceneChangeManager : MonoBehaviour
         }
     }
 
-    public void LoadStage()
+    public void ReturnToMap()
     {
-        if (SceneManager.GetActiveScene().name != "MainMenuScene")
-        {
-            GameSession.Instance.SaveItemInInventory(saveLoadUI.SaveInventoryItem());
-        }
-        if (SceneManager.GetActiveScene().name == "ShopScene")
-        {
-            Time.timeScale = 1f;
-            currentStage++;
-            SaveStage();
-            Debug.Log("Index: " + currentStage);
-            SceneManager.LoadScene(currentStage);
-        }
-        else
-        {
-            Time.timeScale = 1f;
-            Debug.Log("Load: ShopScene");
-            SceneManager.LoadScene("ShopScene");
-        }
+        SceneManager.LoadScene("MapScene");
     }
 
     public void SaveStage()
