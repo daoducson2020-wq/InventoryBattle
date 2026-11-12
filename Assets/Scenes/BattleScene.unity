@@ -3791,7 +3791,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 650044548}
         m_TargetAssemblyTypeName: SceneChangeManager, Assembly-CSharp
-        m_MethodName: LoadStage
+        m_MethodName: ReturnToMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

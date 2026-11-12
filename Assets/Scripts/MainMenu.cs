@@ -51,7 +51,7 @@ public class MainMenu : MonoBehaviour
             GameSession.Instance.ResetSession();
         }
         
-        SceneChangeManager.Instance.LoadStage();
+        SceneManager.LoadScene("ShopScene");
     }
 
     public void QuitGame()
