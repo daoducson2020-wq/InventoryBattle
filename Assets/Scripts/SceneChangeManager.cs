@@ -22,11 +22,6 @@ public class SceneChangeManager : MonoBehaviour
             if (GameSession.Instance.CurrentStage > 0)
             {
                 currentStage = GameSession.Instance.CurrentStage;
-                SaveStage();
-            }
-            else
-            {
-                SaveStage();
             }
         }
     }
@@ -44,17 +39,4 @@ public class SceneChangeManager : MonoBehaviour
         SceneManager.LoadScene("MapScene");
     }
 
-    public void SaveStage()
-    {
-        if (GameSession.Instance != null)
-        {
-            GameSession.Instance.SaveStage(currentStage);
-        }
-    }
-
-    public void SetStage(int stage)
-    {
-        currentStage = stage;
-        SaveStage();
-    }
 }

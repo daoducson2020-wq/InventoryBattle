@@ -26,11 +26,16 @@ public class SaveLoadUI : MonoBehaviour
 
         playerWallet.SetGold(data.wallet);
         gridItem.LoadItem(data.inventoryDatas);
+        List<List<Room>> loadedMap = MapView.ConvertFromSaveMapData(data.mapData);
         if (GameSession.Instance != null)
         {
             GameSession.Instance.SaveItemInInventory(SaveInventoryItem());
+            GameSession.Instance.SaveMapData(loadedMap, data.floor);
         }
-        sceneChangeManager.SetStage(data.stage);
+        if (MapView.Instance != null && loadedMap.Count > 0)
+        {
+            MapView.Instance.LoadMap(loadedMap, data.floor);
+        }
         pendingLoad = null;
         Debug.Log("Game Loaded Successfully!");
     }
@@ -43,11 +48,26 @@ public class SaveLoadUI : MonoBehaviour
             return;
         }
 
+        int currentFloor = 0;
+        List<List<Room>> currentMap = null;
+
+        if (MapView.Instance != null && MapView.Instance.MapData.Count > 0)
+        {
+            currentMap = MapView.Instance.MapData;
+            currentFloor = MapView.Instance.FloorsClimbed;
+        }
+        else if (GameSession.Instance != null)
+        {
+            currentMap = GameSession.Instance.SavedMapData;
+            currentFloor = GameSession.Instance.CurrentFloor;
+        }
+
         SaveData data = new()
         {
+            floor = currentFloor,
             wallet = playerWallet.CurrentGold,
-            stage = sceneChangeManager.CurrentStage - 1,
-            inventoryDatas = SaveInventoryItem()
+            inventoryDatas = SaveInventoryItem(),
+            mapData = MapView.ConvertToSaveMapData(currentMap)
         };
 
         saveSystem.SaveGame(data);

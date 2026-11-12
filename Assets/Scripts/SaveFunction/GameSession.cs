@@ -5,11 +5,18 @@ public class GameSession : MonoBehaviour
 {
     public static GameSession Instance { get; private set;}
     public int CurrentStage { get; set;}
+    public int CurrentFloor { get; private set; }
+    public int CurrentHealth { get; private set; }
+    public bool HasSavedHealth { get; private set; }
     public int CurrentGold { get; private set;}
     public bool HasSaveGold { get; private set;}
+    public bool HasSavedMap { get; private set;}
 
     private List<InventorySaveData> playerInventoryDatas = new();
     public List<InventorySaveData> PlayerInventoryDatas => playerInventoryDatas;
+
+    private List<List<Room>> savedMapData = new();
+    public List<List<Room>> SavedMapData => savedMapData;
 
     private void Awake()
     {
@@ -27,23 +34,45 @@ public class GameSession : MonoBehaviour
         playerInventoryDatas.Clear();
         playerInventoryDatas = datas;
     }
-    
+
     public void SaveGold(int gold)
     {
         CurrentGold = gold;
         HasSaveGold = true;
     }
-
-    public void SaveStage(int stage)
+    
+    public void SaveHealth(int health)
     {
-        CurrentStage = stage;
+        CurrentHealth = health;
+        HasSavedHealth = true;
+    }
+
+    public void SaveMapData(List<List<Room>> mapData, int floor)
+    {
+        savedMapData = mapData ?? new List<List<Room>>();
+        CurrentFloor = floor;
+        HasSavedMap = savedMapData.Count > 0;
+    }
+
+    public void ClearPendingMapLoad()
+    {
+        HasSavedMap = false;
     }
 
     public void ResetSession()
     {
         CurrentGold = 0;
         HasSaveGold = false;
+        CurrentHealth = 0;
+        HasSavedHealth = false;
         CurrentStage = 0;
+        CurrentFloor = 0;
+        HasSavedMap = false;
+        savedMapData.Clear();
         playerInventoryDatas.Clear();
+        if (MapView.Instance != null)
+        {
+            MapView.Instance.ResetMap();
+        }
     }
 }
