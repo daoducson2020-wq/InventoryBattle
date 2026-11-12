@@ -97,6 +97,7 @@ public class ItemGrid : MonoBehaviour
         item.onGridPositionY = posY;
         Vector2 position = CalculatePositionOnGrid(item, posX, posY);
         rect.localPosition = position;
+        NotifyHealthChanged();
         return true;
     }
 
@@ -216,6 +217,7 @@ public class ItemGrid : MonoBehaviour
                 Debug.LogWarning($"Skipping invalid inventory item at ({data.startX}, {data.startY}).", this);
             }
         }
+        NotifyHealthChanged();
     }
 
     private bool PutItem(string itemName, int posX, int posY, float rotation, bool rotated)
@@ -300,6 +302,41 @@ public class ItemGrid : MonoBehaviour
                 }
             }
         }
+        NotifyHealthChanged();
+    }
+
+    public int GetTotalArmorHealthBonus()
+    {
+        if (inventoryItemSlot == null) return 0;
+
+        int totalBonus = 0;
+        HashSet<InventoryItem> countedItems = new();
+
+        for (int x = 0; x < gridSizeWidth; x++)
+        {
+            for (int y = 0; y < gridSizeHeight; y++)
+            {
+                InventoryItem item = inventoryItemSlot[x, y];
+                if (item != null
+                    && item.ItemData != null
+                    && (item.ItemData.ItemType == ItemType.Armor
+                        || item.ItemData.ItemType == ItemType.Accessory)
+                    && countedItems.Add(item))
+                {
+                    totalBonus += item.ItemData.HealthBonus;
+                }
+            }
+        }
+
+        return totalBonus;
+    }
+
+    private void NotifyHealthChanged()
+    {
+        if (TryGetComponent<Health>(out Health health))
+        {
+            health.UpdateMaxHealthFromInventory(GetTotalArmorHealthBonus());
+        }
     }
 
     private bool IsOccupied(int posX, int posY, int itemWidth, int itemHeight, ref InventoryItem overlapItem)
@@ -326,4 +363,6 @@ public class ItemGrid : MonoBehaviour
         }
         return true;
     }
+
+    
 }

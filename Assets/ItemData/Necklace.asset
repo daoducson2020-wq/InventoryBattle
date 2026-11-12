@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4f98b0f016f70d4888a610655a6b0c9, type: 3}
-  m_Name: Whiplash
+  m_Name: Necklace
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Wiplash
-  itemType: Wiplash
-  damage: 8
+  itemName: Necklace
+  itemType: 2
+  damage: 0
+  healthBonus: 30
+  healAmount: 3
   attackRate: 5
-  icon: {fileID: 21300000, guid: 0e3901f4dc4e3ce46a90f190997c9120, type: 3}
-  iconWithFrame: {fileID: 21300000, guid: 0e3901f4dc4e3ce46a90f190997c9120, type: 3}
+  icon: {fileID: 21300000, guid: 8e1a4ba322de5324289a01c944246a4f, type: 3}
+  iconWithFrame: {fileID: 21300000, guid: 7a3af6a438d3c1c4390dfcb4ba75e37d, type: 3}
   itemWidth: 1
-  itemHeight: 2
-  price: 7
+  itemHeight: 3
+  price: 12
