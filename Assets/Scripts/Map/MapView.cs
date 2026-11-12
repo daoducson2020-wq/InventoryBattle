@@ -7,7 +7,7 @@ public class MapView : MonoBehaviour
 {
     public static MapView Instance { get; private set; } // Singleton giữ bản đồ xuyên Scene
 
-    [Header("Scene Names (Tên chính xác trong Build Settings)")]
+    [Header("Scene Names (Scene Name in Build Settings)")]
     [SerializeField] private string mapSceneName = "MapScene";
     [SerializeField] private string battleSceneName = "BattleScene";
     [SerializeField] private string shopSceneName = "ShopScene";
@@ -35,6 +35,7 @@ public class MapView : MonoBehaviour
     private List<List<Room>> mapData = new List<List<Room>>();
     private List<MapRoom> spawnedRooms = new List<MapRoom>();
 
+    public List<List<Room>> MapData => mapData;
     public int FloorsClimbed { get; private set; } = 0;
     public Room LastRoom { get; private set; } = null;
 
@@ -68,6 +69,13 @@ public class MapView : MonoBehaviour
 
     private void Start()
     {
+        if (GameSession.Instance != null && GameSession.Instance.HasSavedMap)
+        {
+            LoadMap(GameSession.Instance.SavedMapData, GameSession.Instance.CurrentFloor);
+            GameSession.Instance.ClearPendingMapLoad();
+            return;
+        }
+
         // Chỉ sinh bản đồ mới hoàn toàn ở lần đầu tiên vào game
         if (mapData.Count == 0)
         {
@@ -81,8 +89,19 @@ public class MapView : MonoBehaviour
     {
         if (scene.name == mapSceneName)
         {
-            // Khi từ màn chơi quay về MapScene: Tìm lại Main Camera mới của Scene
             mapCamera = Camera.main;
+
+            if (GameSession.Instance != null && GameSession.Instance.HasSavedMap)
+            {
+                LoadMap(GameSession.Instance.SavedMapData, GameSession.Instance.CurrentFloor);
+                GameSession.Instance.ClearPendingMapLoad();
+            }
+            else if (mapData.Count == 0)
+            {
+                GenerateNewMap();
+                UnlockFloor(0);
+            }
+
             if (mapCamera != null)
             {
                 Vector3 camPos = mapCamera.transform.position;
@@ -95,6 +114,10 @@ public class MapView : MonoBehaviour
             if (LastRoom != null)
             {
                 UnlockNextRooms();
+            }
+            else if (FloorsClimbed == 0)
+            {
+                UnlockFloor(0);
             }
         }
         else
@@ -181,9 +204,123 @@ public class MapView : MonoBehaviour
     {
         FloorsClimbed = 0;
         LastRoom = null;
+        savedCameraY = 0f;
 
         mapData = mapGenerator.GenerateMap();
         CreateMapVisuals();
+    }
+
+    public void ResetMap()
+    {
+        FloorsClimbed = 0;
+        LastRoom = null;
+        savedCameraY = 0f;
+        mapData.Clear();
+        ClearExistingVisuals();
+    }
+
+    public void LoadMap(List<List<Room>> loadedMapData, int loadedFloor)
+    {
+        if (loadedMapData == null || loadedMapData.Count == 0)
+        {
+            GenerateNewMap();
+            UnlockFloor(0);
+            return;
+        }
+
+        mapData = loadedMapData;
+        FloorsClimbed = Mathf.Max(0, loadedFloor);
+        LastRoom = null;
+
+        foreach (List<Room> floorRooms in mapData)
+        {
+            foreach (Room room in floorRooms)
+            {
+                if (room.selected && room.row < FloorsClimbed)
+                {
+                    if (LastRoom == null || room.row >= LastRoom.row)
+                    {
+                        LastRoom = room;
+                    }
+                }
+            }
+        }
+
+        CreateMapVisuals();
+
+        if (FloorsClimbed == 0 || LastRoom == null)
+        {
+            UnlockFloor(0);
+            savedCameraY = 0f;
+        }
+        else
+        {
+            UnlockNextRooms();
+            savedCameraY = Mathf.Clamp(LastRoom.position.y, minCameraY, maxCameraY);
+        }
+
+        if (mapCamera != null)
+        {
+            Vector3 camPos = mapCamera.transform.position;
+            camPos.y = savedCameraY;
+            mapCamera.transform.position = camPos;
+        }
+    }
+
+    public static List<MapFloorSaveData> ConvertToSaveMapData(List<List<Room>> sourceMap)
+    {
+        List<MapFloorSaveData> result = new List<MapFloorSaveData>();
+        if (sourceMap == null) return result;
+
+        foreach (List<Room> floor in sourceMap)
+        {
+            MapFloorSaveData floorSave = new MapFloorSaveData();
+            foreach (Room room in floor)
+            {
+                room.nextRoomColumns.Clear();
+                if (room.nextRooms != null)
+                {
+                    foreach (Room next in room.nextRooms)
+                    {
+                        room.nextRoomColumns.Add(next.column);
+                    }
+                }
+                floorSave.rooms.Add(room);
+            }
+            result.Add(floorSave);
+        }
+
+        return result;
+    }
+
+    public static List<List<Room>> ConvertFromSaveMapData(List<MapFloorSaveData> savedFloors)
+    {
+        List<List<Room>> result = new List<List<Room>>();
+        if (savedFloors == null) return result;
+
+        foreach (MapFloorSaveData floorSave in savedFloors)
+        {
+            result.Add(new List<Room>(floorSave.rooms));
+        }
+
+        for (int i = 0; i < result.Count; i++)
+        {
+            foreach (Room room in result[i])
+            {
+                room.nextRooms = new List<Room>();
+                if (room.nextRoomColumns == null || i + 1 >= result.Count) continue;
+
+                foreach (int col in room.nextRoomColumns)
+                {
+                    if (col >= 0 && col < result[i + 1].Count)
+                    {
+                        room.nextRooms.Add(result[i + 1][col]);
+                    }
+                }
+            }
+        }
+
+        return result;
     }
 
     private void CreateMapVisuals()
@@ -289,19 +426,5 @@ public class MapView : MonoBehaviour
                 mapRoom.Available = true;
             }
         }
-    }
-
-
-    // --- 3. ẨN / HIỆN BẢN ĐỒ KHI CHUYỂN MÀN HÌNH ---
-    public void ShowMap()
-    {
-        gameObject.SetActive(true);
-        if (mapCamera != null) mapCamera.enabled = true;
-    }
-
-    public void HideMap()
-    {
-        gameObject.SetActive(false);
-        if (mapCamera != null) mapCamera.enabled = false;
     }
 }

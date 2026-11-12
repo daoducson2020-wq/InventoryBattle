@@ -7,7 +7,7 @@ public class MapGenerator : MonoBehaviour
     [Header("Map Settings")]
     public const int X_DIST = 2;
     public const int Y_DIST = 2;
-    public const int PLACEMENT_RANDOMNESS = 0;
+    public const float PLACEMENT_RANDOMNESS = 0.5f;
     public const int FLOORS = 15;
     public const int MAP_WIDTH = 7;
     public const int PATHS = 6;
@@ -27,11 +27,6 @@ public class MapGenerator : MonoBehaviour
 
     private float randomRoomTypeTotalWeight = 0;
     private List<List<Room>> mapData = new List<List<Room>>();
-
-    // private void Start()
-    // {
-    //     GenerateMap();
-    // }
 
     public List<List<Room>> GenerateMap()
     {

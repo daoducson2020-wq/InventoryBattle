@@ -22,6 +22,7 @@ public class MapRoom : MonoBehaviour
     public Room RoomData { get; private set; }
     
     private bool isAvailable = false;
+    private bool isSetup = false;
     private Vector3 baseScale;
 
     public bool Available
@@ -40,9 +41,12 @@ public class MapRoom : MonoBehaviour
 
     private void Awake()
     {
-        baseScale = transform.localScale;
-        if (selectedOutline != null)
-            selectedOutline.SetActive(false);
+        if (!isSetup)
+        {
+            baseScale = transform.localScale;
+            if (selectedOutline != null)
+                selectedOutline.SetActive(false);
+        }
     }
 
     private void Update()
@@ -57,6 +61,11 @@ public class MapRoom : MonoBehaviour
 
     public void Setup(Room room)
     {
+        isSetup = true;
+        baseScale = transform.localScale;
+        if (selectedOutline != null)
+            selectedOutline.SetActive(false);
+
         RoomData = room;
         transform.localPosition = room.position;
 

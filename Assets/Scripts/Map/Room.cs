@@ -21,6 +21,7 @@ public class Room
     public Vector2 position; // Tọa độ thực tế trên màn hình (đã cộng độ lệch ngẫu nhiên)
     [System.NonSerialized]
     public List<Room> nextRooms = new List<Room>(); // Các phòng có đường nối lên tầng trên (i + 1)
+    public List<int> nextRoomColumns = new List<int>(); // Lưu chỉ số cột của nextRooms để serialize JSON
     public bool selected = false;
 
     // Ghi đè ToString() để dễ dàng in ra Console kiểm tra (như ở [00:07:20])
