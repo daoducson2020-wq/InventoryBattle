@@ -7,6 +7,7 @@ public class GameSession : MonoBehaviour
     public int CurrentStage { get; set;}
     public int CurrentFloor { get; private set; }
     public int CurrentHealth { get; private set; }
+    public int CurrentMaxHealth { get; private set; }
     public bool HasSavedHealth { get; private set; }
     public int CurrentGold { get; private set;}
     public bool HasSaveGold { get; private set;}
@@ -41,9 +42,13 @@ public class GameSession : MonoBehaviour
         HasSaveGold = true;
     }
     
-    public void SaveHealth(int health)
+    public void SaveHealth(int health, int maxHealth = 0)
     {
         CurrentHealth = health;
+        if (maxHealth > 0)
+        {
+            CurrentMaxHealth = maxHealth;
+        }
         HasSavedHealth = true;
     }
 
@@ -64,6 +69,7 @@ public class GameSession : MonoBehaviour
         CurrentGold = 0;
         HasSaveGold = false;
         CurrentHealth = 0;
+        CurrentMaxHealth = 0;
         HasSavedHealth = false;
         CurrentStage = 0;
         CurrentFloor = 0;

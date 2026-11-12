@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4f98b0f016f70d4888a610655a6b0c9, type: 3}
-  m_Name: Sichel
+  m_Name: Crossbow
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Sichel
-  itemType: Sichel
-  damage: 2
-  attackRate: 3
-  icon: {fileID: 21300000, guid: 18ada05631aafd244b7e69efcefd329c, type: 3}
-  iconWithFrame: {fileID: 21300000, guid: 18ada05631aafd244b7e69efcefd329c, type: 3}
+  itemName: Crossbow
+  itemType: 0
+  damage: 10
+  healthBonus: 0
+  healAmount: 0
+  attackRate: 5
+  icon: {fileID: 21300000, guid: cc3a4d63fa57a5c48a48ec01adb517e6, type: 3}
+  iconWithFrame: {fileID: 21300000, guid: 7f929ef6a600666439cd3d0acce65756, type: 3}
   itemWidth: 2
-  itemHeight: 2
-  price: 7
+  itemHeight: 3
+  price: 25

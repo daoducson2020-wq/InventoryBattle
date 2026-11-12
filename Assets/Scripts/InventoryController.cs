@@ -231,7 +231,10 @@ public class InventoryController : MonoBehaviour
     {
         Damage itemDmg = item.GetComponent<Damage>();
         itemDmg.SetWeapon(item.ItemData);
-        // itemDmg.IdentifySelfTag();
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "ShopScene")
+        {
+            itemDmg.IdentifySelfTag();
+        }
     }
     
     public InventoryItem CreateInventoryItem(ItemData itemData, Vector2 screenPosition)
