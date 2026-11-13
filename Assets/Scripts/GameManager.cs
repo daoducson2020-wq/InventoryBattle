@@ -1,30 +1,28 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
+public enum GameState { Normal, Combat}
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject winStagePanel;
     [SerializeField] private BattleStartTextUI battleStartTextUI;
+    [SerializeField] private float battleStartTimer = 2f;
 
+    private GameState currentState = GameState.Normal;
+    public GameState CurrentState => currentState;
     private bool isGameOver;
     private bool isPaused;
     private bool isWin;
-    // private bool isCombat;
     private float counterTimer;
-    private float battleStartTimer = 2f;
-    
     
     public void Start()
     {
         Time.timeScale = 1f;
         isGameOver = false;
         isPaused = false;
-        // isCombat = false;
         isWin = false;
         if (gameOverPanel != null)
         {
@@ -40,6 +38,60 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Update()
+    {
+        if (isGameOver) return;
+        if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
+
+        UpdateState();
+        switch (currentState)
+        {
+            case GameState.Normal:
+                break;
+            case GameState.Combat:
+                CombatState();
+                break;
+            default:
+                break;
+        }
+        Debug.Log("current state: " + currentState);
+    }
+
+    private void UpdateState()
+    {
+        if (SceneManager.GetActiveScene().name == "BattleScene" ||
+            SceneManager.GetActiveScene().name == "BossScene" ||
+            SceneManager.GetActiveScene().name == "MiniBossScene")
+        {
+            ChangeState(GameState.Combat);
+        }
+        else
+        {
+            ChangeState(GameState.Normal);
+        }
+    }
+
+    private void ChangeState(GameState newState)
+    {
+        if (currentState == newState)
+        {
+            return;
+        }
+        currentState = newState;
+    }
+
+    private void CombatState()
+    {
+        if (counterTimer >= battleStartTimer)
+        {
+            if (battleStartTextUI != null)
+            {
+                battleStartTextUI.PlayAnim();
+            }
+        }
+        counterTimer += Time.deltaTime;
+    }
+    
     public void GameOver()
     {
         if (isGameOver) return;
@@ -75,26 +127,13 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f;
             isPaused = true;
             pauseMenu.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(null);
         }
         else
         {
             Time.timeScale = 1f;
             isPaused = false;
             pauseMenu.SetActive(false);
-        }
-    }
-
-    public void Update()
-    {
-        if (isGameOver) return;
-        if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
-        if(SceneManager.GetActiveScene().name != "MapScene")
-        {
-            if (counterTimer >= battleStartTimer)
-            {
-                battleStartTextUI.PlayAnim();
-            }
-            counterTimer += Time.deltaTime;
         }
     }
 
