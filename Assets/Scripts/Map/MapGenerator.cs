@@ -30,13 +30,13 @@ public class MapGenerator : MonoBehaviour
 
     public List<List<Room>> GenerateMap()
     {
-        // 1. Khởi tạo lưới 15x7 trống [00:19:15]
+        // 1. Khởi tạo lưới 15x7 trống 
         mapData = GenerateInitialGrid();
 
-        // 2. Lấy 6 điểm xuất phát ở tầng 0 (ít nhất 2 điểm khác nhau) [00:30:05]
+        // 2. Lấy 6 điểm xuất phát ở tầng 0 (ít nhất 2 điểm khác nhau) 
         List<int> startingPoints = GetRandomStartingPoints();
 
-        // 3. Từ mỗi điểm xuất phát, nối đường đi từ tầng 0 lên tầng 13 [00:34:50]
+        // 3. Từ mỗi điểm xuất phát, nối đường đi từ tầng 0 lên tầng 13 
         foreach (int j in startingPoints)
         {
             int currentJ = j;
@@ -46,18 +46,15 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        // 4. Gán phòng Boss và phân bổ loại phòng [00:51:50]
+        // 4. Gán phòng Boss và phân bổ loại phòng 
         SetupBossRoom();
         SetupRandomRoomWeights();
         SetupRoomTypes();
 
-        // Mở comment dòng dưới nếu muốn kiểm tra kết quả trên Console của Unity [01:06:30]
-        //PrintMapToConsole();
-
         return mapData;
     }
 
-    // --- BƯỚC 1: KHỞI TẠO LƯỚI [00:19:25] ---
+    // --- BƯỚC 1: KHỞI TẠO LƯỚI ---
     private List<List<Room>> GenerateInitialGrid()
     {
         List<List<Room>> result = new List<List<Room>>();
@@ -77,7 +74,7 @@ public class MapGenerator : MonoBehaviour
                 currentRoom.column = j;
                 currentRoom.nextRooms = new List<Room>();
 
-                // Phòng Boss ở tầng cuối không bị lệch Y và đẩy cao gấp đôi khoảng cách [00:22:45]
+                // Phòng Boss ở tầng cuối không bị lệch Y và đẩy cao gấp đôi khoảng cách
                 if (i == FLOORS - 1)
                 {
                     currentRoom.position.y = (i + 1) * Y_DIST;
@@ -92,7 +89,7 @@ public class MapGenerator : MonoBehaviour
         return result;
     }
 
-    // --- BƯỚC 2: CHỌN ĐIỂM XUẤT PHÁT [00:30:15] ---
+    // --- BƯỚC 2: CHỌN ĐIỂM XUẤT PHÁT ---
     private List<int> GetRandomStartingPoints()
     {
         List<int> yCoordinates = new List<int>();
@@ -117,13 +114,13 @@ public class MapGenerator : MonoBehaviour
         return yCoordinates;
     }
 
-    // --- BƯỚC 3: NỐI ĐƯỜNG & CHỐNG CẮT CHÉO [00:38:35] ---
+    // --- BƯỚC 3: NỐI ĐƯỜNG & CHỐNG CẮT CHÉO ---
     private int SetupConnection(int i, int j)
     {
         Room nextRoom = null;
         Room currentRoom = mapData[i][j];
 
-        // Tiếp tục tìm ứng viên ở tầng i + 1 cho đến khi không bị cắt chéo [00:39:15]
+        // Tiếp tục tìm ứng viên ở tầng i + 1 cho đến khi không bị cắt chéo 
         while (nextRoom == null || WouldCrossExistingPath(i, j, nextRoom))
         {
             int randomJ = Mathf.Clamp(Random.Range(j - 1, j + 2), 0, MAP_WIDTH - 1);
@@ -144,11 +141,11 @@ public class MapGenerator : MonoBehaviour
         Room leftNeighbour = null;
         Room rightNeighbour = null;
 
-        // Lấy hàng xóm bên trái và bên phải cùng tầng i [00:45:25]
+        // Lấy hàng xóm bên trái và bên phải cùng tầng i
         if (j > 0) leftNeighbour = mapData[i][j - 1];
         if (j < MAP_WIDTH - 1) rightNeighbour = mapData[i][j + 1];
 
-        // 1. Nếu đang định đi chéo sang PHẢI (room.column > j), kiểm tra xem hàng xóm bên phải có đi chéo sang TRÁI không [00:46:25]
+        // 1. Nếu đang định đi chéo sang PHẢI (room.column > j), kiểm tra xem hàng xóm bên phải có đi chéo sang TRÁI không
         if (rightNeighbour != null && room.column > j)
         {
             foreach (Room nextRoom in rightNeighbour.nextRooms)
@@ -158,7 +155,7 @@ public class MapGenerator : MonoBehaviour
             }
         }
 
-        // 2. Nếu đang định đi chéo sang TRÁI (room.column < j), kiểm tra xem hàng xóm bên trái có đi chéo sang PHẢI không [00:47:20]
+        // 2. Nếu đang định đi chéo sang TRÁI (room.column < j), kiểm tra xem hàng xóm bên trái có đi chéo sang PHẢI không 
         if (leftNeighbour != null && room.column < j)
         {
             foreach (Room nextRoom in leftNeighbour.nextRooms)
@@ -171,13 +168,13 @@ public class MapGenerator : MonoBehaviour
         return false;
     }
 
-    // --- BƯỚC 4: THIẾT LẬP BOSS & LOẠI PHÒNG [00:52:25] ---
+    // --- BƯỚC 4: THIẾT LẬP BOSS & LOẠI PHÒNG ---
     private void SetupBossRoom()
     {
         int middle = Mathf.FloorToInt(MAP_WIDTH * 0.5f);
         Room bossRoom = mapData[FLOORS - 1][middle];
 
-        // Mọi phòng có đường đi ở tầng áp chót (FLOORS - 2) đều nối thẳng vào Boss [00:53:30]
+        // Mọi phòng có đường đi ở tầng áp chót (FLOORS - 2) đều nối thẳng vào Boss
         for (int j = 0; j < MAP_WIDTH; j++)
         {
             Room currentRoom = mapData[FLOORS - 2][j];
@@ -193,7 +190,7 @@ public class MapGenerator : MonoBehaviour
 
     private void SetupRandomRoomWeights()
     {
-        // Tính trọng số cộng dồn (Accumulated Weights) [00:54:40]
+        // Tính trọng số cộng dồn (Accumulated Weights)
         randomRoomTypeWeights[RoomType.Monster] = MONSTER_ROOM_WEIGHT;
         randomRoomTypeWeights[RoomType.Campfire] = MONSTER_ROOM_WEIGHT + CAMPFIRE_ROOM_WEIGHT;
         randomRoomTypeWeights[RoomType.Shop] = MONSTER_ROOM_WEIGHT + CAMPFIRE_ROOM_WEIGHT + SHOP_ROOM_WEIGHT;
@@ -204,28 +201,28 @@ public class MapGenerator : MonoBehaviour
 
     private void SetupRoomTypes()
     {
-        // Luật 1: Tầng 0 luôn là Monster [00:55:45]
+        // Luật 1: Tầng 0 luôn là Monster 
         foreach (Room room in mapData[0])
         {
             if (room.nextRooms.Count > 0)
                 room.type = RoomType.Monster;
         }
 
-        // Luật 2: Tầng 8 (Floor thứ 9) luôn là Treasure [00:56:15]
-        foreach (Room room in mapData[8])
+        // Luật 2: Tầng 8 (Floor thứ 9) luôn là MiniBoss
+        foreach (Room room in mapData[1])
         {
             if (room.nextRooms.Count > 0)
                 room.type = RoomType.MiniBoss;
         }
 
-        // Luật 3: Tầng áp chót (Tầng 13) trước Boss luôn là Campfire [00:56:35]
+        // Luật 3: Tầng áp chót (Tầng 13) trước Boss luôn là Campfire 
         foreach (Room room in mapData[FLOORS - 2])
         {
             if (room.nextRooms.Count > 0)
                 room.type = RoomType.Campfire;
         }
 
-        // Luật 4: Các phòng còn lại nằm trên đường đi sẽ được gán ngẫu nhiên có điều kiện [00:57:40]
+        // Luật 4: Các phòng còn lại nằm trên đường đi sẽ được gán ngẫu nhiên có điều kiện
         foreach (List<Room> floor in mapData)
         {
             foreach (Room room in floor)
@@ -250,7 +247,7 @@ public class MapGenerator : MonoBehaviour
 
         RoomType typeCandidate = RoomType.NotAssigned;
 
-        // Lặp cho đến khi tìm được loại phòng không vi phạm bất kỳ luật nào [00:59:05]
+        // Lặp cho đến khi tìm được loại phòng không vi phạm bất kỳ luật nào
         while (campfireBelow4 || consecutiveCampfire || consecutiveShop || campfireOn13)
         {
             typeCandidate = GetRandomRoomTypeByWeight();
@@ -273,7 +270,7 @@ public class MapGenerator : MonoBehaviour
     {
         List<Room> parents = new List<Room>();
 
-        // Kiểm tra 3 ứng viên cha ở tầng dưới (row - 1) xem có nối lên phòng hiện tại không [01:02:25]
+        // Kiểm tra 3 ứng viên cha ở tầng dưới (row - 1) xem có nối lên phòng hiện tại không 
         if (room.row > 0)
         {
             // Cha bên trái
@@ -316,7 +313,7 @@ public class MapGenerator : MonoBehaviour
         return RoomType.Monster;
     }
 
-    // Hàm in ra Console để kiểm tra giống trong video [00:49:10]
+    // Hàm in ra Console để kiểm tra giống trong video 
     private void PrintMapToConsole()
     {
         for (int i = 0; i < mapData.Count; i++)
