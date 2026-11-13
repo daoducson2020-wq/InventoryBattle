@@ -6,6 +6,11 @@ public class SaveSystem : MonoBehaviour
 {
     public void SaveGame(SaveData data)
     {
+        WriteSave(data);
+    }
+
+    public static void WriteSave(SaveData data)
+    {
         string json = JsonUtility.ToJson(data, true);
         string path = GetSavePath();
 
@@ -33,7 +38,7 @@ public class SaveSystem : MonoBehaviour
         if(File.Exists(path)) File.Delete(path);
     }
 
-    private string GetSavePath()
+    private static string GetSavePath()
     {
         return Path.Combine(Application.persistentDataPath,"save.json");
     }

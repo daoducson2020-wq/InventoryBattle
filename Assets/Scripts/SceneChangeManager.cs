@@ -34,9 +34,8 @@ public class SceneChangeManager : MonoBehaviour
         {
             GameSession.Instance.SaveItemInInventory(saveLoadUI.SaveInventoryItem());
         }
-
+        //saveLoadUI.SaveGame();
         Time.timeScale = 1f;
         SceneManager.LoadScene("MapScene");
     }
-
 }

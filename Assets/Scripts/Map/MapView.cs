@@ -67,8 +67,36 @@ public class MapView : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    // Map loaded from the save file, waiting for MapView to apply it (works even if MapScene has no SaveLoadUI)
+    private static List<List<Room>> pendingMap;
+    private static int pendingFloor;
+
+    public static void SetPendingMap(List<List<Room>> map, int floor)
+    {
+        pendingMap = map;
+        pendingFloor = floor;
+    }
+
+    private bool TryApplyPendingMap()
+    {
+        if (pendingMap == null || pendingMap.Count == 0) return false;
+        List<List<Room>> map = pendingMap;
+        int floor = pendingFloor;
+        pendingMap = null;
+        LoadMap(map, floor);
+        if (GameSession.Instance != null)
+        {
+            GameSession.Instance.SaveMapData(map, floor);
+            // Consumed: otherwise every return to MapScene would reload this stale snapshot
+            GameSession.Instance.ClearPendingMapLoad();
+        }
+        return true;
+    }
+
     private void Start()
     {
+        if (TryApplyPendingMap()) return;
+
         if (GameSession.Instance != null && GameSession.Instance.HasSavedMap)
         {
             LoadMap(GameSession.Instance.SavedMapData, GameSession.Instance.CurrentFloor);
@@ -91,7 +119,11 @@ public class MapView : MonoBehaviour
         {
             mapCamera = Camera.main;
 
-            if (GameSession.Instance != null && GameSession.Instance.HasSavedMap)
+            if (TryApplyPendingMap())
+            {
+                // saved map applied
+            }
+            else if (GameSession.Instance != null && GameSession.Instance.HasSavedMap)
             {
                 LoadMap(GameSession.Instance.SavedMapData, GameSession.Instance.CurrentFloor);
                 GameSession.Instance.ClearPendingMapLoad();
@@ -119,12 +151,34 @@ public class MapView : MonoBehaviour
             {
                 UnlockFloor(0);
             }
+
+            AutoSave();
         }
         else
         {
             // Khi đang ở trong BattleScene / ShopScene: Ẩn hình ảnh bản đồ đi
             visualsContainer.gameObject.SetActive(false);
         }
+    }
+
+    // Auto-save once the map is loaded (i.e. after finishing a room). Gold/inventory come from GameSession
+    private void AutoSave()
+    {
+        if (mapData == null || mapData.Count == 0) return;
+
+        GameSession session = GameSession.Instance;
+        SaveData data = new SaveData
+        {
+            floor = FloorsClimbed,
+            wallet = session != null ? session.CurrentGold : 0,
+            currentHealth = session != null ? session.CurrentHealth : 0,
+            maxHealth = session != null && session.HasSavedHealth ? session.CurrentMaxHealth : 0,
+            inventoryDatas = session != null
+                ? new List<InventorySaveData>(session.PlayerInventoryDatas)
+                : new List<InventorySaveData>(),
+            mapData = ConvertToSaveMapData(mapData)
+        };
+        SaveSystem.WriteSave(data);
     }
 
     private void Update()

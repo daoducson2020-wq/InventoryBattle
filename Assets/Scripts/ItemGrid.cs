@@ -20,6 +20,12 @@ public class ItemGrid : MonoBehaviour
     private void Awake()
     {
         inventoryPlaceholderImage = GetComponent<RectTransform>();
+        if (rootCanvas == null)
+        {
+            // Fallback when the inspector reference is missing
+            Canvas parentCanvas = GetComponentInParent<Canvas>();
+            rootCanvas = parentCanvas != null ? parentCanvas.rootCanvas : FindAnyObjectByType<Canvas>();
+        }
         InitInventorySlot(gridSizeWidth, gridSizeHeight);
     }
 
@@ -329,6 +335,36 @@ public class ItemGrid : MonoBehaviour
         }
 
         return totalBonus;
+    }
+
+    /// <summary>
+    /// Finds the next health potion in use order (top row first, then left to right),
+    /// removes it from the grid and destroys it. Returns its heal amount, or 0 if none.
+    /// </summary>
+    public int ConsumeNextHealthPotion()
+    {
+        if (inventoryItemSlot == null) return 0;
+
+        for (int y = 0; y < gridSizeHeight; y++)
+        {
+            for (int x = 0; x < gridSizeWidth; x++)
+            {
+                InventoryItem item = inventoryItemSlot[x, y];
+                if (item == null || item.ItemData == null
+                    || item.ItemData.ItemType != ItemType.Potion
+                    || item.ItemData.HealAmount <= 0)
+                {
+                    continue;
+                }
+
+                int healAmount = item.ItemData.HealAmount;
+                UpdateGrid(item);
+                item.gameObject.SetActive(false);
+                Destroy(item.gameObject);
+                return healAmount;
+            }
+        }
+        return 0;
     }
 
     private void NotifyHealthChanged()

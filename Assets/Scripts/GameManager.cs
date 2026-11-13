@@ -53,7 +53,11 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenuScene");
+        if (GameSession.Instance != null)
+        {
+            GameSession.Instance.ResetSession();
+        }
+        SceneManager.LoadScene("ShopScene");
     }
 
     public void ReturnToMainMenu()
@@ -84,12 +88,14 @@ public class GameManager : MonoBehaviour
     {
         if (isGameOver) return;
         if (Input.GetKeyDown(KeyCode.Escape)) PauseGame();
-
-        if (counterTimer >= battleStartTimer)
+        if(SceneManager.GetActiveScene().name != "MapScene")
         {
-            battleStartTextUI.PlayAnim();   
+            if (counterTimer >= battleStartTimer)
+            {
+                battleStartTextUI.PlayAnim();
+            }
+            counterTimer += Time.deltaTime;
         }
-        counterTimer += Time.deltaTime;
     }
 
     public void WinStage()
