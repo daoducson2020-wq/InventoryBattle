@@ -18,6 +18,7 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Transform canvasTransform;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameManager gameManager;
 
     private InventoryItem selectedItem;
     private InventoryItem overlapItem;
@@ -34,6 +35,11 @@ public class InventoryController : MonoBehaviour
 
     private void Update()
     {
+        if (gameManager == null || gameManager.CurrentState == GameState.Combat)
+        {
+            return;
+        }
+        
         if (selectedItem != null)
         {
             rectTransform.position = Input.mousePosition;

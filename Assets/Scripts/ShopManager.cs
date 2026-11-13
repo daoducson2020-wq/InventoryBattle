@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class ShopManager : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class ShopManager : MonoBehaviour
             costPrice++;
             UpdateTextUI(costPrice);
         }
+        EventSystem.current.SetSelectedGameObject(null);
         ClearShop();
         GenerateRandomShopItems();
     }

@@ -11,7 +11,7 @@ public class BattleStartTextUI : MonoBehaviour
         battleStartText.text = "Ready!";
     }
 
-
+    [ContextMenu("Play Anim")]
     public void PlayAnim()
     {
         battleStartText.text = "Fight!";
