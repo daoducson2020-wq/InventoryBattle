@@ -2097,7 +2097,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 677504563}
-  - {fileID: 1930713083}
   m_Father: {fileID: 1409518778}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
@@ -2675,6 +2674,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 9069431195650482471, guid: 78bdf2b86d3a71741b3d28c80f6a94a7, type: 3}
   canvasTransform: {fileID: 1409518778}
   animator: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &919634267
 GameObject:
   m_ObjectHideFlags: 0
@@ -3465,6 +3465,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 1930648867}
   winStagePanel: {fileID: 1554235931}
   battleStartTextUI: {fileID: 667205673}
+  battleStartTimer: 2
 --- !u!4 &1329857064
 Transform:
   m_ObjectHideFlags: 0
@@ -3864,6 +3865,7 @@ RectTransform:
   - {fileID: 1556240301}
   - {fileID: 669254146}
   - {fileID: 696332722}
+  - {fileID: 1930713083}
   - {fileID: 667205672}
   - {fileID: 113021345}
   - {fileID: 1554235932}
@@ -5214,12 +5216,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 696332722}
+  m_Father: {fileID: 1409518778}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 539.1819, y: 724.6144}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1447, y: -865}
+  m_SizeDelta: {x: 512, y: 512}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1930713084
 MonoBehaviour:
@@ -5241,7 +5243,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8957324059118975939, guid: 5c46e48c59c4e4742a34f49a4f6f4d57, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 162a6c332a07e5542b7fb70dafbd45ee, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

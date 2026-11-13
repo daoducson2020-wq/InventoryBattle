@@ -177,13 +177,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MapRoom
   iconSprite: {fileID: 6878972847263532775}
   selectedOutline: {fileID: 5019901372391001046}
-  monsterIcon: {fileID: 3544151162037895971, guid: bd460b54101a3524e90545d068a67791, type: 3}
-  majorMonsterIcon: {fileID: 4693821710284062923, guid: 6868934a0a92ba54493a170726cf2903, type: 3}
-  treasureIcon: {fileID: -998075267365866124, guid: b3fb12d3af872ea46b44609a8552b553, type: 3}
-  campfireIcon: {fileID: 21300000, guid: 18d2977e1efcbf147a997fc13881b7c7, type: 3}
-  shopIcon: {fileID: -6332206400144493070, guid: a0644a184afad534785fc2d52abe1fc4, type: 3}
-  miniBossIcon: {fileID: 7372119781861402082, guid: 49b46a745f5cd374f877aef564bab3c7, type: 3}
-  bossIcon: {fileID: 7372119781861402082, guid: 49b46a745f5cd374f877aef564bab3c7, type: 3}
+  monsterIcon: {fileID: 21300000, guid: 52cfe0e6b93b37c4298194ee64c22d78, type: 3}
+  treasureIcon: {fileID: -1887047210074147300, guid: c91402d49dd249a438e424d1c99477dc, type: 3}
+  campfireIcon: {fileID: -6781120428374379586, guid: f743e9c1cfb6ac14a91780166c5c6add, type: 3}
+  shopIcon: {fileID: -3231263632139094836, guid: 677a12b2bb75f8843baffbb82f8d00dc, type: 3}
+  miniBossIcon: {fileID: 2397188250226644421, guid: cc952ac90e30a7b49b196b12c7a88bcd, type: 3}
+  bossIcon: {fileID: 4915620324684567951, guid: f925b2f97179eaf4e88429e57a10bf5c, type: 3}
 --- !u!212 &6878972847263532775
 SpriteRenderer:
   serializedVersion: 3

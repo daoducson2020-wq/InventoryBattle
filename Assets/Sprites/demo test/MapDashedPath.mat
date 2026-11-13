@@ -33,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: f53a6429a98be90459331f527eca8871, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8542ee753d9c6b646bf284522226c932, type: 3}
         m_Scale: {x: 0.3, y: 3}
         m_Offset: {x: 1, y: 1}
     - _BumpMap:
@@ -107,11 +107,11 @@ Material:
     - _XRMotionVectorsPass: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
-    - _Color: {r: 0.8113207, g: 0.8113207, b: 0.8113207, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorAddSubDiff: {r: -1, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}

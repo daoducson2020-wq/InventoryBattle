@@ -1784,6 +1784,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 9069431195650482471, guid: 78bdf2b86d3a71741b3d28c80f6a94a7, type: 3}
   canvasTransform: {fileID: 1409518778}
   animator: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &884363475
 GameObject:
   m_ObjectHideFlags: 0
@@ -2076,7 +2077,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 502.3, y: -329.8}
+  m_AnchoredPosition: {x: 504.49994, y: -270.5}
   m_SizeDelta: {x: 512, y: 512}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &905383785
@@ -2107,7 +2108,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 162a6c332a07e5542b7fb70dafbd45ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5ea1f552791fce3489d19d429e90e377, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2998,6 +2999,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 440791792}
   winStagePanel: {fileID: 2139371050}
   battleStartTextUI: {fileID: 1852642808}
+  battleStartTimer: 2
 --- !u!4 &1329857064
 Transform:
   m_ObjectHideFlags: 0
