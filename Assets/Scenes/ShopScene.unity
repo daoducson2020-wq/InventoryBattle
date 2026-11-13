@@ -158,6 +158,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e64e99624e6898e4fb4debbf98687b99, type: 2}
   - {fileID: 11400000, guid: 19726375318b6394fa1434258d3a2178, type: 2}
   - {fileID: 11400000, guid: e3079c5dd9ca2f14f95e9be5ec1319a6, type: 2}
+  - {fileID: 11400000, guid: 05f7e1b95c240214d92edd0c44056339, type: 2}
+  - {fileID: 11400000, guid: edfccc6c0d7a32540b8e1337baf185d3, type: 2}
   shopGridPanel: {fileID: 699168136}
   shopSlotPrefab: {fileID: 8150502822811652479, guid: a0084c46cf55b6e40b5d020174f681d1, type: 3}
   totalGridSlots: 6

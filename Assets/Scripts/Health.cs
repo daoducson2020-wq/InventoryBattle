@@ -32,7 +32,23 @@ public class Health : MonoBehaviour
 
         if (itemGrid != null)
         {
-            UpdateMaxHealthFromInventory(itemGrid.GetTotalArmorHealthBonus());
+            // If health was restored from GameSession and the grid has not loaded its items yet,
+            // the armor bonus reads as 0 here and would wrongly shrink max/current health.
+            // ItemGrid.LoadItem -> NotifyHealthChanged will sync it right after loading items.
+            bool gridItemsPending = CompareTag("Player")
+                && GameSession.Instance != null
+                && GameSession.Instance.HasSavedHealth
+                && GameSession.Instance.PlayerInventoryDatas.Count > 0
+                && itemGrid.GetTotalArmorHealthBonus() == 0;
+
+            if (gridItemsPending)
+            {
+                RefreshHealthUI();
+            }
+            else
+            {
+                UpdateMaxHealthFromInventory(itemGrid.GetTotalArmorHealthBonus());
+            }
         }
         else
         {
@@ -76,7 +92,8 @@ public class Health : MonoBehaviour
         }
         else if (delta < 0)
         {
-            currentHealth = Mathf.Max(1, currentHealth + delta);
+            // Losing max HP from gear must not kill, but must never revive a dead unit either
+            currentHealth = currentHealth > 0 ? Mathf.Max(1, currentHealth + delta) : 0;
         }
 
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
@@ -110,14 +127,40 @@ public class Health : MonoBehaviour
         SaveHealth();
         RefreshHealthUI();
         if (currentHealth == 0) Die();
+        else AutoUseHealthPotions();
+    }
+
+    // Player only: while HP < 50% of max, consume potions one by one (grid order).
+    private void AutoUseHealthPotions()
+    {
+        if (!CompareTag("Player") || itemGrid == null) return;
+
+        while (currentHealth * 2 < maxHealth)
+        {
+            int healAmount = itemGrid.ConsumeNextHealthPotion();
+            if (healAmount <= 0) break;
+            Debug.Log($"Auto used health potion: +{healAmount} HP");
+            Heal(healAmount);
+        }
     }
 
     public void Die()
     {
         Debug.Log(gameObject.name + " Die!");
-        if (CompareTag("Player") && gameManager != null)
+        if (gameManager == null) gameManager = FindAnyObjectByType<GameManager>();
+        if (gameManager == null)
+        {
+            Debug.LogWarning("Health.Die: no GameManager found, GameOver/WinStage not called.", this);
+            return;
+        }
+        if (!CompareTag("Player") && !CompareTag("Enemy"))
+        {
+            Debug.LogWarning($"Health.Die: '{name}' has tag '{tag}', expected Player or Enemy.", this);
+            return;
+        }
+        if (CompareTag("Player"))
             gameManager.GameOver();
-        else if (CompareTag("Enemy") && gameManager != null)
+        else if (CompareTag("Enemy"))
         {
             enemyReward.Reward();
             gameManager.WinStage();

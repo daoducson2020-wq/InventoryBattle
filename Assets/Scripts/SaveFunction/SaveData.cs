@@ -12,6 +12,8 @@ public class SaveData
 {
     public int floor;
     public int wallet;
+    public int currentHealth;
+    public int maxHealth; // 0 = no health saved
     public List<InventorySaveData> inventoryDatas;
     public List<MapFloorSaveData> mapData;
 }

@@ -26,7 +26,7 @@ public class Damage : MonoBehaviour
         {
             return;
         }
-        if (itemData == null || itemData.ItemType == ItemType.Core || itemData.AttackRate <= 0f)
+        if (itemData == null || itemData.AttackRate <= 0f)
         {
             return;
         }

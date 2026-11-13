@@ -11,33 +11,11 @@ public class SaveLoadUI : MonoBehaviour
     [SerializeField] private SceneChangeManager sceneChangeManager;
     private static SaveData pendingLoad;
 
-    private IEnumerator Start()
+    private void Start()
     {
-        if (pendingLoad == null) yield break;
-        yield return null;
-
-        SaveData data = pendingLoad;
-
-        if (playerWallet == null || sceneChangeManager == null || gridItem == null)
-        {
-            Debug.LogError("Missing restore references.", this);
-            yield break;
-        }
-
-        playerWallet.SetGold(data.wallet);
-        gridItem.LoadItem(data.inventoryDatas);
-        List<List<Room>> loadedMap = MapView.ConvertFromSaveMapData(data.mapData);
-        if (GameSession.Instance != null)
-        {
-            GameSession.Instance.SaveItemInInventory(SaveInventoryItem());
-            GameSession.Instance.SaveMapData(loadedMap, data.floor);
-        }
-        if (MapView.Instance != null && loadedMap.Count > 0)
-        {
-            MapView.Instance.LoadMap(loadedMap, data.floor);
-        }
+        // Everything (map, gold, inventory, health) is restored through GameSession / MapView.
+        // Do NOT re-apply the map here: it would re-flag GameSession.HasSavedMap and reset progress.
         pendingLoad = null;
-        Debug.Log("Game Loaded Successfully!");
     }
 
     public void SaveGame()
@@ -66,6 +44,8 @@ public class SaveLoadUI : MonoBehaviour
         {
             floor = currentFloor,
             wallet = playerWallet.CurrentGold,
+            currentHealth = GameSession.Instance != null ? GameSession.Instance.CurrentHealth : 0,
+            maxHealth = GameSession.Instance != null && GameSession.Instance.HasSavedHealth ? GameSession.Instance.CurrentMaxHealth : 0,
             inventoryDatas = SaveInventoryItem(),
             mapData = MapView.ConvertToSaveMapData(currentMap)
         };
@@ -89,8 +69,23 @@ public class SaveLoadUI : MonoBehaviour
             return;
         }
         pendingLoad = data;
+        // MapView applies this when MapScene loads, so no SaveLoadUI is needed there
+        List<List<Room>> mapToLoad = MapView.ConvertFromSaveMapData(data.mapData);
+        MapView.SetPendingMap(mapToLoad, data.floor);
+        if (GameSession.Instance == null)
+        {
+            // Persistent holder so gold/inventory/health/map survive into scenes without wallet/grid
+            new GameObject("GameSession").AddComponent<GameSession>();
+        }
+        GameSession.Instance.SaveGold(data.wallet);
+        GameSession.Instance.SaveItemInInventory(data.inventoryDatas ?? new List<InventorySaveData>());
+        if (data.maxHealth > 0)
+        {
+            GameSession.Instance.SaveHealth(data.currentHealth, data.maxHealth);
+        }
+        GameSession.Instance.SaveMapData(mapToLoad, data.floor);
         Time.timeScale = 1f;
-        SceneManager.LoadScene("ShopScene");
+        SceneManager.LoadScene("MapScene");
     }
 
     public List<InventorySaveData> SaveInventoryItem()
