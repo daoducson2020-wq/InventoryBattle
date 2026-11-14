@@ -2472,7 +2472,8 @@ PrefabInstance:
       value: RestartGame
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7187847491445100045, guid: 36b111ab3093bfb49895cb3013fa62fe, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36b111ab3093bfb49895cb3013fa62fe, type: 3}
@@ -2981,7 +2982,6 @@ MonoBehaviour:
   gameOverPanel: {fileID: 0}
   pauseMenu: {fileID: 1078277682}
   winStagePanel: {fileID: 0}
-  canvas: {fileID: 435512177}
   battleStartTextUI: {fileID: 0}
   battleStartTimer: 2
 --- !u!4 &1641754410

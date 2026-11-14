@@ -5,11 +5,11 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     [Header("Map Settings")]
-    public const int X_DIST = 2;
+    public const int X_DIST = 3;
     public const int Y_DIST = 2;
-    public const float PLACEMENT_RANDOMNESS = 0.5f;
+    public const float PLACEMENT_RANDOMNESS = 0;
     public const int FLOORS = 15;
-    public const int MAP_WIDTH = 7;
+    public const int MAP_WIDTH = 5;
     public const int PATHS = 6;
 
     [Header("Room Weights")]
@@ -67,7 +67,7 @@ public class MapGenerator : MonoBehaviour
             {
                 Room currentRoom = new Room();
                 Vector2 offset = new Vector2(Random.value, Random.value) * PLACEMENT_RANDOMNESS;
-                
+
                 // Trong Unity trục Y hướng lên nên dùng Y_DIST dương
                 currentRoom.position = new Vector2(j * X_DIST, i * Y_DIST) + offset;
                 currentRoom.row = i;
