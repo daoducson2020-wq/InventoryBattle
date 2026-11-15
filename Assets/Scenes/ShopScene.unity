@@ -160,6 +160,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e3079c5dd9ca2f14f95e9be5ec1319a6, type: 2}
   - {fileID: 11400000, guid: 05f7e1b95c240214d92edd0c44056339, type: 2}
   - {fileID: 11400000, guid: edfccc6c0d7a32540b8e1337baf185d3, type: 2}
+  - {fileID: 11400000, guid: d34d4f3afdad92e4abdb1aa795d5bf34, type: 2}
   shopGridPanel: {fileID: 699168136}
   shopSlotPrefab: {fileID: 8150502822811652479, guid: a0084c46cf55b6e40b5d020174f681d1, type: 3}
   totalGridSlots: 6
@@ -1777,7 +1778,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.8627451, g: 0.8627451, b: 0.8627451, a: 1}
+    m_NormalColor: {r: 0.8235294, g: 0.8235294, b: 0.8235294, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
