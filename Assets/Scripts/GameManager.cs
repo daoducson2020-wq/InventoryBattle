@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public enum GameState { Normal, Combat}
+public enum GameState { Normal, Combat }
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverPanel;
@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
     private bool isPaused;
     private bool isWin;
     private float counterTimer;
-    
+    public float CounterTimer => counterTimer;
+
     public void Start()
     {
         Time.timeScale = 1f;
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviour
         {
             pauseMenu.SetActive(false);
         }
-        if(winStagePanel != null)
+        if (winStagePanel != null)
         {
             winStagePanel.SetActive(false);
         }
@@ -91,7 +92,7 @@ public class GameManager : MonoBehaviour
         }
         counterTimer += Time.deltaTime;
     }
-    
+
     public void GameOver()
     {
         if (isGameOver) return;
@@ -139,7 +140,7 @@ public class GameManager : MonoBehaviour
 
     public void WinStage()
     {
-        if(isGameOver || isPaused) return;
+        if (isGameOver || isPaused) return;
         isWin = true;
         Time.timeScale = 0f;
         winStagePanel.SetActive(true);
