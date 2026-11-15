@@ -17,7 +17,7 @@ MonoBehaviour:
   damage: 10
   healthBonus: 0
   healAmount: 0
-  attackRate: 2.5
+  attackRate: 3.5
   icon: {fileID: 21300000, guid: ceb2326df02a6dc46a931fb02d506cf0, type: 3}
   iconWithFrame: {fileID: 21300000, guid: 2bf2a849a66664548a2835416eff65e5, type: 3}
   itemWidth: 1
