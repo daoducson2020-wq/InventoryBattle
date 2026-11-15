@@ -1,7 +1,6 @@
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 
 public class MainMenu : MonoBehaviour
 {
@@ -9,10 +8,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private SaveSystem saveSystem;
     [SerializeField] private Button continueButton;
     [SerializeField] private Button deleteSaveButton;
-
+    [SerializeField] private GameObject warningPopup;
+    
     public void Start()
     {
         UpdateButton();
+        warningPopup.SetActive(false);
     }
 
     public void UpdateButton()
@@ -46,12 +47,23 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        if(GameSession.Instance != null)
+        if(saveSystem.HasSaveFile())
         {
-            GameSession.Instance.ResetSession();
+            warningPopup.SetActive(true);
+            return;
         }
-        
-        SceneManager.LoadScene("ShopScene");
+        NewGame();
+    }
+    
+    public void Yes()
+    {
+        DeleteSave();
+        NewGame();
+    }
+    
+    public void No()
+    {
+        warningPopup.SetActive(false);
     }
 
     public void QuitGame()
@@ -61,5 +73,15 @@ public class MainMenu : MonoBehaviour
         #else
             Application.Quit();
         #endif
+    }
+
+    private void NewGame()
+    {
+        if(GameSession.Instance != null)
+        {
+            GameSession.Instance.ResetSession();
+        }
+        
+        SceneManager.LoadScene("ShopScene");
     }
 }

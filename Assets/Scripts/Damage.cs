@@ -1,9 +1,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
-// using Microsoft.Unity.VisualStudio.Editor;
 
-// [RequireComponent(typeof(GameManager))]
 public class Damage : MonoBehaviour
 {
     [SerializeField] private ItemData itemData;
