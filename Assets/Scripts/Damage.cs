@@ -21,10 +21,7 @@ public class Damage : MonoBehaviour
         {
             IdentifySelfTag();
         }
-        if (SceneManager.GetActiveScene().name == "ShopScene" && itemMaterial != null)
-        {
-            itemMaterial.SetFloat("_Cooldown", 1f);
-        }
+        CheckScene();
     }
 
     private void Update()
@@ -66,7 +63,7 @@ public class Damage : MonoBehaviour
                 itemMaterial = new Material(cooldownAnimation);
                 Texture tex = ConvertSpriteToTexture(itemData.IconWithFrame);
                 itemMaterial.SetTexture("_ItemTexture", tex);
-                itemMaterial.SetFloat("_Cooldown", 0f);
+                CheckScene();
                 GetComponent<Image>().material = itemMaterial;
                 break;
         }
@@ -93,6 +90,18 @@ public class Damage : MonoBehaviour
     {
         itemMaterial.SetFloat("_Cooldown", 0f);
         cooldownTime = 0f;
+    }
+
+    private void CheckScene()
+    {
+        if (SceneManager.GetActiveScene().name == "ShopScene" && itemMaterial != null)
+        {
+            itemMaterial.SetFloat("_Cooldown", 1f);
+        }
+        else if (SceneManager.GetActiveScene().name != "ShopScene" && itemMaterial != null)
+        {
+            itemMaterial.SetFloat("_Cooldown", 0f);
+        }
     }
     
     private Texture2D ConvertSpriteToTexture(Sprite sprite)

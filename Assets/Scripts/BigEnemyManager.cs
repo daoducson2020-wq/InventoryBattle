@@ -98,7 +98,8 @@ public class BigEnemyManager : MonoBehaviour
         {
             if (MapView.Instance.FloorsClimbed < 5)
             {
-                int rnd = Random.Range(0, 2);
+                int rnd = Random.Range(0, 3);
+                Debug.Log("loadout: " + rnd);
                 enemyGrid.LoadItem(data.enemyDatas[rnd].value);
                 enemyImage.GetComponent<Image>().sprite = enemyImages[0];
             }
