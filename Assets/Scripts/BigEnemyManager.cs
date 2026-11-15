@@ -1,22 +1,29 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class ReadEnemyData : MonoBehaviour
+public class BigEnemyManager : MonoBehaviour
 {
     [SerializeField] private ItemGrid enemyGrid;
-    
+    [SerializeField] private GameObject enemyInventory;
+    [SerializeField] private Image enemyImage;
+    [SerializeField] private Sprite[] enemyImages;
+
+    private bool isShow = false;
     private string filePath = Application.dataPath + "/EnemyConfig/enemies.json";
 
     private void Start()
     {
         Load();
+        SetAlpha(0f);
     }
 
-    [ContextMenu("DevFeature | Save Enemy Data")]
+    [ContextMenu("Save Enemy Data")]
     public void SaveEnemyData()
     {
-        List<InventorySaveData> datas = new ();
+        List<InventorySaveData> datas = new();
         HashSet<string> savedItemIds = new();
         for (int x = 0; x < enemyGrid.Inventory.GetLength(0); x++)
         {
@@ -49,7 +56,7 @@ public class ReadEnemyData : MonoBehaviour
 
     public EnemySaveData LoadEnemyData()
     {
-        if(!File.Exists(filePath)) return null;
+        if (!File.Exists(filePath)) return null;
 
         string json = File.ReadAllText(filePath);
         return JsonUtility.FromJson<EnemySaveData>(json);
@@ -59,7 +66,48 @@ public class ReadEnemyData : MonoBehaviour
     public void Load()
     {
         EnemySaveData data = LoadEnemyData();
-        int rnd = Random.Range(0, data.enemyDatas.Count);
-        enemyGrid.LoadItem(data.enemyDatas[rnd].value);
+        LoadBossType(data);
+    }
+
+    public void ShowEnemyInventory()
+    {
+        if (!isShow)
+        {
+            isShow = true;
+            SetAlpha(1f);
+        }
+        else
+        {
+            isShow = false;
+            SetAlpha(0f);
+        }
+    }
+
+    private void SetAlpha(float value)
+    {
+        enemyInventory.GetComponent<CanvasGroup>().alpha = value;
+    }
+
+    private void LoadBossType(EnemySaveData data)
+    {
+        if (SceneManager.GetActiveScene().name == "BossScene")
+        {
+            enemyGrid.LoadItem(data.enemyDatas[data.enemyDatas.Count - 1].value);
+        }
+        else if (SceneManager.GetActiveScene().name == "MiniBossScene")
+        {
+            if (MapView.Instance.FloorsClimbed < 5)
+            {
+                int rnd = Random.Range(0, 2);
+                enemyGrid.LoadItem(data.enemyDatas[rnd].value);
+                enemyImage.GetComponent<Image>().sprite = enemyImages[0];
+            }
+            else
+            {
+                int rnd = Random.Range(3, data.enemyDatas.Count - 1);
+                enemyGrid.LoadItem(data.enemyDatas[rnd].value);
+                enemyImage.GetComponent<Image>().sprite = enemyImages[1];
+            }
+        }
     }
 }

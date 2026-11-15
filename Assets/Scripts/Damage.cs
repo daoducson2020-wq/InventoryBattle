@@ -21,6 +21,10 @@ public class Damage : MonoBehaviour
         {
             IdentifySelfTag();
         }
+        if (SceneManager.GetActiveScene().name == "ShopScene" && itemMaterial != null)
+        {
+            itemMaterial.SetFloat("_Cooldown", 1f);
+        }
     }
 
     private void Update()
