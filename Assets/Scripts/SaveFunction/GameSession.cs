@@ -11,7 +11,9 @@ public class GameSession : MonoBehaviour
     public bool HasSavedHealth { get; private set; }
     public int CurrentGold { get; private set;}
     public bool HasSaveGold { get; private set;}
-    public bool HasSavedMap { get; private set;}
+    public bool HasSavedMap { get; private set; }
+    public string PlayerID { get; private set; }
+    public string PlayerName { get; private set; } = "Hero";
 
     private List<InventorySaveData> playerInventoryDatas = new();
     public List<InventorySaveData> PlayerInventoryDatas => playerInventoryDatas;
@@ -21,13 +23,19 @@ public class GameSession : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance != null && Instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+    
+    public void SetPlayerProfile(string playerName, string playerID = null)
+    {
+        PlayerName = string.IsNullOrWhiteSpace(playerName) ? "Hero" : playerName.Trim();
+        playerID = string.IsNullOrEmpty(playerID) ? System.Guid.NewGuid().ToString() : playerID;
     }
 
     public void SaveItemInInventory(List<InventorySaveData> datas)
@@ -74,6 +82,8 @@ public class GameSession : MonoBehaviour
         CurrentStage = 0;
         CurrentFloor = 0;
         HasSavedMap = false;
+        PlayerName = string.Empty;
+        PlayerID = string.Empty;
         savedMapData.Clear();
         playerInventoryDatas.Clear();
         if (MapView.Instance != null)

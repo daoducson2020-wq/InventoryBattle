@@ -9,6 +9,7 @@ public class Health : MonoBehaviour
     [SerializeField] private Slider healthBarUI;
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private TMP_Text nameText;
     private int maxHealth;
     
     private EnemyReward enemyReward;
@@ -29,6 +30,7 @@ public class Health : MonoBehaviour
     public void Start()
     {
         EnsureInitialized();
+        InitializeUnitName();
 
         if (itemGrid != null)
         {
@@ -56,8 +58,6 @@ public class Health : MonoBehaviour
             RefreshHealthUI();
         }
     }
-
-
 
     private void EnsureInitialized()
     {
@@ -183,6 +183,34 @@ public class Health : MonoBehaviour
         if (healthText != null)
         {
             healthText.SetText("{0:0} / {1:0}", (float)currentHealth, (float)maxHealth);
+        }
+    }
+
+    private void InitializeUnitName()
+    {
+        if (CompareTag("Player"))
+        {
+            string playerName = (GameSession.Instance != null && !string.IsNullOrEmpty(GameSession.Instance.PlayerName))
+                ? GameSession.Instance.PlayerName
+                : "Player";
+            SetUnitName(playerName);
+        }
+        else if (CompareTag("Enemy"))
+        {
+            MobController mob = GetComponent<MobController>();
+            if (mob != null && !string.IsNullOrEmpty(mob.mobName))
+            {
+                SetUnitName(mob.mobName);
+            }
+        }
+    }
+
+    // Hàm public để BigEnemyManager (MiniBoss / Boss) hoặc các script khác gán tên trực tiếp
+    public void SetUnitName(string unitName)
+    {
+        if (nameText != null)
+        {
+            nameText.text = unitName;
         }
     }
 }

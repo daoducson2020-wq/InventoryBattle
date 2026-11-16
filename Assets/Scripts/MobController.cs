@@ -7,7 +7,7 @@ public enum MobType { mob, miniBoss }
 public class MobController : MonoBehaviour
 {
     [SerializeField] private int mobID;
-    [SerializeField] private string mobName;
+    public string mobName;
     [SerializeField] private int atkDamage;
     [SerializeField] private float atkCooldown;
     private float nextATKTime;

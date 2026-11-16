@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class BigEnemyManager : MonoBehaviour
 {
     [SerializeField] private ItemGrid enemyGrid;
+    [SerializeField] private Health enemyHealth;
     [SerializeField] private GameObject enemyInventory;
     [SerializeField] private Image enemyImage;
     [SerializeField] private Sprite[] enemyImages;
@@ -90,24 +91,44 @@ public class BigEnemyManager : MonoBehaviour
 
     private void LoadBossType(EnemySaveData data)
     {
+        if (data == null || data.enemyDatas == null || data.enemyDatas.Count == 0) return;
+
+        EnemyEntry selectedEnemy = null;
+
         if (SceneManager.GetActiveScene().name == "BossScene")
         {
-            enemyGrid.LoadItem(data.enemyDatas[data.enemyDatas.Count - 1].value);
+            selectedEnemy = data.enemyDatas[data.enemyDatas.Count - 1]; // "Chad Cheems"
         }
         else if (SceneManager.GetActiveScene().name == "MiniBossScene")
         {
-            if (MapView.Instance.FloorsClimbed < 5)
+            if (MapView.Instance != null && MapView.Instance.FloorsClimbed < 5)
             {
-                int rnd = Random.Range(0, 3);
+                int rnd = Random.Range(0, 3); // 0: Assassin, 1: Ranger, 2: Grunt
                 Debug.Log("loadout: " + rnd);
-                enemyGrid.LoadItem(data.enemyDatas[rnd].value);
+                selectedEnemy = data.enemyDatas[rnd];
                 enemyImage.GetComponent<Image>().sprite = enemyImages[0];
             }
             else
             {
-                int rnd = Random.Range(3, data.enemyDatas.Count - 1);
-                enemyGrid.LoadItem(data.enemyDatas[rnd].value);
+                int rnd = Random.Range(3, data.enemyDatas.Count - 1); // 3: Paladin, 4: Hunter, 5: Marksman, 6: Berserker
+                selectedEnemy = data.enemyDatas[rnd];
                 enemyImage.GetComponent<Image>().sprite = enemyImages[1];
+            }
+        }
+
+        if (selectedEnemy != null)
+        {
+            // 1. Load trang bị của MiniBoss/Boss lên Grid
+            enemyGrid.LoadItem(selectedEnemy.value);
+
+            // 2. Hiển thị tên lấy từ trường "key" trong enemies.json lên thanh máu
+            if (enemyHealth == null && enemyGrid != null)
+            {
+                enemyHealth = enemyGrid.GetComponent<Health>();
+            }
+            if (enemyHealth != null)
+            {
+                enemyHealth.SetUnitName(selectedEnemy.key);
             }
         }
     }

@@ -151,7 +151,6 @@ public class MapView : MonoBehaviour
             {
                 UnlockFloor(0);
             }
-
             AutoSave();
         }
         else
@@ -169,6 +168,9 @@ public class MapView : MonoBehaviour
         GameSession session = GameSession.Instance;
         SaveData data = new SaveData
         {
+            playerID = GameSession.Instance != null ? GameSession.Instance.PlayerID : System.Guid.NewGuid().ToString(),
+            playerName = GameSession.Instance != null ? GameSession.Instance.PlayerName : "Hero",
+            lastUpdate = System.DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
             floor = FloorsClimbed,
             wallet = session != null ? session.CurrentGold : 0,
             currentHealth = session != null ? session.CurrentHealth : 0,

@@ -77,6 +77,7 @@ public class SaveLoadUI : MonoBehaviour
             // Persistent holder so gold/inventory/health/map survive into scenes without wallet/grid
             new GameObject("GameSession").AddComponent<GameSession>();
         }
+        GameSession.Instance.SetPlayerProfile(data.playerName, data.playerID);
         GameSession.Instance.SaveGold(data.wallet);
         GameSession.Instance.SaveItemInInventory(data.inventoryDatas ?? new List<InventorySaveData>());
         if (data.maxHealth > 0)

@@ -10,6 +10,9 @@ public class MapFloorSaveData
 [Serializable]
 public class SaveData
 {
+    public string playerID;
+    public string playerName;
+    public long lastUpdate;
     public int floor;
     public int wallet;
     public int currentHealth;
