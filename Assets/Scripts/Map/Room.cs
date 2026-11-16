@@ -17,7 +17,7 @@ public class Room
 {
     public RoomType type = RoomType.NotAssigned;
     public int row;    // Chỉ số tầng (i): 0 -> 14
-    public int column; // Chỉ số cột (j): 0 -> 6
+    public int column; // Chỉ số cột (j): 0 -> 4
     public Vector2 position; // Tọa độ thực tế trên màn hình (đã cộng độ lệch ngẫu nhiên)
     [System.NonSerialized]
     public List<Room> nextRooms = new List<Room>(); // Các phòng có đường nối lên tầng trên (i + 1)

@@ -13,16 +13,17 @@ public class MapGenerator : MonoBehaviour
     public const int PATHS = 6;
 
     [Header("Room Weights")]
-    public const float MONSTER_ROOM_WEIGHT = 10.0f;
-    public const float SHOP_ROOM_WEIGHT = 3.0f;
-    public const float CAMPFIRE_ROOM_WEIGHT = 2.5f;
-    public const float TREASURE_ROOM_WEIGHT = 2.5f;
+    public float MONSTER_ROOM_WEIGHT = 10.0f;
+    public float SHOP_ROOM_WEIGHT = 3.0f;
+    public float CAMPFIRE_ROOM_WEIGHT = 2.5f;
+    public float TREASURE_ROOM_WEIGHT = 2.5f;
 
     private Dictionary<RoomType, float> randomRoomTypeWeights = new Dictionary<RoomType, float>()
     {
         { RoomType.Monster, 0.0f },
         { RoomType.Campfire, 0.0f },
-        { RoomType.Shop, 0.0f }
+        { RoomType.Shop, 0.0f },
+        { RoomType.Treasure, 0.0f}
     };
 
     private float randomRoomTypeTotalWeight = 0;
@@ -68,7 +69,6 @@ public class MapGenerator : MonoBehaviour
                 Room currentRoom = new Room();
                 Vector2 offset = new Vector2(Random.value, Random.value) * PLACEMENT_RANDOMNESS;
 
-                // Trong Unity trục Y hướng lên nên dùng Y_DIST dương
                 currentRoom.position = new Vector2(j * X_DIST, i * Y_DIST) + offset;
                 currentRoom.row = i;
                 currentRoom.column = j;
@@ -311,16 +311,5 @@ public class MapGenerator : MonoBehaviour
         }
 
         return RoomType.Monster;
-    }
-
-    // Hàm in ra Console để kiểm tra giống trong video 
-    private void PrintMapToConsole()
-    {
-        for (int i = 0; i < mapData.Count; i++)
-        {
-            var usedRooms = mapData[i].Where(r => r.nextRooms.Count > 0 || r.type == RoomType.Boss).ToList();
-            string floorStr = string.Join("\t", usedRooms.Select(r => r.ToString()));
-            Debug.Log($"Floor {i}:\t{floorStr}");
-        }
     }
 }
