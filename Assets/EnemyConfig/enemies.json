@@ -1,52 +1,31 @@
 {
     "enemyDatas": [
         {
-            "key": "Barbarian",
-            "value": [
-                {
-                    "id": "3bcb44ca-b3f0-403b-952f-24eb5c49549a",
-                    "itemName": "Barbaren Axe",
-                    "startX": 2,
-                    "startY": 1,
-                    "rotateAngle": 90.0,
-                    "rotated": true
-                },
-                {
-                    "id": "e954bee3-3c39-4c03-a572-48125880104c",
-                    "itemName": "Barbaren Axe",
-                    "startX": 2,
-                    "startY": 3,
-                    "rotateAngle": 270.0,
-                    "rotated": true
-                }
-            ]
-        },
-        {
             "key": "Assassin",
             "value": [
                 {
-                    "id": "7aca2d6d-c0a1-4a32-8d07-07e0cbfc3cf9",
-                    "itemName": "Hekendoich",
+                    "id": "89312bad-b56c-472b-8025-7c24727e1ec5",
+                    "itemName": "Dagger",
                     "startX": 2,
                     "startY": 2,
                     "rotateAngle": 0.0,
                     "rotated": false
                 },
                 {
-                    "id": "da4d076a-2ad5-4ced-ad86-5f12cb51b9c7",
-                    "itemName": "Wiplash",
-                    "startX": 4,
+                    "id": "3e4d3341-ef90-41f4-a79f-7eb1204f89c7",
+                    "itemName": "Light Armor",
+                    "startX": 3,
                     "startY": 2,
                     "rotateAngle": 0.0,
                     "rotated": false
                 },
                 {
-                    "id": "ffd93324-d3e6-425b-ae30-0f47fce1842e",
-                    "itemName": "Hekendoich",
+                    "id": "3b3ac887-b915-4851-b167-4209b6af349f",
+                    "itemName": "Dagger",
                     "startX": 5,
                     "startY": 2,
-                    "rotateAngle": 90.0,
-                    "rotated": true
+                    "rotateAngle": 180.0,
+                    "rotated": false
                 }
             ]
         },
@@ -54,26 +33,251 @@
             "key": "Ranger",
             "value": [
                 {
-                    "id": "93b41e10-024c-4929-9c7a-840456a3d362",
-                    "itemName": "LongBow",
-                    "startX": 3,
+                    "id": "f9bd8352-d0ba-482f-8dd0-75846009ffa4",
+                    "itemName": "Crossbow",
+                    "startX": 2,
                     "startY": 1,
+                    "rotateAngle": 360.0,
+                    "rotated": false
+                },
+                {
+                    "id": "43ba3ef8-501c-4bde-a738-b9f1f26f2d94",
+                    "itemName": "Dagger",
+                    "startX": 3,
+                    "startY": 4,
                     "rotateAngle": 90.0,
                     "rotated": true
                 },
                 {
-                    "id": "8163d8cf-f996-44fb-b0c3-f6e3ddc4f3b1",
-                    "itemName": "Baseball Bat",
-                    "startX": 3,
-                    "startY": 3,
+                    "id": "3d1e8de8-e6d8-4857-9007-0c9ce686072b",
+                    "itemName": "LongBow",
+                    "startX": 4,
+                    "startY": 1,
+                    "rotateAngle": 360.0,
+                    "rotated": false
+                }
+            ]
+        },
+        {
+            "key": "Grunt",
+            "value": [
+                {
+                    "id": "3fb2663a-48c6-4664-8a50-e2d98e1f385e",
+                    "itemName": "Axe",
+                    "startX": 1,
+                    "startY": 2,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "69a0ba48-f8c0-405e-b800-6e6b33cd9baa",
+                    "itemName": "Shield",
+                    "startX": 4,
+                    "startY": 2,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                }
+            ]
+        },
+        {
+            "key": "Paladin",
+            "value": [
+                {
+                    "id": "45cbe344-b014-4b8e-9fbd-29de38015743",
+                    "itemName": "Long Sword",
+                    "startX": 2,
+                    "startY": 2,
                     "rotateAngle": 180.0,
                     "rotated": false
                 },
                 {
-                    "id": "b0f32046-b741-481f-97d6-99e4463e7c86",
-                    "itemName": "Sichel",
-                    "startX": 4,
+                    "id": "6d3daf9b-40c3-485f-bcf1-df2543b9a3fe",
+                    "itemName": "Ring",
+                    "startX": 2,
+                    "startY": 6,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "54b6035b-35ba-472f-b99c-11f7924c91fe",
+                    "itemName": "Armor Plate",
+                    "startX": 3,
                     "startY": 3,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "09896c94-9957-4a99-880e-f8c91accc83a",
+                    "itemName": "Necklace",
+                    "startX": 3,
+                    "startY": 6,
+                    "rotateAngle": 90.0,
+                    "rotated": true
+                },
+                {
+                    "id": "c6b11403-c082-4a7e-a0e5-3d426112d7d0",
+                    "itemName": "Long Sword",
+                    "startX": 5,
+                    "startY": 2,
+                    "rotateAngle": 180.0,
+                    "rotated": false
+                }
+            ]
+        },
+        {
+            "key": "Hunter",
+            "value": [
+                {
+                    "id": "965e644f-53dc-4981-9a43-b1e905735269",
+                    "itemName": "LongBow",
+                    "startX": 1,
+                    "startY": 2,
+                    "rotateAngle": 180.0,
+                    "rotated": false
+                },
+                {
+                    "id": "65dc0753-cce8-44e0-a998-8f8485c8685d",
+                    "itemName": "Necklace",
+                    "startX": 2,
+                    "startY": 5,
+                    "rotateAngle": 90.0,
+                    "rotated": true
+                },
+                {
+                    "id": "0c95a098-748f-4218-9be1-931ae3fcbfa8",
+                    "itemName": "Light Armor",
+                    "startX": 3,
+                    "startY": 2,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "c37a3c59-86c8-488b-82ed-9597ecc5d3b4",
+                    "itemName": "LongBow",
+                    "startX": 5,
+                    "startY": 2,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "9aa0619f-d429-4ff5-ab6d-405ef5d865c1",
+                    "itemName": "Dagger",
+                    "startX": 5,
+                    "startY": 5,
+                    "rotateAngle": 90.0,
+                    "rotated": true
+                }
+            ]
+        },
+        {
+            "key": "Marksman",
+            "value": [
+                {
+                    "id": "a4940f40-47d0-4f2b-942f-90590ea7eb03",
+                    "itemName": "Ring",
+                    "startX": 2,
+                    "startY": 1,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "348f75d9-794b-46ee-9263-a584757bbb4a",
+                    "itemName": "Crossbow",
+                    "startX": 2,
+                    "startY": 2,
+                    "rotateAngle": 180.0,
+                    "rotated": false
+                },
+                {
+                    "id": "7b61f200-b567-48e6-9922-5b53ed4702d8",
+                    "itemName": "Necklace",
+                    "startX": 2,
+                    "startY": 5,
+                    "rotateAngle": 90.0,
+                    "rotated": true
+                },
+                {
+                    "id": "067f9533-b1a9-4772-9741-3934442a2a2a",
+                    "itemName": "Ring",
+                    "startX": 3,
+                    "startY": 1,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "77df5464-f8c8-45ea-909f-a46a36f4b223",
+                    "itemName": "Ring",
+                    "startX": 4,
+                    "startY": 1,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "417b8f9a-a24f-4d18-8c44-5bbfb101e262",
+                    "itemName": "Crossbow",
+                    "startX": 4,
+                    "startY": 2,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "fd533dd2-7ac4-4057-9525-f185bf2a57e5",
+                    "itemName": "Ring",
+                    "startX": 5,
+                    "startY": 1,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                }
+            ]
+        },
+        {
+            "key": "Berserker",
+            "value": [
+                {
+                    "id": "683c3687-c38d-4e74-82cf-50be96877551",
+                    "itemName": "Axe",
+                    "startX": 1,
+                    "startY": 1,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "c39d53b8-b830-4fa8-b927-190b6b04b8dc",
+                    "itemName": "Ring",
+                    "startX": 1,
+                    "startY": 4,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "afc214d5-140d-463a-9639-ddcbe87ddf62",
+                    "itemName": "Axe",
+                    "startX": 2,
+                    "startY": 4,
+                    "rotateAngle": 90.0,
+                    "rotated": true
+                },
+                {
+                    "id": "207b9fe0-b56a-436e-be11-dc1bb574fe66",
+                    "itemName": "Ring",
+                    "startX": 4,
+                    "startY": 0,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "31d11462-0ae7-4c1e-8dc8-5d2561e2b85a",
+                    "itemName": "Axe",
+                    "startX": 4,
+                    "startY": 1,
+                    "rotateAngle": 180.0,
+                    "rotated": false
+                },
+                {
+                    "id": "040d4a6a-4995-4d80-8038-2e2a7bcb590c",
+                    "itemName": "Ring",
+                    "startX": 5,
+                    "startY": 4,
                     "rotateAngle": 0.0,
                     "rotated": false
                 }
@@ -83,42 +287,122 @@
             "key": "Chad Cheems",
             "value": [
                 {
-                    "id": "0375cc13-f99e-40fc-92b7-3ac89053f39b",
-                    "itemName": "Barbaren Axe",
+                    "id": "f1cca0bf-2575-41ca-9f30-ca97ae83f5d9",
+                    "itemName": "LongBow",
+                    "startX": 0,
+                    "startY": 0,
+                    "rotateAngle": 90.0,
+                    "rotated": true
+                },
+                {
+                    "id": "583da914-0d64-4684-9893-99e8fbc32d40",
+                    "itemName": "Long Sword",
+                    "startX": 0,
+                    "startY": 2,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "fc6b3211-cf33-4b14-ac99-ff23bfd7c53b",
+                    "itemName": "Dagger",
+                    "startX": 0,
+                    "startY": 6,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "281db883-0ad7-407f-bc2e-9ac73adf75f4",
+                    "itemName": "Light Armor",
                     "startX": 1,
                     "startY": 2,
                     "rotateAngle": 0.0,
                     "rotated": false
                 },
                 {
-                    "id": "40001afd-c355-4d53-88a1-44c07542055e",
-                    "itemName": "Katana",
-                    "startX": 2,
-                    "startY": 0,
+                    "id": "1dabe1bc-343b-4d21-a79d-f10d92ce47a9",
+                    "itemName": "Necklace",
+                    "startX": 1,
+                    "startY": 5,
                     "rotateAngle": 90.0,
                     "rotated": true
                 },
                 {
-                    "id": "246cff33-0013-4da9-970a-516fc461d309",
-                    "itemName": "Barbaren Axe",
-                    "startX": 2,
+                    "id": "00473920-fe7e-4f2c-a89b-d8454f5bdc33",
+                    "itemName": "Necklace",
+                    "startX": 1,
                     "startY": 6,
+                    "rotateAngle": 270.0,
+                    "rotated": true
+                },
+                {
+                    "id": "21a7e1ca-3cdb-4611-bd14-6e813e69a3ac",
+                    "itemName": "Long Sword",
+                    "startX": 1,
+                    "startY": 7,
                     "rotateAngle": 90.0,
                     "rotated": true
                 },
                 {
-                    "id": "bb90cf32-f0fe-4952-9e16-37651e2e1efa",
-                    "itemName": "Katana",
+                    "id": "003ba3cf-5838-4126-ad5a-404c844b7e7e",
+                    "itemName": "Dagger",
+                    "startX": 3,
+                    "startY": 0,
+                    "rotateAngle": 180.0,
+                    "rotated": false
+                },
+                {
+                    "id": "ce0e3100-4867-46e2-a07a-782acaf35add",
+                    "itemName": "Armor Plate",
                     "startX": 3,
                     "startY": 2,
                     "rotateAngle": 0.0,
                     "rotated": false
                 },
                 {
-                    "id": "c8a2f1fc-bc75-41ab-aa87-8f1d7797c148",
-                    "itemName": "Barbaren Axe",
+                    "id": "a73ff03c-fcc8-40d4-a4b3-9cb353fe3cf9",
+                    "itemName": "Dagger",
+                    "startX": 4,
+                    "startY": 0,
+                    "rotateAngle": 180.0,
+                    "rotated": false
+                },
+                {
+                    "id": "e65e283c-ef7e-49d5-8351-bbef917f44b3",
+                    "itemName": "Ring",
+                    "startX": 4,
+                    "startY": 5,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "f2522469-fa67-4588-aeee-5b51881fa7de",
+                    "itemName": "Ring",
+                    "startX": 4,
+                    "startY": 6,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "9b0fbf60-61b1-4422-bc66-c252ae6feaa6",
+                    "itemName": "Crossbow",
+                    "startX": 5,
+                    "startY": 0,
+                    "rotateAngle": 90.0,
+                    "rotated": true
+                },
+                {
+                    "id": "76696cd9-ba2b-406f-a28b-1f2e659094f7",
+                    "itemName": "Shield",
                     "startX": 5,
                     "startY": 2,
+                    "rotateAngle": 0.0,
+                    "rotated": false
+                },
+                {
+                    "id": "2669b84d-37c1-45ae-8891-c82b88da2003",
+                    "itemName": "Axe",
+                    "startX": 5,
+                    "startY": 5,
                     "rotateAngle": 0.0,
                     "rotated": false
                 }
