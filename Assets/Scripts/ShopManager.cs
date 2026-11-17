@@ -16,6 +16,8 @@ public class ShopManager : MonoBehaviour
     public int totalGridSlots = ShopColumns * ShopRows;
     [SerializeField] private TextMeshProUGUI costText;
     [SerializeField] private PlayerWallet playerWallet;
+    [SerializeField] private GameObject tooltipPanel;
+    [SerializeField] private TooltipPanelUI tooltipPanelUI;
     private int costPrice;
     private List<GameObject> spawnedSlots = new List<GameObject>();
 
@@ -91,6 +93,8 @@ public class ShopManager : MonoBehaviour
 
             GameObject slotObj = Instantiate(shopSlotPrefab, shopGridPanel);
             ShopSlot slot = slotObj.GetComponent<ShopSlot>();
+            slot.GetComponent<ItemTooltip>().tooltipPanel = tooltipPanel;
+            slot.GetComponent<ItemTooltip>().tooltipPanelUI = tooltipPanelUI;
             if (slot != null)
             {
                 slot.Setup(selectedItem);

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
@@ -82,6 +83,7 @@ public class InventoryController : MonoBehaviour
             selectedItem = selectedItemGrid.PickUpItem(tileGridPosition.x, tileGridPosition.y);
             if (selectedItem != null)
             {
+                selectedItem.GetComponent<Image>().material = null;
                 selectedItem.ShowIcon();
                 rectTransform = selectedItem.GetComponent<RectTransform>();
                 rectTransform.SetParent(canvasTransform, true);
@@ -98,8 +100,10 @@ public class InventoryController : MonoBehaviour
                 if (overlapItem != null)
                 {
                     selectedItem = overlapItem;
+                    selectedItem.ShowIcon();
                     overlapItem = null;
                     rectTransform = selectedItem.GetComponent<RectTransform>();
+                    rectTransform.SetAsLastSibling();
                 }
             }
         }
