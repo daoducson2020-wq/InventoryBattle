@@ -337,6 +337,30 @@ public class ItemGrid : MonoBehaviour
         return totalBonus;
     }
 
+    public int GetTotalInventoryValue()
+    {
+        if (inventoryItemSlot == null) return 0;
+
+        int totalValue = 0;
+        HashSet<InventoryItem> countedItems = new();
+
+        for (int x = 0; x < gridSizeWidth; x++)
+        {
+            for (int y = 0; y < gridSizeHeight; y++)
+            {
+                InventoryItem item = inventoryItemSlot[x, y];
+                if (item != null
+                    && item.ItemData != null
+                    && countedItems.Add(item))
+                {
+                    totalValue += Mathf.Max(0, item.ItemData.price);
+                }
+            }
+        }
+
+        return totalValue;
+    }
+
     /// <summary>
     /// Finds the next health potion in use order (top row first, then left to right),
     /// removes it from the grid and destroys it. Returns its heal amount, or 0 if none.

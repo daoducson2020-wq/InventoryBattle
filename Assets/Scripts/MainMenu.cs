@@ -2,6 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Unity.VisualScripting;
 
 public class MainMenu : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private Button deleteSaveButton;
     [SerializeField] private GameObject warningPopup;
+    [SerializeField] private GameObject leaderboard;
 
 
     public void Start()
@@ -21,6 +23,7 @@ public class MainMenu : MonoBehaviour
         UpdateButton();
         warningPopup.SetActive(false);
         nameInputPopup.SetActive(false);
+        leaderboard.SetActive(false);
     }
 
     public void UpdateButton()
@@ -125,5 +128,18 @@ public class MainMenu : MonoBehaviour
     {
         if (nameInputPopup != null)
             nameInputPopup.SetActive(false);
+    }
+
+    public void ViewLeaderboard()
+    {
+        warningPopup.SetActive(false);
+        nameInputPopup.SetActive(false);
+        if (leaderboard != null)
+            leaderboard.SetActive(true);
+    }
+
+    public void TurnOffLeaderboard()
+    {
+        leaderboard.SetActive(false);
     }
 }
