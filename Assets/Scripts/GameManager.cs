@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject winStagePanel;
     [SerializeField] private BattleStartTextUI battleStartTextUI;
+    private NetworkManager networkManager;
+    private Health playerHealth;
+    private ItemGrid playerItemGrid;
+    [SerializeField] private SaveSystem saveSystem;
+    
     [SerializeField] private float battleStartTimer = 2f;
 
     private GameState currentState = GameState.Normal;
@@ -16,6 +21,7 @@ public class GameManager : MonoBehaviour
     private bool isGameOver;
     private bool isPaused;
     private bool isWin;
+    private bool hasSavedRecord;
     private float counterTimer;
     public float CounterTimer => counterTimer;
 
@@ -25,6 +31,7 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
         isPaused = false;
         isWin = false;
+        hasSavedRecord = false;
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
@@ -97,9 +104,11 @@ public class GameManager : MonoBehaviour
     {
         if (isGameOver) return;
         isGameOver = true;
+        SavePlayerRecord();
         if (pauseMenu != null) pauseMenu.SetActive(false);
         if (winStagePanel != null) winStagePanel.SetActive(false);
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
+        saveSystem.DeleteSave();
         Time.timeScale = 0f;
     }
 
@@ -142,7 +151,70 @@ public class GameManager : MonoBehaviour
     {
         if (isGameOver || isPaused) return;
         isWin = true;
+        if (SceneManager.GetActiveScene().name == "BossScene")
+        {
+            SavePlayerRecord();
+        }
         Time.timeScale = 0f;
         winStagePanel.SetActive(true);
+    }
+
+    public void SavePlayerRecord()
+    {
+        if (hasSavedRecord) return;
+        hasSavedRecord = true;
+
+        if (networkManager == null)
+        {
+            networkManager = NetworkManager.Instance != null
+                ? NetworkManager.Instance
+                : FindAnyObjectByType<NetworkManager>();
+        }
+        if (networkManager == null)
+        {
+            networkManager = new GameObject("NetworkManager").AddComponent<NetworkManager>();
+        }
+
+        ItemGrid grid = ResolvePlayerItemGrid();
+        int inventoryValue = grid != null ? grid.GetTotalInventoryValue() : 0;
+
+        int floorsClimbed = MapView.Instance != null
+            ? MapView.Instance.FloorsClimbed
+            : (GameSession.Instance != null ? GameSession.Instance.CurrentFloor : 0);
+
+        string playerName = (GameSession.Instance != null && !string.IsNullOrWhiteSpace(GameSession.Instance.PlayerName))
+            ? GameSession.Instance.PlayerName
+            : "Hero";
+
+        networkManager.SendRecord(playerName, inventoryValue, floorsClimbed);
+    }
+
+    private ItemGrid ResolvePlayerItemGrid()
+    {
+        if (playerItemGrid != null) return playerItemGrid;
+
+        if (playerHealth != null && playerHealth.TryGetComponent(out ItemGrid healthGrid))
+        {
+            playerItemGrid = healthGrid;
+            return playerItemGrid;
+        }
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null && playerObj.TryGetComponent(out ItemGrid taggedGrid))
+        {
+            playerItemGrid = taggedGrid;
+            return playerItemGrid;
+        }
+
+        foreach (ItemGrid grid in FindObjectsByType<ItemGrid>())
+        {
+            if (grid.CompareTag("Player"))
+            {
+                playerItemGrid = grid;
+                return playerItemGrid;
+            }
+        }
+
+        return null;
     }
 }

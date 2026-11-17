@@ -2690,6 +2690,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 1930648867}
   winStagePanel: {fileID: 1554235931}
   battleStartTextUI: {fileID: 667205673}
+  saveSystem: {fileID: 155255332}
   battleStartTimer: 2
 --- !u!4 &1329857064
 Transform:
