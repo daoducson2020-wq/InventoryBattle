@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -9,6 +10,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject winStagePanel;
     [SerializeField] private BattleStartTextUI battleStartTextUI;
+    [SerializeField] private GameObject informationView;
+    [SerializeField] private GameObject inforBTN;
+    [SerializeField] private GameObject speedControl;
+    [SerializeField] private TMP_Text speedText;
+    private int speed = 1;
+    private bool isOpenView;
     private NetworkManager networkManager;
     private Health playerHealth;
     private ItemGrid playerItemGrid;
@@ -32,6 +39,7 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         isWin = false;
         hasSavedRecord = false;
+        isOpenView = false;
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
@@ -44,6 +52,12 @@ public class GameManager : MonoBehaviour
         {
             winStagePanel.SetActive(false);
         }
+        if (informationView != null)
+            informationView.SetActive(false);
+        if (inforBTN != null)
+            inforBTN.SetActive(true);
+        if (speedText != null)
+            speedText.text = "Speed X1";
     }
 
     public void Update()
@@ -63,6 +77,43 @@ public class GameManager : MonoBehaviour
                 break;
         }
         Debug.Log("current state: " + currentState);
+    }
+
+    public void OpenInformationView()
+    {
+        if (isOpenView) return;
+        isOpenView = true;
+        inforBTN.SetActive(false);
+        informationView.SetActive(true);
+    }
+
+    public void GameSpeedControl()
+    {
+        speed++;
+        switch (speed)
+        {
+            case 2:
+                Time.timeScale = 2f;
+                speedText.text = "Speed X2";
+                break;
+            case 3:
+                Time.timeScale = 3f;
+                speedText.text = "Speed X3";
+                break;
+            case 4:
+                Time.timeScale = 1f;
+                speedText.text = "Speed X1";
+                speed = 1;
+                break;
+        }
+    }
+
+    public void CloseInformationView()
+    {
+        if (!isOpenView) return;
+        isOpenView = false;
+        informationView.SetActive(false);
+        inforBTN.SetActive(true);
     }
 
     private void UpdateState()

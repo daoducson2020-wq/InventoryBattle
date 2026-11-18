@@ -178,7 +178,7 @@ MonoBehaviour:
   iconSprite: {fileID: 6878972847263532775}
   selectedOutline: {fileID: 5019901372391001046}
   monsterIcon: {fileID: 21300000, guid: 52cfe0e6b93b37c4298194ee64c22d78, type: 3}
-  treasureIcon: {fileID: -1887047210074147300, guid: c91402d49dd249a438e424d1c99477dc, type: 3}
+  treasureIcon: {fileID: -4482957172121327843, guid: b7011472c1d9dfa49b062931035b5ea8, type: 3}
   campfireIcon: {fileID: -6781120428374379586, guid: f743e9c1cfb6ac14a91780166c5c6add, type: 3}
   shopIcon: {fileID: -3231263632139094836, guid: 677a12b2bb75f8843baffbb82f8d00dc, type: 3}
   miniBossIcon: {fileID: 2397188250226644421, guid: cc952ac90e30a7b49b196b12c7a88bcd, type: 3}
