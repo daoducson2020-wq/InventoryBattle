@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5c46e48c59c4e4742a34f49a4f6f4d57
+guid: b7011472c1d9dfa49b062931035b5ea8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8957324059118975939
-    second: images_0
+      213: -4482957172121327843
+    second: treasure_icon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -115,13 +115,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: images_0
+      name: treasure_icon_0
       rect:
         serializedVersion: 2
-        x: 30
+        x: 0
         y: 0
-        width: 353
-        height: 499
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3cbb8d916cece4c70800000000000000
-      internalID: 8957324059118975939
+      spriteID: d172b64243659c1c0800000000000000
+      internalID: -4482957172121327843
       vertices: []
       indices: 
       edges: []
@@ -150,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      images_0: 8957324059118975939
+      treasure_icon_0: -4482957172121327843
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

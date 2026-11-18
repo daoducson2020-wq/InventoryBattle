@@ -13,17 +13,19 @@ public class MapGenerator : MonoBehaviour
     public const int PATHS = 6;
 
     [Header("Room Weights")]
-    public float MONSTER_ROOM_WEIGHT = 10.0f;
-    public float SHOP_ROOM_WEIGHT = 3.0f;
-    public float CAMPFIRE_ROOM_WEIGHT = 2.5f;
+    public float MONSTER_ROOM_WEIGHT = 7.0f;
+    public float SHOP_ROOM_WEIGHT = 4.0f;
+    public float CAMPFIRE_ROOM_WEIGHT = 3.0f;
     public float TREASURE_ROOM_WEIGHT = 2.5f;
+    public float MINIBOSS_ROOM_WEIGHT = 2.0f;
 
     private Dictionary<RoomType, float> randomRoomTypeWeights = new Dictionary<RoomType, float>()
     {
         { RoomType.Monster, 0.0f },
         { RoomType.Campfire, 0.0f },
         { RoomType.Shop, 0.0f },
-        { RoomType.Treasure, 0.0f}
+        { RoomType.Treasure, 0.0f},
+        { RoomType.MiniBoss, 0.0f},
     };
 
     private float randomRoomTypeTotalWeight = 0;
@@ -195,8 +197,9 @@ public class MapGenerator : MonoBehaviour
         randomRoomTypeWeights[RoomType.Campfire] = MONSTER_ROOM_WEIGHT + CAMPFIRE_ROOM_WEIGHT;
         randomRoomTypeWeights[RoomType.Shop] = MONSTER_ROOM_WEIGHT + CAMPFIRE_ROOM_WEIGHT + SHOP_ROOM_WEIGHT;
         randomRoomTypeWeights[RoomType.Treasure] = MONSTER_ROOM_WEIGHT + CAMPFIRE_ROOM_WEIGHT + SHOP_ROOM_WEIGHT + TREASURE_ROOM_WEIGHT;
+        randomRoomTypeWeights[RoomType.MiniBoss] = MONSTER_ROOM_WEIGHT + CAMPFIRE_ROOM_WEIGHT + SHOP_ROOM_WEIGHT + TREASURE_ROOM_WEIGHT + MINIBOSS_ROOM_WEIGHT;
 
-        randomRoomTypeTotalWeight = randomRoomTypeWeights[RoomType.Treasure];
+        randomRoomTypeTotalWeight = randomRoomTypeWeights[RoomType.MiniBoss];
     }
 
     private void SetupRoomTypes()
@@ -212,7 +215,7 @@ public class MapGenerator : MonoBehaviour
         foreach (Room room in mapData[1])
         {
             if (room.nextRooms.Count > 0)
-                room.type = RoomType.MiniBoss;
+                room.type = RoomType.Campfire;
         }
 
         // Luật 3: Tầng áp chót (Tầng 13) trước Boss luôn là Campfire 
@@ -243,12 +246,13 @@ public class MapGenerator : MonoBehaviour
         bool campfireBelow4 = true;
         bool consecutiveCampfire = true;
         bool consecutiveShop = true;
+        bool consecutiveMiniBoss = true;
         bool campfireOn13 = true;
 
         RoomType typeCandidate = RoomType.NotAssigned;
 
         // Lặp cho đến khi tìm được loại phòng không vi phạm bất kỳ luật nào
-        while (campfireBelow4 || consecutiveCampfire || consecutiveShop || campfireOn13)
+        while (campfireBelow4 || consecutiveCampfire || consecutiveShop || campfireOn13 || consecutiveMiniBoss)
         {
             typeCandidate = GetRandomRoomTypeByWeight();
 
@@ -256,10 +260,13 @@ public class MapGenerator : MonoBehaviour
             bool hasCampfireParent = RoomHasParentOfType(roomToSet, RoomType.Campfire);
             bool isShop = typeCandidate == RoomType.Shop;
             bool hasShopParent = RoomHasParentOfType(roomToSet, RoomType.Shop);
+            bool isMiniBoss = typeCandidate == RoomType.MiniBoss;
+            bool hasMiniBossParent = RoomHasParentOfType(roomToSet, RoomType.MiniBoss);
 
             campfireBelow4 = isCampfire && roomToSet.row < 3;
             consecutiveCampfire = isCampfire && hasCampfireParent;
             consecutiveShop = isShop && hasShopParent;
+            consecutiveMiniBoss = isMiniBoss && hasMiniBossParent;
             campfireOn13 = isCampfire && roomToSet.row == 12; // Tầng 12 không được có trại vì tầng 13 đã có
         }
 

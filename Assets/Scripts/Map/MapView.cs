@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; // 1. Thêm thư viện quản lý Scene
+using UnityEngine.SceneManagement;
+using UnityEngine.UI; // 1. Thêm thư viện quản lý Scene
 
 public class MapView : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class MapView : MonoBehaviour
     [SerializeField] private MapRoom mapRoomPrefab;
     [SerializeField] private LineRenderer mapLinePrefab;
 
-    [Header("Scroll Settings")]
+    [Header("Other Settings")]
     [SerializeField] private float scrollSpeed = 15f;
 
     private List<List<Room>> mapData = new List<List<Room>>();

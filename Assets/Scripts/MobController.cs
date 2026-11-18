@@ -16,16 +16,19 @@ public class MobController : MonoBehaviour
 
     [SerializeField] private Health playerHealth;
 
-
     private void Update()
     {
         if (waitTime >= startCombat)
-        {
+        {         
             if (Time.time >= nextATKTime)
             {
                 playerHealth.TakeDamage(atkDamage);
                 nextATKTime = Time.time + atkCooldown;
             }
+        }
+        else
+        {
+            nextATKTime = Time.time + atkCooldown;
         }
         waitTime += Time.deltaTime;
     }
