@@ -8,6 +8,9 @@ TagManager:
   - InventorySlot
   - Mob
   - ItemTooltip
+  - Transition
+  - EnemyInventory
+  - InventoryTooltip
   layers:
   - Default
   - TransparentFX

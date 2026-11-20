@@ -22,4 +22,5 @@ MonoBehaviour:
   iconWithFrame: {fileID: 21300000, guid: 46ffaaa121f653f40b640789f8b66771, type: 3}
   itemWidth: 3
   itemHeight: 3
+  attackSound: 2
   price: 18

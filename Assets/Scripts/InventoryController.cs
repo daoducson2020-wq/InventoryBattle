@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using NUnit.Framework;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +19,8 @@ public class InventoryController : MonoBehaviour
 
     [SerializeField] private List<ItemData> items;
     [SerializeField] private GameObject itemPrefab;
+    [SerializeField] private GameObject tooltipPanel;
+    [SerializeField] private TooltipPanelUI tooltipUI;
     [SerializeField] private Transform canvasTransform;
     [SerializeField] private Animator animator;
     [SerializeField] private GameManager gameManager;
@@ -33,14 +37,23 @@ public class InventoryController : MonoBehaviour
         inventoryHighlight = GetComponent<InventoryHighlight>();
     }
 
+    private void Start()
+    {
+        SetPanelVisible(false);
+    }
 
     private void Update()
     {
+        if (selectedItemGrid != null)
+        {
+            HandleHighlight();
+        }
+
         if (gameManager == null || gameManager.CurrentState == GameState.Combat)
         {
             return;
         }
-        
+
         if (selectedItem != null)
         {
             rectTransform.position = Input.mousePosition;
@@ -60,7 +73,6 @@ public class InventoryController : MonoBehaviour
             return;
         }
 
-        HandleHighlight();
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -69,6 +81,14 @@ public class InventoryController : MonoBehaviour
         if (selectedItem != null && Input.GetMouseButtonDown(1))
         {
             RotateItem();
+        }
+    }
+
+    public void SetPanelVisible(bool isVisible)
+    {
+        if (tooltipPanel != null)
+        {
+            tooltipPanel.SetActive(isVisible);
         }
     }
 
@@ -83,6 +103,7 @@ public class InventoryController : MonoBehaviour
             selectedItem = selectedItemGrid.PickUpItem(tileGridPosition.x, tileGridPosition.y);
             if (selectedItem != null)
             {
+                SoundManager.Instance.PlayItemPickup();
                 selectedItem.GetComponent<Image>().material = null;
                 selectedItem.ShowIcon();
                 rectTransform = selectedItem.GetComponent<RectTransform>();
@@ -94,6 +115,7 @@ public class InventoryController : MonoBehaviour
             bool placeSuccess = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem);
             if (placeSuccess)
             {
+                SoundManager.Instance.PlayItemPickup();
                 PutItemInInventory(selectedItem);
                 selectedItem.ShowIconFrame();
                 selectedItem = null;
@@ -101,6 +123,7 @@ public class InventoryController : MonoBehaviour
                 {
                     selectedItem = overlapItem;
                     selectedItem.ShowIcon();
+                    SoundManager.Instance.PlayItemPickup();
                     overlapItem = null;
                     rectTransform = selectedItem.GetComponent<RectTransform>();
                     rectTransform.SetAsLastSibling();
@@ -135,15 +158,16 @@ public class InventoryController : MonoBehaviour
             return false;
         }
 
-        if (!wallet.TryAddGold(selectedItem.ItemData.price - (selectedItem.ItemData.price*20/100)))
+        if (!wallet.TryAddGold(selectedItem.ItemData.price - (selectedItem.ItemData.price * 20 / 100)))
         {
             Debug.LogError("Cannot add the sale price to the player's gold.", wallet);
             return false;
         }
-        if(animator != null)
+        if (animator != null)
         {
             animator.SetBool("isBurn", true);
             animator.SetTrigger("Sell");
+            SoundManager.Instance.PlaySellItem();
         }
         Destroy(selectedItem.gameObject);
         selectedItem = null;
@@ -187,6 +211,7 @@ public class InventoryController : MonoBehaviour
                 activeItem.Height));
             inventoryHighlight.SetSize(activeItem);
             inventoryHighlight.SetPosition(selectedItemGrid, activeItem, positionOnGrid.x, positionOnGrid.y);
+            SetPanelVisible(false);
             return;
         }
 
@@ -196,12 +221,18 @@ public class InventoryController : MonoBehaviour
             inventoryHighlight.Show(true);
             inventoryHighlight.SetSize(itemToHighlight);
             inventoryHighlight.SetPosition(selectedItemGrid, itemToHighlight);
+            SetPanelVisible(true);
+            if (tooltipUI != null)
+            {
+                tooltipUI.SetText(itemToHighlight.ItemData);
+            }
         }
         else
         {
             inventoryHighlight.Show(true);
             inventoryHighlight.SetSize();
             inventoryHighlight.SetPosition(positionOnGrid);
+            SetPanelVisible(false);
         }
     }
 
@@ -246,7 +277,7 @@ public class InventoryController : MonoBehaviour
             itemDmg.IdentifySelfTag();
         }
     }
-    
+
     public InventoryItem CreateInventoryItem(ItemData itemData, Vector2 screenPosition)
     {
         if (itemPrefab == null || canvasTransform == null || itemData == null)

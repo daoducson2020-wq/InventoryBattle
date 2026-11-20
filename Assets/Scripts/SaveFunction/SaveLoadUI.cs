@@ -89,6 +89,7 @@ public class SaveLoadUI : MonoBehaviour
         SceneManager.LoadScene("MapScene");
     }
 
+    [ContextMenu("Save Player Item")]
     public List<InventorySaveData> SaveInventoryItem()
     {
         List<InventorySaveData> datas = new();

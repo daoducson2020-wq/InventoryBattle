@@ -2,7 +2,6 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using Unity.VisualScripting;
 
 public class MainMenu : MonoBehaviour
 {
@@ -13,10 +12,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private SaveLoadUI saveLoadUI;
     [SerializeField] private SaveSystem saveSystem;
     [SerializeField] private Button continueButton;
-    [SerializeField] private Button deleteSaveButton;
     [SerializeField] private GameObject warningPopup;
     [SerializeField] private GameObject leaderboard;
-
+    
 
     public void Start()
     {
@@ -24,6 +22,7 @@ public class MainMenu : MonoBehaviour
         warningPopup.SetActive(false);
         nameInputPopup.SetActive(false);
         leaderboard.SetActive(false);
+        MusicManager.Instance.PlayMainMenuMusic();
     }
 
     public void UpdateButton()
@@ -32,9 +31,6 @@ public class MainMenu : MonoBehaviour
 
         if (continueButton != null)
             continueButton.interactable = hasSave;
-
-        if (deleteSaveButton != null)
-            deleteSaveButton.interactable = hasSave;
     }
 
     public void ContinueGame()
@@ -121,7 +117,9 @@ public class MainMenu : MonoBehaviour
         GameSession.Instance.SetPlayerProfile(rawName);
         if(saveSystem.HasSaveFile())
             DeleteSave();
+        SceneChangeManager.Instance.TransitionScene.Play("FadeToBlack");
         SceneManager.LoadScene("ShopScene");
+        MusicManager.Instance.PlayShopMusic();
     }
 
     public void CancelNameInput()

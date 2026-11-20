@@ -124,12 +124,30 @@ public class Health : MonoBehaviour
         if (damage <= 0 || currentHealth == 0) return;
 
         currentHealth = Mathf.Max(currentHealth - damage, 0);
+        SoundManager.Instance.PlayGetHit();
+        switch (transform.name)
+        {
+            case "Player":
+                int rnd = UnityEngine.Random.Range(0,2);
+                if (rnd == 0)
+                {
+                    SoundManager.Instance.PlayPlayerGetHit();
+                }
+                break;
+            case "Enemy":
+                int rng = UnityEngine.Random.Range(0,2);
+                if (rng == 0)
+                {
+                    PlaySfx(nameText.text);
+                }
+                break;
+        }
         SaveHealth();
         RefreshHealthUI();
         if (currentHealth == 0) Die();
         else AutoUseHealthPotions();
     }
-
+ 
     // Player only: while HP < 50% of max, consume potions one by one (grid order).
     private void AutoUseHealthPotions()
     {
@@ -140,6 +158,7 @@ public class Health : MonoBehaviour
             int healAmount = itemGrid.ConsumeNextHealthPotion();
             if (healAmount <= 0) break;
             Debug.Log($"Auto used health potion: +{healAmount} HP");
+            SoundManager.Instance.PlayDrinkPotion();
             Heal(healAmount);
         }
     }
@@ -159,7 +178,11 @@ public class Health : MonoBehaviour
             return;
         }
         if (CompareTag("Player"))
+        {
+            MusicManager.Instance.StopPlayMusic();
+            SoundManager.Instance.PlayDie();
             gameManager.GameOver();
+        }
         else if (CompareTag("Enemy"))
         {
             enemyReward.Reward();
@@ -211,6 +234,22 @@ public class Health : MonoBehaviour
         if (nameText != null)
         {
             nameText.text = unitName;
+        }
+    }
+
+    private void PlaySfx(string name)
+    {
+        switch (name)
+        {
+            case "Cheems":
+            SoundManager.Instance.PlayMobGetHit();
+            break;
+            case "Chad of Cheems":
+            SoundManager.Instance.PlayBossGetHit();
+            break;
+            default:
+            SoundManager.Instance.PlayMiniBossGetHit();
+            break;
         }
     }
 }

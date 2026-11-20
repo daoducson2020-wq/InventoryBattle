@@ -48,6 +48,7 @@ public class ShopManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         ClearShop();
         GenerateRandomShopItems();
+        SoundManager.Instance.PlayRefreshShop();
     }
 
     public bool IsPointerOverShop(Vector2 screenPosition)

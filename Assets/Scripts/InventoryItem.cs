@@ -9,7 +9,6 @@ public class InventoryItem : MonoBehaviour
     [HideInInspector] public int onGridPositionY;
     [HideInInspector] public bool rotated = false;
 
-    private ItemData currentItemData;
     public string ItemName => itemData.ItemName;
     private string itemID;
     public string ItemID => itemID;
@@ -36,23 +35,6 @@ public class InventoryItem : MonoBehaviour
             return itemData.ItemHeight;
         }
     }
-
-    private void Update()
-    {
-        if (RectTransformUtility.RectangleContainsScreenPoint(GetComponent<RectTransform>(),Input.mousePosition, null))
-        {
-            if (currentItemData != itemData)
-            {
-                currentItemData = itemData;
-                Debug.Log(currentItemData.ItemName);
-            }
-        }
-        else
-        {
-            currentItemData = null;
-        }
-    }
-
 
     public void Set(ItemData item)
     {

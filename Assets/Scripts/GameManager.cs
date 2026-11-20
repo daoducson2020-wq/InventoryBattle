@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
     private Health playerHealth;
     private ItemGrid playerItemGrid;
     [SerializeField] private SaveSystem saveSystem;
-    
+
     [SerializeField] private float battleStartTimer = 2f;
 
     private GameState currentState = GameState.Normal;
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
             inforBTN.SetActive(true);
         if (speedText != null)
             speedText.text = "Speed X1";
+        SceneChangeManager.Instance.TransitionScene.Play("BackToNormal");
     }
 
     public void Update()
@@ -116,41 +118,6 @@ public class GameManager : MonoBehaviour
         inforBTN.SetActive(true);
     }
 
-    private void UpdateState()
-    {
-        if (SceneManager.GetActiveScene().name == "BattleScene" ||
-            SceneManager.GetActiveScene().name == "BossScene" ||
-            SceneManager.GetActiveScene().name == "MiniBossScene")
-        {
-            ChangeState(GameState.Combat);
-        }
-        else
-        {
-            ChangeState(GameState.Normal);
-        }
-    }
-
-    private void ChangeState(GameState newState)
-    {
-        if (currentState == newState)
-        {
-            return;
-        }
-        currentState = newState;
-    }
-
-    private void CombatState()
-    {
-        if (counterTimer >= battleStartTimer)
-        {
-            if (battleStartTextUI != null)
-            {
-                battleStartTextUI.PlayAnim();
-            }
-        }
-        counterTimer += Time.deltaTime;
-    }
-
     public void GameOver()
     {
         if (isGameOver) return;
@@ -202,11 +169,12 @@ public class GameManager : MonoBehaviour
     {
         if (isGameOver || isPaused) return;
         isWin = true;
+        StartCoroutine(PlayVictoryMusic());
         if (SceneManager.GetActiveScene().name == "BossScene")
         {
             SavePlayerRecord();
         }
-        Time.timeScale = 0f;
+        // Time.timeScale = 0f;
         winStagePanel.SetActive(true);
     }
 
@@ -267,5 +235,58 @@ public class GameManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    private void UpdateState()
+    {
+        if (SceneManager.GetActiveScene().name == "BattleScene" ||
+            SceneManager.GetActiveScene().name == "BossScene" ||
+            SceneManager.GetActiveScene().name == "MiniBossScene")
+        {
+            ChangeState(GameState.Combat);
+        }
+        else
+        {
+            ChangeState(GameState.Normal);
+        }
+    }
+
+    private void ChangeState(GameState newState)
+    {
+        if (currentState == newState)
+        {
+            return;
+        }
+        currentState = newState;
+    }
+
+    private void CombatState()
+    {
+        if (counterTimer >= battleStartTimer)
+        {
+            if (battleStartTextUI != null)
+            {
+                battleStartTextUI.PlayAnim();
+                BeginBattle();
+            }
+        }
+        counterTimer += Time.deltaTime;
+    }
+
+    private void BeginBattle()
+    {
+        if (counterTimer >= 2.01f && counterTimer <= 2.03f)
+        {
+            SoundManager.Instance.PlayBeginBattle();
+        }
+    }
+
+    IEnumerator PlayVictoryMusic()
+    {
+        MusicManager.Instance.StopPlayMusic();
+        yield return new WaitForSeconds(.2f);
+        SoundManager.Instance.PlayVictory();
+        yield return new WaitForSeconds(.1f);
+        Time.timeScale = 0f;
     }
 }
