@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     [SerializeField] private TMP_Text nameText;
     private int maxHealth;
-    
+
     private EnemyReward enemyReward;
     private int currentHealth;
     private ItemGrid itemGrid;

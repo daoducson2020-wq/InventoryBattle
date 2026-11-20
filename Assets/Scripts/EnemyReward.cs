@@ -7,7 +7,7 @@ public class EnemyReward : MonoBehaviour
 
     public void Reward()
     {
-        if(playerWallet == null) return;
+        if (playerWallet == null) playerWallet = FindAnyObjectByType<PlayerWallet>();
         playerWallet.AddGold(goldReward);
     }
 }

@@ -2,12 +2,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum MobType { mob, miniBoss }
+public enum MobType { begin, middle, high }
 
 public class MobController : MonoBehaviour
 {
-    [SerializeField] private int mobID;
+    public int mobID;
     public string mobName;
+    public MobType mobType;
     [SerializeField] private int atkDamage;
     [SerializeField] private float atkCooldown;
     private float nextATKTime;
@@ -16,10 +17,19 @@ public class MobController : MonoBehaviour
 
     [SerializeField] private Health playerHealth;
 
+    public void Start()
+    {   
+        if (playerHealth != null) return;
+        foreach (Health h in FindObjectsByType<Health>())
+        {
+            if (h.CompareTag("Player")) { playerHealth = h; break; }
+        }
+    }
+
     private void Update()
     {
         if (waitTime >= startCombat)
-        {         
+        {
             if (Time.time >= nextATKTime)
             {
                 playerHealth.TakeDamage(atkDamage);
