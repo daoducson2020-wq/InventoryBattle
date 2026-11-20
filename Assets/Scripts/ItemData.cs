@@ -1,5 +1,6 @@
 using UnityEngine;
-public enum ItemType{Weapon, Armor, Accessory, Potion, Core}
+public enum ItemType { Weapon, Armor, Accessory, Potion, Core }
+public enum SoundType { None, LightWeapon, HeavyWeapon, Healing, Crossbow, Bow, GreatBow }
 [CreateAssetMenu(fileName = "New Item", menuName = "Scriptable Objects/Item Data")]
 public class ItemData : ScriptableObject
 {
@@ -13,7 +14,8 @@ public class ItemData : ScriptableObject
     [SerializeField] private Sprite iconWithFrame;
     [SerializeField] private int itemWidth = 1;
     [SerializeField] private int itemHeight = 1;
-    [SerializeField] public int price;
+    [SerializeField] private SoundType attackSound;
+    public int price;
 
     public string ItemName => itemName;
     public ItemType ItemType => itemType;
@@ -25,4 +27,5 @@ public class ItemData : ScriptableObject
     public Sprite IconWithFrame => iconWithFrame;
     public int ItemWidth => itemWidth;
     public int ItemHeight => itemHeight;
+    public SoundType AttackSound => attackSound;
 }

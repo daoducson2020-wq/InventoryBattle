@@ -57,7 +57,7 @@ public class PlayerWallet : MonoBehaviour
             UpdateGoldUI();
             return true;
         }
-        
+        SoundManager.Instance.PlayCancel();
         Debug.Log("Not Enough Gold!");
         return false;
     }

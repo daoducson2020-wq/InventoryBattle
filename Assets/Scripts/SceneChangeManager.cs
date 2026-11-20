@@ -5,6 +5,8 @@ public class SceneChangeManager : MonoBehaviour
 {
     public static SceneChangeManager Instance;
     [SerializeField] private SaveLoadUI saveLoadUI;
+    [SerializeField] private Animator transitionScene;
+    public Animator TransitionScene => transitionScene;
 
     private int currentStage = 1;
     public int CurrentStage => currentStage;
@@ -24,6 +26,10 @@ public class SceneChangeManager : MonoBehaviour
                 currentStage = GameSession.Instance.CurrentStage;
             }
         }
+        if (transitionScene == null)
+        {
+            transitionScene = GameObject.FindGameObjectWithTag("Transition").GetComponent<Animator>();
+        }
     }
 
     public void ReturnToMap()
@@ -36,6 +42,15 @@ public class SceneChangeManager : MonoBehaviour
         }
         //saveLoadUI.SaveGame();
         Time.timeScale = 1f;
+        transitionScene.Play("FadeToBlack");
+        if (MapView.Instance != null && MapView.Instance.FloorsClimbed == 14)
+        {
+            MusicManager.Instance.PlayBossMusic();
+        }
+        else
+        {
+            MusicManager.Instance.PlayMapMusic();
+        }
         SceneManager.LoadScene("MapScene");
     }
 }
