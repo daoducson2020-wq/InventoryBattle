@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -228,6 +228,7 @@ public class MapView : MonoBehaviour
         }
 
         // Chuyển sang Scene tương ứng với loại Node vừa chọn
+        SoundManager.Instance.PlayButtonPressed();
         LoadSceneForRoom(room.type);
     }
 
@@ -236,26 +237,39 @@ public class MapView : MonoBehaviour
         switch (type)
         {
             case RoomType.Monster:
+                StartCoroutine(PlayMusic());
                 SceneManager.LoadScene(battleSceneName);
                 break;
             case RoomType.Shop:
+                MusicManager.Instance.PlayShopMusic();
                 SceneManager.LoadScene(shopSceneName);
                 break;
             case RoomType.Campfire:
+                MusicManager.Instance.PlayCampFireMusic();
                 SceneManager.LoadScene(campfireSceneName);
                 break;
             case RoomType.Treasure:
+                MusicManager.Instance.PlayTreasureMusic();
                 SceneManager.LoadScene(treasureSceneName);
                 break;
             case RoomType.MiniBoss:
+                StartCoroutine(PlayMusic());
                 SceneManager.LoadScene(miniBossSceneName);
                 break;
             case RoomType.Boss:
+                MusicManager.Instance.PlayBossMusic();
                 SceneManager.LoadScene(bossSceneName);
                 break;
         }
     }
-
+    
+    IEnumerator PlayMusic()
+    {
+        MusicManager.Instance.StopPlayMusic();
+        yield return new WaitForSeconds(1.9f);
+        MusicManager.Instance.PlayBattleMusic();
+    }
+    
     // --- 1. KHỞI TẠO VÀ VẼ BẢN ĐỒ ---
     public void GenerateNewMap()
     {

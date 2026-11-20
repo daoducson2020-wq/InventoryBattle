@@ -22,5 +22,6 @@ public class GridInteract : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerExit(PointerEventData eventData)
     {
         inventoryController.SelectedItemGrid = null;
+        inventoryController.SetPanelVisible(false);
     }
 }

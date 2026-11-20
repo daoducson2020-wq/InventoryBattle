@@ -39,11 +39,19 @@ public class Damage : MonoBehaviour
             if (itemData.Damage > 0 && target != null && cooldownTime >= itemData.AttackRate)
             {
                 ResetFloat();
+                if (itemData.ItemType == ItemType.Weapon)
+                {
+                    SoundManager.Instance.PlaySound(itemData.AttackSound.ToString());
+                }
                 target.TakeDamage(itemData.Damage);
             }
             if (itemData.HealAmount > 0 && selfHealth != null && cooldownTime >= itemData.AttackRate)
             {
                 ResetFloat();
+                if (itemData.ItemType == ItemType.Accessory)
+                {
+                    SoundManager.Instance.PlaySound(itemData.AttackSound.ToString());
+                }
                 selfHealth.Heal(itemData.HealAmount);
             }
             cooldownTime += Time.deltaTime;

@@ -36,12 +36,13 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         }
 
         draggedInventoryItem = dragPreviewController.CreateInventoryItem(itemData, eventData.position);
-        draggedInventoryItem.ShowIcon();
         if (draggedInventoryItem == null)
         {
             return;
         }
 
+        draggedInventoryItem.ShowIcon();
+        SoundManager.Instance.PlayItemPickup();
         draggedItemRectTransform = draggedInventoryItem.GetComponent<RectTransform>();
         originalAlpha = canvasGroup.alpha;
         originalBlocksRaycasts = canvasGroup.blocksRaycasts;
@@ -83,6 +84,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (itemGrid != null && TryPurchaseIntoGrid(itemGrid, eventData.position))
         {
             draggedInventoryItem.ShowIconFrame();
+            SoundManager.Instance.PlayPurchaseItem();
             sourceShopSlot?.ClearShopSlot();
             Destroy(gameObject);
             draggedInventoryItem = null;
@@ -126,6 +128,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (!wallet.CanAffordGold(itemData.price))
         {
             Debug.Log("Not Enough Gold!");
+            SoundManager.Instance.PlayCancel();
             return false;
         }
 
