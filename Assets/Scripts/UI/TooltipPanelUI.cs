@@ -9,6 +9,7 @@ public class TooltipPanelUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healingAmountText;
     [SerializeField] private TextMeshProUGUI cooldownTimeText;
     [SerializeField] private TextMeshProUGUI itemDimensionText;
+    [SerializeField] private float offsetX = 50f;
     [SerializeField] private float offsetY = 50f;
 
     private void Update()
@@ -20,11 +21,11 @@ public class TooltipPanelUI : MonoBehaviour
         float x = GetComponent<RectTransform>().sizeDelta.x / 2;
         if (position.x > (Screen.width / 2))
         {
-            transform.position = position + new Vector2(-x, -offsetY);
+            transform.position = position + new Vector2(-x - offsetX, -offsetY);
         }
         else
         {
-            transform.position = position + new Vector2(x, -offsetY);
+            transform.position = position + new Vector2(x + offsetX, -offsetY);
         }
     }
 
