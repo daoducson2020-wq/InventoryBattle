@@ -241,7 +241,12 @@ public class Health : MonoBehaviour
     {
         switch (name)
         {
-            case "Cheems":
+            case "Archer":
+            case "Dark Triad":
+            case "Armored General":
+            case "Fallen Angel":
+            case "Fighter Cheems":
+            case "Guardian":
             SoundManager.Instance.PlayMobGetHit();
             break;
             case "Chad of Cheems":

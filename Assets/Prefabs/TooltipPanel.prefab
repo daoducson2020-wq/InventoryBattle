@@ -903,6 +903,7 @@ MonoBehaviour:
   healingAmountText: {fileID: 8041837036071801115}
   cooldownTimeText: {fileID: 1438700701715435090}
   itemDimensionText: {fileID: 7964976286232538451}
+  offsetX: 50
   offsetY: 50
 --- !u!1 &5497368361039648134
 GameObject:
