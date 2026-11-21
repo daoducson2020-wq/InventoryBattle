@@ -87,6 +87,7 @@ public class BigEnemyManager : MonoBehaviour
     private void SetAlpha(float value)
     {
         enemyInventory.GetComponent<CanvasGroup>().alpha = value;
+        enemyGrid.GetComponent<Image>().raycastTarget = value == 0f ? false : true;
     }
 
     private void LoadBossType(EnemySaveData data)
