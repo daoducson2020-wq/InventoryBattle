@@ -8,7 +8,9 @@ public class MobSpawner : MonoBehaviour
     // Danh sách quái (child trong prefab hoặc prefab asset), mỗi quái có MobController với mobType đã set
     [SerializeField] private GameObject[] mobs;
     [SerializeField] private Transform spawnPoint; // Dùng khi mob là prefab asset
-
+    public TMP_Text EnemyName => enemyNameText;
+    
+    
     private void Start()
     {
         int floor = GameSession.Instance != null ? GameSession.Instance.CurrentFloor : 0;
