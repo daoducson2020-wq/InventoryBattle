@@ -8,8 +8,9 @@ public class Health : MonoBehaviour
     [SerializeField] private int baseHealth = 100;
     [SerializeField] private Slider healthBarUI;
     [SerializeField] private TMP_Text healthText;
-    [SerializeField] private GameManager gameManager;
     [SerializeField] private TMP_Text nameText;
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private MobSpawner mobSpawner;
     private int maxHealth;
 
     private EnemyReward enemyReward;
@@ -25,6 +26,7 @@ public class Health : MonoBehaviour
         enemyReward = GetComponent<EnemyReward>();
         itemGrid = GetComponent<ItemGrid>();
         maxHealth = baseHealth;
+        mobSpawner = FindAnyObjectByType<MobSpawner>();
     }
 
     public void Start()
@@ -125,19 +127,29 @@ public class Health : MonoBehaviour
 
         currentHealth = Mathf.Max(currentHealth - damage, 0);
         SoundManager.Instance.PlayGetHit();
+        Debug.Log($"{transform.name} get hit");
         switch (transform.name)
         {
             case "Player":
-                int rnd = UnityEngine.Random.Range(0,2);
+                int rnd = UnityEngine.Random.Range(0, 2);
                 if (rnd == 0)
                 {
                     SoundManager.Instance.PlayPlayerGetHit();
                 }
                 break;
-            case "Enemy":
-                int rng = UnityEngine.Random.Range(0,2);
+            case "Mob":
+                int rng = UnityEngine.Random.Range(0, 2);
                 if (rng == 0)
                 {
+                    Debug.Log($"{mobSpawner.EnemyName.text} get hit");
+                    PlaySfx(mobSpawner.EnemyName.text);
+                }
+                break;
+            case "Enemy":
+                int vng = UnityEngine.Random.Range(0, 2);
+                if (vng == 0)
+                {
+                    Debug.Log($"{nameText.text} get hit");
                     PlaySfx(nameText.text);
                 }
                 break;
@@ -147,7 +159,7 @@ public class Health : MonoBehaviour
         if (currentHealth == 0) Die();
         else AutoUseHealthPotions();
     }
- 
+
     // Player only: while HP < 50% of max, consume potions one by one (grid order).
     private void AutoUseHealthPotions()
     {
@@ -247,14 +259,14 @@ public class Health : MonoBehaviour
             case "Fallen Angel":
             case "Fighter Cheems":
             case "Guardian":
-            SoundManager.Instance.PlayMobGetHit();
-            break;
+                SoundManager.Instance.PlayMobGetHit();
+                break;
             case "Chad of Cheems":
-            SoundManager.Instance.PlayBossGetHit();
-            break;
+                SoundManager.Instance.PlayBossGetHit();
+                break;
             default:
-            SoundManager.Instance.PlayMiniBossGetHit();
-            break;
+                SoundManager.Instance.PlayMiniBossGetHit();
+                break;
         }
     }
 }

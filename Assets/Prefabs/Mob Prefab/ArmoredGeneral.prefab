@@ -37,8 +37,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 488, y: -738}
-  m_SizeDelta: {x: 800.0598, y: 668.8255}
+  m_AnchoredPosition: {x: 434.98962, y: -722.60986}
+  m_SizeDelta: {x: 906.0806, y: 699.6058}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &690462663195255528
 CanvasRenderer:
@@ -70,7 +70,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 625aefc29722baa45a402d70a4e99f95, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -111,8 +111,9 @@ MonoBehaviour:
   baseHealth: 175
   healthBarUI: {fileID: 7524541231033180225}
   healthText: {fileID: 7643486575740555647}
-  gameManager: {fileID: 0}
   nameText: {fileID: 0}
+  gameManager: {fileID: 0}
+  mobSpawner: {fileID: 0}
 --- !u!114 &5076451166258108656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,7 +250,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6811880427282044518, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7699827632038276350, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7913907101471066008, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
       insertIndex: -1

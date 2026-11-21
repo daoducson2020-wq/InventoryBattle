@@ -111,8 +111,9 @@ MonoBehaviour:
   baseHealth: 300
   healthBarUI: {fileID: 7524541231033180225}
   healthText: {fileID: 7643486575740555647}
-  gameManager: {fileID: 0}
   nameText: {fileID: 0}
+  gameManager: {fileID: 0}
+  mobSpawner: {fileID: 0}
 --- !u!114 &5076451166258108656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +325,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6811880427282044518, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7699827632038276350, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7913907101471066008, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
       insertIndex: -1
