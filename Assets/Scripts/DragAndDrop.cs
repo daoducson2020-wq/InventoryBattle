@@ -12,6 +12,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private bool originalBlocksRaycasts;
 
     [HideInInspector] public ItemData itemData;       // Dữ liệu vật phẩm được gán từ Shop Slot
+    [HideInInspector] public bool isFree;             // Vật phẩm nhặt miễn phí (không trừ vàng)
+    [HideInInspector] public System.Action onClaimed; // Gọi khi vật phẩm được đặt vào kho
     [HideInInspector] public ShopSlot sourceShopSlot; // Tham chiếu đến ô cửa hàng chứa vật phẩm này
 
     void Awake()
@@ -23,8 +25,10 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (canvas == null) canvas = GetComponentInParent<Canvas>();
         if (itemData == null || canvas == null)
         {
+            Debug.LogError("DragAndDrop cannot start: itemData=" + itemData + ", canvas=" + canvas, this);
             return;
         }
 
@@ -76,16 +80,14 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             return;
         }
 
-        GameObject dropTarget = eventData.pointerCurrentRaycast.gameObject;
-        ItemGrid itemGrid = dropTarget != null
-            ? dropTarget.GetComponentInParent<ItemGrid>()
-            : null;
+        ItemGrid itemGrid = FindGridUnderPointer(eventData);
 
         if (itemGrid != null && TryPurchaseIntoGrid(itemGrid, eventData.position))
         {
             draggedInventoryItem.ShowIconFrame();
             SoundManager.Instance.PlayPurchaseItem();
             sourceShopSlot?.ClearShopSlot();
+            onClaimed?.Invoke();
             Destroy(gameObject);
             draggedInventoryItem = null;
             draggedItemRectTransform = null;
@@ -101,6 +103,19 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         ClearDragPreview();
     }
 
+    // Quét mọi UI dưới con trỏ để tìm ItemGrid, không bị che bởi panel/icon đang kéo
+    private ItemGrid FindGridUnderPointer(PointerEventData eventData)
+    {
+        var results = new System.Collections.Generic.List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+        foreach (RaycastResult r in results)
+        {
+            ItemGrid grid = r.gameObject.GetComponentInParent<ItemGrid>();
+            if (grid != null) return grid;
+        }
+        return null;
+    }
+
     private void ClearDragPreview()
     {
         if (dragPreviewController != null)
@@ -112,6 +127,11 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     private bool TryPurchaseIntoGrid(ItemGrid itemGrid, Vector2 screenPosition)
     {
+        if (isFree)
+        {
+            return itemGrid.TryPlaceNewItemAtScreenPosition(draggedInventoryItem, screenPosition);
+        }
+
         if (itemData.price < 0)
         {
             Debug.LogError("Cannot purchase an item with a negative price.", this);

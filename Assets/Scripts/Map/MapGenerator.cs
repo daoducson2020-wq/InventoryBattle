@@ -215,7 +215,7 @@ public class MapGenerator : MonoBehaviour
         foreach (Room room in mapData[1])
         {
             if (room.nextRooms.Count > 0)
-                room.type = RoomType.Campfire;
+                room.type = RoomType.Treasure;
         }
 
         // Luật 3: Tầng áp chót (Tầng 13) trước Boss luôn là Campfire 

@@ -9,6 +9,7 @@ public class Damage : MonoBehaviour
 
     private Health target;
     private Health selfHealth;
+    private PlayerWallet playerWallet;
     private float waitTime;
     private float cooldownTime;
     private float startCombat = 3f;
@@ -54,6 +55,10 @@ public class Damage : MonoBehaviour
                 }
                 selfHealth.Heal(itemData.HealAmount);
             }
+            if(itemData.GoldAmount > 0 && playerWallet != null && cooldownTime >= itemData.AttackRate)
+            {
+                playerWallet.AddGold(5);
+            }
             cooldownTime += Time.deltaTime;
             float time = cooldownTime / itemData.AttackRate;
             itemMaterial.SetFloat("_Cooldown", time);
@@ -86,6 +91,7 @@ public class Damage : MonoBehaviour
             case "Player":
                 target = GameObject.FindGameObjectWithTag("Enemy")?.GetComponent<Health>();
                 selfHealth = GetComponentInParent<Health>();
+                playerWallet = GetComponentInParent<PlayerWallet>();
                 break;
             case "Enemy":
                 target = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Health>();
@@ -102,11 +108,11 @@ public class Damage : MonoBehaviour
 
     private void CheckScene()
     {
-        if (SceneManager.GetActiveScene().name == "ShopScene" && itemMaterial != null)
+        if ((SceneManager.GetActiveScene().name == "ShopScene" || SceneManager.GetActiveScene().name == "TreasureScene") && itemMaterial != null)
         {
             itemMaterial.SetFloat("_Cooldown", 1f);
         }
-        else if (SceneManager.GetActiveScene().name != "ShopScene" && itemMaterial != null)
+        else if ((SceneManager.GetActiveScene().name != "ShopScene" || SceneManager.GetActiveScene().name != "TreasureScene") && itemMaterial != null)
         {
             itemMaterial.SetFloat("_Cooldown", 0f);
         }
