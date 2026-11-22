@@ -4561,38 +4561,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1409518778}
     m_Modifications:
-    - target: {fileID: 1559659414913043374, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1559659414913043374, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1559659414913043374, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1559659414913043374, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4163934816912141423, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4163934816912141423, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4163934816912141423, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4163934816912141423, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4684849234680220802, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -4605,22 +4573,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSide
       objectReference: {fileID: 0}
+    - target: {fileID: 6023837185380845599, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 113021343}
     - target: {fileID: 7821367796141938142, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
       propertyPath: nameText
       value: 
       objectReference: {fileID: 643861153}
     - target: {fileID: 7821367796141938142, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
-      propertyPath: baseHealth
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 7821367796141938142, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1329857063}
-    - target: {fileID: 8024461441904592729, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
-      propertyPath: goldText
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8491238550135562893, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
       propertyPath: m_Pivot.x
       value: 0

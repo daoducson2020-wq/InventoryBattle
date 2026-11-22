@@ -2139,6 +2139,7 @@ GameObject:
   - component: {fileID: 884363480}
   - component: {fileID: 884363479}
   - component: {fileID: 884363481}
+  - component: {fileID: 884363482}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2249,8 +2250,23 @@ MonoBehaviour:
   baseHealth: 200
   healthBarUI: {fileID: 675300344}
   healthText: {fileID: 1271465437}
-  gameManager: {fileID: 1329857063}
   nameText: {fileID: 1387281027}
+  gameManager: {fileID: 1329857063}
+  mobSpawner: {fileID: 0}
+  hitResponse: {fileID: 884363482}
+--- !u!114 &884363482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884363475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4303abc44bebf94abb306578de0b39e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitResponseUI
+  sprite: {fileID: 1639442114}
 --- !u!1 &905383782
 GameObject:
   m_ObjectHideFlags: 0
@@ -4287,6 +4303,7 @@ GameObject:
   - component: {fileID: 1639245497}
   - component: {fileID: 1639245499}
   - component: {fileID: 1639245500}
+  - component: {fileID: 1639245501}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -4395,8 +4412,10 @@ MonoBehaviour:
   baseHealth: 100
   healthBarUI: {fileID: 1032754511}
   healthText: {fileID: 488124721}
-  gameManager: {fileID: 1329857063}
   nameText: {fileID: 2028515964}
+  gameManager: {fileID: 1329857063}
+  mobSpawner: {fileID: 0}
+  hitResponse: {fileID: 1639245501}
 --- !u!114 &1639245500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4411,6 +4430,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyReward
   goldReward: 50
   playerWallet: {fileID: 18721633}
+--- !u!114 &1639245501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639245493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4303abc44bebf94abb306578de0b39e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitResponseUI
+  sprite: {fileID: 905383786}
 --- !u!1 &1639442112
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class Health : MonoBehaviour
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private MobSpawner mobSpawner;
+    [SerializeField] private HitResponseUI hitResponse;
     private int maxHealth;
 
     private EnemyReward enemyReward;
@@ -127,7 +128,7 @@ public class Health : MonoBehaviour
 
         currentHealth = Mathf.Max(currentHealth - damage, 0);
         SoundManager.Instance.PlayGetHit();
-        Debug.Log($"{transform.name} get hit");
+        hitResponse.SpriteChange();
         switch (transform.name)
         {
             case "Player":
@@ -141,7 +142,6 @@ public class Health : MonoBehaviour
                 int rng = UnityEngine.Random.Range(0, 2);
                 if (rng == 0)
                 {
-                    Debug.Log($"{mobSpawner.EnemyName.text} get hit");
                     PlaySfx(mobSpawner.EnemyName.text);
                 }
                 break;
@@ -149,7 +149,6 @@ public class Health : MonoBehaviour
                 int vng = UnityEngine.Random.Range(0, 2);
                 if (vng == 0)
                 {
-                    Debug.Log($"{nameText.text} get hit");
                     PlaySfx(nameText.text);
                 }
                 break;
@@ -169,7 +168,6 @@ public class Health : MonoBehaviour
         {
             int healAmount = itemGrid.ConsumeNextHealthPotion();
             if (healAmount <= 0) break;
-            Debug.Log($"Auto used health potion: +{healAmount} HP");
             SoundManager.Instance.PlayDrinkPotion();
             Heal(healAmount);
         }
