@@ -9,13 +9,16 @@ public class ManuallySFX : MonoBehaviour
     {
         foreach (var button in buttons)
         {
-            if (button.CompareTag("EnemyInventory"))
+            if (button != null)
             {
-                button.onClick.AddListener(SoundManager.Instance.PlayInventoryOpen);
-            }
-            else
-            {
-                button.onClick.AddListener(SoundManager.Instance.PlayButtonPressed);
+                if (button.CompareTag("EnemyInventory"))
+                {
+                    button.onClick.AddListener(SoundManager.Instance.PlayInventoryOpen);
+                }
+                else
+                {
+                    button.onClick.AddListener(SoundManager.Instance.PlayButtonPressed);
+                }
             }
         }
     }

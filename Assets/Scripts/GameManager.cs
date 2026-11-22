@@ -126,8 +126,9 @@ public class GameManager : MonoBehaviour
         if (pauseMenu != null) pauseMenu.SetActive(false);
         if (winStagePanel != null) winStagePanel.SetActive(false);
         if (gameOverPanel != null) gameOverPanel.SetActive(true);
-        saveSystem.DeleteSave();
         Time.timeScale = 0f;
+        gameOverPanel.GetComponent<ResultUI>().DeathResultText();
+        saveSystem.DeleteSave();
     }
 
     public void RestartGame()
@@ -173,9 +174,16 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "BossScene")
         {
             SavePlayerRecord();
+            winStagePanel.SetActive(true);
+            winStagePanel.GetComponent<ResultUI>().FinalResultText();
         }
-        // Time.timeScale = 0f;
-        winStagePanel.SetActive(true);
+        else
+        {
+            winStagePanel.SetActive(true);
+            winStagePanel.GetComponent<ResultUI>().SetResultGoldText();
+
+        }
+
     }
 
     public void SavePlayerRecord()
@@ -208,7 +216,7 @@ public class GameManager : MonoBehaviour
         networkManager.SendRecord(playerName, inventoryValue, floorsClimbed);
     }
 
-    private ItemGrid ResolvePlayerItemGrid()
+    public ItemGrid ResolvePlayerItemGrid()
     {
         if (playerItemGrid != null) return playerItemGrid;
 

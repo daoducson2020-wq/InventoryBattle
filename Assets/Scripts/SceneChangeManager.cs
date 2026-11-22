@@ -43,6 +43,11 @@ public class SceneChangeManager : MonoBehaviour
         //saveLoadUI.SaveGame();
         Time.timeScale = 1f;
         transitionScene.Play("FadeToBlack");
+        if (MapView.Instance != null && MapView.Instance.FloorsClimbed == 15)
+        {
+            SceneManager.LoadScene("MainMenuScene");
+            return;
+        }
         if (MapView.Instance != null && MapView.Instance.FloorsClimbed == 14)
         {
             MusicManager.Instance.PlayBossMusic();
