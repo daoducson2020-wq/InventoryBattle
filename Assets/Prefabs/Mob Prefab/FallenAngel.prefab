@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4294265829371548348}
   - component: {fileID: 5400156991864878847}
   - component: {fileID: 5076451166258108656}
+  - component: {fileID: 8977881374402353849}
   m_Layer: 5
   m_Name: Mob
   m_TagString: Enemy
@@ -114,6 +115,7 @@ MonoBehaviour:
   nameText: {fileID: 0}
   gameManager: {fileID: 0}
   mobSpawner: {fileID: 0}
+  hitResponse: {fileID: 8977881374402353849}
 --- !u!114 &5076451166258108656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +130,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyReward
   goldReward: 60
   playerWallet: {fileID: 0}
+--- !u!114 &8977881374402353849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6417293503173489957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4303abc44bebf94abb306578de0b39e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitResponseUI
+  sprite: {fileID: 417608864013090658}
 --- !u!1001 &5146943703885155675
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -813,6 +813,7 @@ GameObject:
   - component: {fileID: 2007310844801223156}
   - component: {fileID: 2030126927257548868}
   - component: {fileID: 7821367796141938142}
+  - component: {fileID: 6023837185380845599}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -923,5 +924,20 @@ MonoBehaviour:
   baseHealth: 200
   healthBarUI: {fileID: 7074705176204393326}
   healthText: {fileID: 4594792504167306766}
-  gameManager: {fileID: 0}
   nameText: {fileID: 0}
+  gameManager: {fileID: 0}
+  mobSpawner: {fileID: 0}
+  hitResponse: {fileID: 6023837185380845599}
+--- !u!114 &6023837185380845599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9001120501717012462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4303abc44bebf94abb306578de0b39e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HitResponseUI
+  sprite: {fileID: 0}
