@@ -82,8 +82,8 @@ public class GameSession : MonoBehaviour
         CurrentStage = 0;
         CurrentFloor = 0;
         HasSavedMap = false;
-        PlayerName = string.Empty;
-        PlayerID = string.Empty;
+        // PlayerName = string.Empty;
+        // PlayerID = string.Empty;
         savedMapData.Clear();
         playerInventoryDatas.Clear();
         if (MapView.Instance != null)
