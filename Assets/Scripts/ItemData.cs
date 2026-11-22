@@ -9,6 +9,7 @@ public class ItemData : ScriptableObject
     [SerializeField] private int damage;
     [SerializeField] private int healthBonus;
     [SerializeField] private int healAmount;
+    [SerializeField] private int goldAmount;
     [SerializeField] private float attackRate;
     [SerializeField] private Sprite icon;
     [SerializeField] private Sprite iconWithFrame;
@@ -22,6 +23,7 @@ public class ItemData : ScriptableObject
     public int Damage => damage;
     public int HealthBonus => healthBonus;
     public int HealAmount => healAmount;
+    public int GoldAmount => goldAmount;
     public float AttackRate => attackRate;
     public Sprite Icon => icon;
     public Sprite IconWithFrame => iconWithFrame;
