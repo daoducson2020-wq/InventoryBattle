@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +44,8 @@ public class MapView : MonoBehaviour
     private float minCameraY = 0f;
     private float maxCameraY = 0f;
     private float savedCameraY = 0f; // Lưu vị trí cuộn Camera trước khi chuyển Scene
+    private Vector3 camPos;
+    private Vector3 camVelocity;
 
     private void Awake()
     {
@@ -111,6 +114,7 @@ public class MapView : MonoBehaviour
             GenerateNewMap();
             UnlockFloor(0);
         }
+        camPos = mapCamera.transform.position;
     }
 
     // 3. Tự động xử lý khi chuyển qua lại giữa MapScene và các Scene màn chơi
@@ -197,13 +201,20 @@ public class MapView : MonoBehaviour
         if (mapCamera == null) return;
 
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        // if (Mathf.Abs(scrollInput) > 0.001f)
+        // {
+        //     Vector3 camPos = mapCamera.transform.position;
+        //     camPos.y += scrollInput * scrollSpeed * 10f;
+        //     camPos.y = Mathf.Clamp(camPos.y, minCameraY, maxCameraY);
+        //     mapCamera.transform.position = camPos;
+        // }
         if (Mathf.Abs(scrollInput) > 0.001f)
         {
-            Vector3 camPos = mapCamera.transform.position;
-            camPos.y += scrollInput * scrollSpeed * 10f;
+            camPos.y += scrollInput * scrollSpeed * Time.deltaTime;
             camPos.y = Mathf.Clamp(camPos.y, minCameraY, maxCameraY);
-            mapCamera.transform.position = camPos;
         }
+        Vector3 newPos = new (0, camPos.y, -10f);
+        mapCamera.transform.position = Vector3.SmoothDamp(camPos, newPos, ref camVelocity, 20f);
     }
 
     // --- KHI NGƯỜI CHƠI CLICK CHỌN 1 NODE ---
@@ -266,14 +277,14 @@ public class MapView : MonoBehaviour
                 break;
         }
     }
-    
+
     IEnumerator PlayMusic()
     {
         MusicManager.Instance.StopPlayMusic();
         yield return new WaitForSeconds(1.9f);
         MusicManager.Instance.PlayBattleMusic();
     }
-    
+
     // --- 1. KHỞI TẠO VÀ VẼ BẢN ĐỒ ---
     public void GenerateNewMap()
     {
