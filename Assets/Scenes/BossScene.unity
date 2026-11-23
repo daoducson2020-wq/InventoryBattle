@@ -1799,7 +1799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9349e632fe50d0d40b716e74804a1a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  baseHealth: 10000
+  baseHealth: 200
   healthBarUI: {fileID: 675300344}
   healthText: {fileID: 1271465437}
   nameText: {fileID: 1568557548}
