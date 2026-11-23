@@ -18,7 +18,7 @@ public class Damage : MonoBehaviour
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name != "ShopScene")
+        if (SceneManager.GetActiveScene().name != "ShopScene" || SceneManager.GetActiveScene().name != "TreasureScene")
         {
             IdentifySelfTag();
         }
@@ -27,7 +27,7 @@ public class Damage : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "ShopScene")
+        if (SceneManager.GetActiveScene().name == "ShopScene" || SceneManager.GetActiveScene().name == "TreasureScene")
         {
             return;
         }
@@ -109,19 +109,15 @@ public class Damage : MonoBehaviour
 
     private void CheckScene()
     {
-        if (SceneManager.GetActiveScene().name == "ShopScene" || SceneManager.GetActiveScene().name == "TreasureScene")
+        if ((SceneManager.GetActiveScene().name == "ShopScene" ||
+            SceneManager.GetActiveScene().name == "TreasureScene") && itemMaterial != null)
         {
-            if (itemMaterial != null)
-            {
                 itemMaterial.SetFloat("_Cooldown", 1f);
-            }
         } 
-        else if (SceneManager.GetActiveScene().name != "ShopScene" || SceneManager.GetActiveScene().name != "TreasureScene")
+        else if ((SceneManager.GetActiveScene().name != "ShopScene" ||
+                SceneManager.GetActiveScene().name != "TreasureScene") && itemMaterial != null)
         {
-            if(itemMaterial != null)
-            {
                 itemMaterial.SetFloat("_Cooldown", 0f);
-            }
         }
     }
     
