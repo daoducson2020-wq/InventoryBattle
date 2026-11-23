@@ -23,6 +23,9 @@ public class TreasureController : MonoBehaviour
     public void Start()
     {
         playerPanel.SetActive(false);
+        powerPanel.SetActive(false);
+        sacreficePanel.SetActive(false);
+        goldPanel.SetActive(false);
         lifePanel.SetActive(false);
     }
 

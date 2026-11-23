@@ -10,11 +10,16 @@ public class LeaderboardUI : MonoBehaviour
 
     private void OnEnable()
     {
-        if (networkManager == null ||
-        rowsContainer == null ||
-        rowPrefab == null)
+        if (NetworkManager.Instance != null)
         {
-            Debug.LogError("Leaderboard UI references are missing.");
+            networkManager = NetworkManager.Instance;
+        }
+
+        if (networkManager == null ||
+            rowsContainer == null ||
+            rowPrefab == null)
+        {
+            Debug.LogError($"Leaderboard UI references are missing. networkManager={networkManager != null}, rowsContainer={rowsContainer != null}, rowPrefab={rowPrefab != null}");
             return;
         }
 
