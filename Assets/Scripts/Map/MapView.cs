@@ -220,6 +220,10 @@ public class MapView : MonoBehaviour
 
         LastRoom = room;
         FloorsClimbed++;
+        if (GameSession.Instance != null)
+        {
+            GameSession.Instance.SetCurrentFloor(FloorsClimbed);
+        }
 
         // Lưu lại độ cao Camera đang cuộn trước khi rời Scene
         if (mapCamera != null)

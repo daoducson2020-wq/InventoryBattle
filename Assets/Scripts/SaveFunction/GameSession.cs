@@ -67,6 +67,11 @@ public class GameSession : MonoBehaviour
         HasSavedMap = savedMapData.Count > 0;
     }
 
+    public void SetCurrentFloor(int floor)
+    {
+        CurrentFloor = Mathf.Max(0, floor);
+    }
+
     public void ClearPendingMapLoad()
     {
         HasSavedMap = false;

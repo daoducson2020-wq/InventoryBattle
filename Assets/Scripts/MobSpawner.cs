@@ -13,8 +13,20 @@ public class MobSpawner : MonoBehaviour
     
     private void Start()
     {
-        int floor = GameSession.Instance != null ? GameSession.Instance.CurrentFloor : 0;
+        int floor = GetCurrentFloor();
         SpawnForFloor(floor);
+    }
+
+    private int GetCurrentFloor()
+    {
+        if (MapView.Instance != null)
+        {
+            return MapView.Instance.LastRoom != null
+                ? MapView.Instance.LastRoom.row
+                : MapView.Instance.FloorsClimbed;
+        }
+
+        return GameSession.Instance != null ? GameSession.Instance.CurrentFloor : 0;
     }
 
     // Tầng 0-4: begin, 5-8: middle, 9-12: high

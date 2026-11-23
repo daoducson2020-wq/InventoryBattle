@@ -57,11 +57,12 @@ public class Damage : MonoBehaviour
             }
             if(itemData.GoldAmount > 0 && playerWallet != null && cooldownTime >= itemData.AttackRate)
             {
-                playerWallet.AddGold(5);
+                playerWallet.AddGold(itemData.GoldAmount);
             }
             cooldownTime += Time.deltaTime;
             float time = cooldownTime / itemData.AttackRate;
-            itemMaterial.SetFloat("_Cooldown", time);
+            if(itemMaterial != null)
+                itemMaterial.SetFloat("_Cooldown", time);
         }
         waitTime += Time.deltaTime;
     }
@@ -108,13 +109,19 @@ public class Damage : MonoBehaviour
 
     private void CheckScene()
     {
-        if ((SceneManager.GetActiveScene().name == "ShopScene" || SceneManager.GetActiveScene().name == "TreasureScene") && itemMaterial != null)
+        if (SceneManager.GetActiveScene().name == "ShopScene" || SceneManager.GetActiveScene().name == "TreasureScene")
         {
-            itemMaterial.SetFloat("_Cooldown", 1f);
-        }
-        else if ((SceneManager.GetActiveScene().name != "ShopScene" || SceneManager.GetActiveScene().name != "TreasureScene") && itemMaterial != null)
+            if (itemMaterial != null)
+            {
+                itemMaterial.SetFloat("_Cooldown", 1f);
+            }
+        } 
+        else if (SceneManager.GetActiveScene().name != "ShopScene" || SceneManager.GetActiveScene().name != "TreasureScene")
         {
-            itemMaterial.SetFloat("_Cooldown", 0f);
+            if(itemMaterial != null)
+            {
+                itemMaterial.SetFloat("_Cooldown", 0f);
+            }
         }
     }
     
