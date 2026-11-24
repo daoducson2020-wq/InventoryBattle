@@ -4090,7 +4090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9349e632fe50d0d40b716e74804a1a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  baseHealth: 100
+  baseHealth: 120
   healthBarUI: {fileID: 1032754511}
   healthText: {fileID: 488124721}
   nameText: {fileID: 184934871}
@@ -5362,6 +5362,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 1639245499}
   enemyInventory: {fileID: 557529802}
   enemyImage: {fileID: 0}
+  enemyConfigJson: {fileID: 4900000, guid: 556c5e17c0b62074a851ff360ba99e47, type: 3}
   enemyImages: []
 --- !u!4 &1998517503
 Transform:

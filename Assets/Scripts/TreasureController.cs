@@ -16,6 +16,7 @@ public class TreasureController : MonoBehaviour
     [SerializeField] private GameObject goldPanel;
     [SerializeField] private GameObject g_Opt1;
     [SerializeField] private GameObject g_Opt2;
+    [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject playerPanel;
     [SerializeField] private Health playerHealth;
     [SerializeField] private PlayerWallet playerWallet;
@@ -27,6 +28,7 @@ public class TreasureController : MonoBehaviour
         sacreficePanel.SetActive(false);
         goldPanel.SetActive(false);
         lifePanel.SetActive(false);
+        mainPanel.SetActive(false);
     }
 
     public void ChooseLife()
@@ -111,5 +113,11 @@ public class TreasureController : MonoBehaviour
     {
         playerWallet.AddGold(150);
         g_Opt2.SetActive(true);
+    }
+
+    public void ChooseMain()
+    {
+        playerPanel.SetActive(true);
+        mainPanel.SetActive(true);
     }
 }

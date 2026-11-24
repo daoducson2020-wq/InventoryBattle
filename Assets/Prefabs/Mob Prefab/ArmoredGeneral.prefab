@@ -94,7 +94,7 @@ MonoBehaviour:
   mobID: 3
   mobName: Armored General
   mobType: 1
-  atkDamage: 20
+  atkDamage: 23
   atkCooldown: 3
   playerHealth: {fileID: 0}
 --- !u!114 &5400156991864878847
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9349e632fe50d0d40b716e74804a1a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  baseHealth: 160
+  baseHealth: 165
   healthBarUI: {fileID: 7524541231033180225}
   healthText: {fileID: 7643486575740555647}
   nameText: {fileID: 0}

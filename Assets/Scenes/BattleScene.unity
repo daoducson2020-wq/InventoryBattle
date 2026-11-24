@@ -3904,6 +3904,10 @@ PrefabInstance:
       propertyPath: goldText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8024461441904592729, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
+      propertyPath: beginGold
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 8491238550135562893, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
       propertyPath: m_Pivot.x
       value: 0

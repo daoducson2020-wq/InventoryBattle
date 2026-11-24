@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9349e632fe50d0d40b716e74804a1a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  baseHealth: 220
+  baseHealth: 230
   healthBarUI: {fileID: 7524541231033180225}
   healthText: {fileID: 7643486575740555647}
   nameText: {fileID: 0}

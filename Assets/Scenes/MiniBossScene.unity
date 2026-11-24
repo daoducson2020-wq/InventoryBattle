@@ -5160,6 +5160,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 1639245499}
   enemyInventory: {fileID: 557529802}
   enemyImage: {fileID: 905383786}
+  enemyConfigJson: {fileID: 4900000, guid: 556c5e17c0b62074a851ff360ba99e47, type: 3}
   enemyImages:
   - {fileID: 21300000, guid: 4c26f765652c77441a52745cfe08858e, type: 3}
   - {fileID: 21300000, guid: 72e98f36e32801e49ac9c4f58a4c9a77, type: 3}

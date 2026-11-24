@@ -1964,7 +1964,7 @@ MonoBehaviour:
   linesContainer: {fileID: 1638900526}
   mapRoomPrefab: {fileID: 8773299320668725689, guid: f9024fe5d6340c340bd0749abfe7541e, type: 3}
   mapLinePrefab: {fileID: 5539210049848149106, guid: e511092e4b5bf924c8149219efad3622, type: 3}
-  scrollSpeed: 5000
+  scrollSpeed: 9000
 --- !u!1 &1328911800
 GameObject:
   m_ObjectHideFlags: 0

@@ -40,6 +40,10 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5153069300306907181, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
+      propertyPath: atkDamage
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 7699827632038276350, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
       propertyPath: m_Name
       value: Mob

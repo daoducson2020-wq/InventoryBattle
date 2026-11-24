@@ -114,7 +114,14 @@ public class MapView : MonoBehaviour
             GenerateNewMap();
             UnlockFloor(0);
         }
-        camPos = mapCamera.transform.position;
+        if (mapCamera != null)
+        {
+            Vector3 currentCamPos = mapCamera.transform.position;
+            currentCamPos.y = savedCameraY;
+            mapCamera.transform.position = currentCamPos;
+            camPos = currentCamPos;
+            camVelocity = Vector3.zero;
+        }
     }
 
     // 3. Tự động xử lý khi chuyển qua lại giữa MapScene và các Scene màn chơi
@@ -141,9 +148,11 @@ public class MapView : MonoBehaviour
 
             if (mapCamera != null)
             {
-                Vector3 camPos = mapCamera.transform.position;
-                camPos.y = savedCameraY; // Khôi phục đúng vị trí cuộn trước đó
-                mapCamera.transform.position = camPos;
+                Vector3 currentCamPos = mapCamera.transform.position;
+                currentCamPos.y = savedCameraY; // Khôi phục đúng vị trí cuộn trước đó
+                mapCamera.transform.position = currentCamPos;
+                camPos = currentCamPos;
+                camVelocity = Vector3.zero;
             }
 
             // Hiện lại bản đồ và mở khóa các Node nối tiếp từ phòng vừa hoàn thành
@@ -165,7 +174,6 @@ public class MapView : MonoBehaviour
         }
     }
 
-    // Auto-save once the map is loaded (i.e. after finishing a room). Gold/inventory come from GameSession
     private void AutoSave()
     {
         if (mapData == null || mapData.Count == 0) return;
@@ -201,20 +209,14 @@ public class MapView : MonoBehaviour
         if (mapCamera == null) return;
 
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        // if (Mathf.Abs(scrollInput) > 0.001f)
-        // {
-        //     Vector3 camPos = mapCamera.transform.position;
-        //     camPos.y += scrollInput * scrollSpeed * 10f;
-        //     camPos.y = Mathf.Clamp(camPos.y, minCameraY, maxCameraY);
-        //     mapCamera.transform.position = camPos;
-        // }
         if (Mathf.Abs(scrollInput) > 0.001f)
         {
             camPos.y += scrollInput * scrollSpeed * Time.deltaTime;
             camPos.y = Mathf.Clamp(camPos.y, minCameraY, maxCameraY);
         }
-        Vector3 newPos = new (0, camPos.y, -10f);
-        mapCamera.transform.position = Vector3.SmoothDamp(camPos, newPos, ref camVelocity, 20f);
+        Vector3 newPos = new(mapCamera.transform.position.x, camPos.y, mapCamera.transform.position.z);
+        mapCamera.transform.position = Vector3.SmoothDamp(mapCamera.transform.position, newPos, ref camVelocity, 0.1f);
+        savedCameraY = camPos.y;
     }
 
     // --- KHI NGƯỜI CHƠI CLICK CHỌN 1 NODE ---
@@ -237,10 +239,7 @@ public class MapView : MonoBehaviour
         }
 
         // Lưu lại độ cao Camera đang cuộn trước khi rời Scene
-        if (mapCamera != null)
-        {
-            savedCameraY = mapCamera.transform.position.y;
-        }
+        savedCameraY = camPos.y;
 
         // Chuyển sang Scene tương ứng với loại Node vừa chọn
         SoundManager.Instance.PlayButtonPressed();
@@ -291,6 +290,8 @@ public class MapView : MonoBehaviour
         FloorsClimbed = 0;
         LastRoom = null;
         savedCameraY = 0f;
+        camPos.y = 0f;
+        camVelocity = Vector3.zero;
 
         mapData = mapGenerator.GenerateMap();
         CreateMapVisuals();
@@ -301,6 +302,10 @@ public class MapView : MonoBehaviour
         FloorsClimbed = 0;
         LastRoom = null;
         savedCameraY = 0f;
+        camPos.y = 0f;
+        camVelocity = Vector3.zero;
+        pendingMap = null;
+        pendingFloor = 0;
         mapData.Clear();
         ClearExistingVisuals();
     }
@@ -345,11 +350,15 @@ public class MapView : MonoBehaviour
             savedCameraY = Mathf.Clamp(LastRoom.position.y, minCameraY, maxCameraY);
         }
 
+        camPos.y = savedCameraY;
+        camVelocity = Vector3.zero;
+
         if (mapCamera != null)
         {
-            Vector3 camPos = mapCamera.transform.position;
-            camPos.y = savedCameraY;
-            mapCamera.transform.position = camPos;
+            Vector3 currentCamPos = mapCamera.transform.position;
+            currentCamPos.y = savedCameraY;
+            mapCamera.transform.position = currentCamPos;
+            camPos = currentCamPos;
         }
     }
 
