@@ -52,7 +52,7 @@ public class CampfireHeal : MonoBehaviour
             animator.SetTrigger("Heal");
             animator.SetBool("isHealed", true);
         }
-        playerHealth.Heal(playerHealth.MaxHealth * 40 / 100);
+        playerHealth.Heal(playerHealth.MaxHealth * 60 / 100);
     }
 
     public void EndHealAnimation()

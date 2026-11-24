@@ -94,7 +94,7 @@ MonoBehaviour:
   mobID: 1
   mobName: Fighter Cheems
   mobType: 0
-  atkDamage: 10
+  atkDamage: 7
   atkCooldown: 2
   playerHealth: {fileID: 0}
 --- !u!114 &5400156991864878847
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9349e632fe50d0d40b716e74804a1a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  baseHealth: 100
+  baseHealth: 90
   healthBarUI: {fileID: 7524541231033180225}
   healthText: {fileID: 7643486575740555647}
   nameText: {fileID: 0}
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca88557a93489b64b820f67daaad5c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyReward
-  goldReward: 40
+  goldReward: 30
   playerWallet: {fileID: 0}
 --- !u!114 &1155218312222068684
 MonoBehaviour:

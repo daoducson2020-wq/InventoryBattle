@@ -638,7 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081f0fe7c9ee6b843bcb67a239515b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWallet
-  beginGold: 100
+  beginGold: 65
   goldText: {fileID: 401116823}
 --- !u!114 &401116823
 MonoBehaviour:

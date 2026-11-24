@@ -1213,7 +1213,7 @@ PrefabInstance:
       objectReference: {fileID: 615667422}
     - target: {fileID: 7821367796141938142, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
       propertyPath: baseHealth
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8491238550135562893, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
       propertyPath: m_Pivot.x

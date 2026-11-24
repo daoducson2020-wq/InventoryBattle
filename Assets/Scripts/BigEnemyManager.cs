@@ -95,10 +95,12 @@ public class BigEnemyManager : MonoBehaviour
         if (data == null || data.enemyDatas == null || data.enemyDatas.Count == 0) return;
 
         EnemyEntry selectedEnemy = null;
+        int targetGoldReward = 0;
 
         if (SceneManager.GetActiveScene().name == "BossScene")
         {
             selectedEnemy = data.enemyDatas[data.enemyDatas.Count - 1]; // "Chad Cheems"
+            targetGoldReward = 100;
         }
         else if (SceneManager.GetActiveScene().name == "MiniBossScene")
         {
@@ -108,12 +110,14 @@ public class BigEnemyManager : MonoBehaviour
                 Debug.Log("loadout: " + rnd);
                 selectedEnemy = data.enemyDatas[rnd];
                 enemyImage.GetComponent<Image>().sprite = enemyImages[0];
+                targetGoldReward = 55;
             }
             else
             {
                 int rnd = Random.Range(3, data.enemyDatas.Count - 1); // 3: Paladin, 4: Hunter, 5: Marksman, 6: Berserker
                 selectedEnemy = data.enemyDatas[rnd];
                 enemyImage.GetComponent<Image>().sprite = enemyImages[1];
+                targetGoldReward = 80;
             }
         }
 
@@ -130,6 +134,17 @@ public class BigEnemyManager : MonoBehaviour
             if (enemyHealth != null)
             {
                 enemyHealth.SetUnitName(selectedEnemy.key);
+            }
+
+            // 3. Cập nhật tiền thưởng theo phân tầng độ khó (MiniBoss < 5: 40G, MiniBoss >= 5: 65G, Boss: 100G)
+            EnemyReward reward = enemyGrid != null ? enemyGrid.GetComponent<EnemyReward>() : null;
+            if (reward == null && enemyHealth != null)
+            {
+                reward = enemyHealth.GetComponent<EnemyReward>();
+            }
+            if (reward != null && targetGoldReward > 0)
+            {
+                reward.SetGoldReward(targetGoldReward);
             }
         }
     }

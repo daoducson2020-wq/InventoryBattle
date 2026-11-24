@@ -18,7 +18,7 @@ MonoBehaviour:
   healthBonus: 0
   healAmount: 0
   goldAmount: 5
-  attackRate: 1
+  attackRate: 2
   icon: {fileID: 21300000, guid: bffdbd260c0811b47b44198c6673f99e, type: 3}
   iconWithFrame: {fileID: 21300000, guid: 20b4fb847a47a5d48be77804dde04401, type: 3}
   itemWidth: 2
