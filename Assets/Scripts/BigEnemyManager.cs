@@ -13,7 +13,6 @@ public class BigEnemyManager : MonoBehaviour
     [SerializeField] private Sprite[] enemyImages;
 
     private bool isShow = false;
-    private string filePath = Application.dataPath + "/EnemyConfig/enemies.json";
 
     private void Start()
     {
@@ -51,15 +50,25 @@ public class BigEnemyManager : MonoBehaviour
         enemySaveData.AddData("Chad Cheems", datas);
         string json = JsonUtility.ToJson(enemySaveData, true);
 
-        File.WriteAllText(filePath, json);
-        Debug.Log("Data Saved");
+        string path = GetEnemyConfigPath();
+        if (!File.Exists(path))
+        {
+            Debug.Log("enenmy config path doesnt exists");
+            return;
+        }
+        File.WriteAllText(path, json);
     }
 
     public EnemySaveData LoadEnemyData()
     {
-        if (!File.Exists(filePath)) return null;
+        string path = GetEnemyConfigPath();
+        if (!File.Exists(path))
+        {
+            Debug.Log("enenmy config path doesnt exists");
+            return null;
+        }
 
-        string json = File.ReadAllText(filePath);
+        string json = File.ReadAllText(path);
         return JsonUtility.FromJson<EnemySaveData>(json);
     }
 
@@ -82,6 +91,12 @@ public class BigEnemyManager : MonoBehaviour
             isShow = false;
             SetAlpha(0f);
         }
+    }
+
+    private static string GetEnemyConfigPath()
+    {
+        Debug.Log(Path.Combine(Application.persistentDataPath, "enemies.json"));
+        return Path.Combine(Application.persistentDataPath, "enemies.json");
     }
 
     private void SetAlpha(float value)
