@@ -13,7 +13,7 @@ public class MapGenerator : MonoBehaviour
     public const int PATHS = 6;
 
     [Header("Room Weights")]
-    public float MONSTER_ROOM_WEIGHT = 7.0f;
+    public float MONSTER_ROOM_WEIGHT = 6.0f;
     public float SHOP_ROOM_WEIGHT = 4.0f;
     public float CAMPFIRE_ROOM_WEIGHT = 3.0f;
     public float TREASURE_ROOM_WEIGHT = 2.5f;
@@ -212,32 +212,32 @@ public class MapGenerator : MonoBehaviour
         }
 
         // Luật 2: Tầng 8 (Floor thứ 9) luôn là MiniBoss
-        // foreach (Room room in mapData[8])
-        // {
-        //     if (room.nextRooms.Count > 0)
-        //         room.type = RoomType.MiniBoss;
-        // }
-
-        foreach (Room room in mapData[1])
-        {
-            if (room.nextRooms.Count > 0)
-                room.type = RoomType.Campfire;
-        }
-        foreach (Room room in mapData[2])
-        {
-            if (room.nextRooms.Count > 0)
-                room.type = RoomType.Treasure;
-        }
-        foreach (Room room in mapData[3])
-        {
-            if (room.nextRooms.Count > 0)
-                room.type = RoomType.Shop;
-        }
-        foreach (Room room in mapData[4])
+        foreach (Room room in mapData[8])
         {
             if (room.nextRooms.Count > 0)
                 room.type = RoomType.MiniBoss;
         }
+
+        // foreach (Room room in mapData[1])
+        // {
+        //     if (room.nextRooms.Count > 0)
+        //         room.type = RoomType.Campfire;
+        // }
+        // foreach (Room room in mapData[2])
+        // {
+        //     if (room.nextRooms.Count > 0)
+        //         room.type = RoomType.Treasure;
+        // }
+        // foreach (Room room in mapData[3])
+        // {
+        //     if (room.nextRooms.Count > 0)
+        //         room.type = RoomType.Shop;
+        // }
+        // foreach (Room room in mapData[4])
+        // {
+        //     if (room.nextRooms.Count > 0)
+        //         room.type = RoomType.MiniBoss;
+        // }
 
         // Luật 3: Tầng áp chót (Tầng 13) trước Boss luôn là Campfire 
         foreach (Room room in mapData[FLOORS - 2])

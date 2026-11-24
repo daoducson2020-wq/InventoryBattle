@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     private bool isWin;
     private bool hasSavedRecord;
     private float counterTimer;
+    private float currentSpeed = 1f;
     public float CounterTimer => counterTimer;
 
     public void Start()
@@ -96,14 +97,17 @@ public class GameManager : MonoBehaviour
         {
             case 2:
                 Time.timeScale = 2f;
+                currentSpeed = 2f;
                 speedText.text = "Speed X2";
                 break;
             case 3:
                 Time.timeScale = 3f;
+                currentSpeed = 3f;
                 speedText.text = "Speed X3";
                 break;
             case 4:
                 Time.timeScale = 1f;
+                currentSpeed = 1f;
                 speedText.text = "Speed X1";
                 speed = 1;
                 break;
@@ -160,7 +164,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Time.timeScale = 1f;
+            Time.timeScale = currentSpeed;
             isPaused = false;
             pauseMenu.SetActive(false);
         }
@@ -207,7 +211,7 @@ public class GameManager : MonoBehaviour
 
         int floorsClimbed = MapView.Instance != null
             ? MapView.Instance.FloorsClimbed
-            : (GameSession.Instance != null ? GameSession.Instance.CurrentFloor : 0);
+            : (GameSession.Instance != null ? Mathf.Max(GameSession.Instance.CurrentFloor - 1, 0) : 0);
 
         string playerName = (GameSession.Instance != null && !string.IsNullOrWhiteSpace(GameSession.Instance.PlayerName))
             ? GameSession.Instance.PlayerName
