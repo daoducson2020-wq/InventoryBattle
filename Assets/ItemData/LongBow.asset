@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: LongBow
   itemType: 0
-  damage: 10
+  damage: 15
   healthBonus: 0
   healAmount: 0
-  attackRate: 3
+  attackRate: 2.8
   icon: {fileID: 21300000, guid: 5cfd6689f7092d84fbf2b293291bf10c, type: 3}
   iconWithFrame: {fileID: 21300000, guid: c4d1bc4f281390646be64d0242e14842, type: 3}
   itemWidth: 2

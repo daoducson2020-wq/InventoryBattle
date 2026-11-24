@@ -287,7 +287,7 @@ public class MapGenerator : MonoBehaviour
             campfireBelow4 = isCampfire && roomToSet.row < 3;
             consecutiveCampfire = isCampfire && hasCampfireParent;
             consecutiveShop = isShop && hasShopParent;
-            consecutiveMiniBoss = isMiniBoss && hasMiniBossParent && roomToSet.row < 3;
+            consecutiveMiniBoss = isMiniBoss && (hasMiniBossParent || roomToSet.row < 3 || roomToSet.row == 7);
             campfireOn13 = isCampfire && roomToSet.row == 12;
         }
 

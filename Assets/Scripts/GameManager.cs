@@ -178,6 +178,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "BossScene")
         {
             SavePlayerRecord();
+            saveSystem.DeleteSave();
             winStagePanel.SetActive(true);
             winStagePanel.GetComponent<ResultUI>().FinalResultText();
         }
@@ -185,7 +186,6 @@ public class GameManager : MonoBehaviour
         {
             winStagePanel.SetActive(true);
             winStagePanel.GetComponent<ResultUI>().SetResultGoldText();
-
         }
 
     }

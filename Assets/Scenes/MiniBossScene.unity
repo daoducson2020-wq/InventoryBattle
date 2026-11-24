@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081f0fe7c9ee6b843bcb67a239515b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWallet
-  beginGold: 100
+  beginGold: 65
   goldText: {fileID: 0}
 --- !u!224 &18721634
 RectTransform:
@@ -1977,7 +1977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9349e632fe50d0d40b716e74804a1a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  baseHealth: 200
+  baseHealth: 300
   healthBarUI: {fileID: 675300344}
   healthText: {fileID: 1271465437}
   nameText: {fileID: 1387281027}
@@ -3717,7 +3717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca88557a93489b64b820f67daaad5c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyReward
-  goldReward: 50
+  goldReward: 80
   playerWallet: {fileID: 18721633}
 --- !u!114 &1639245501
 MonoBehaviour:

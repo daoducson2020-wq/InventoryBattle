@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   itemName: Sickle
   itemType: 0
-  damage: 5
+  damage: 7
   healthBonus: 0
   healAmount: 0
-  attackRate: 2.2
+  attackRate: 2
   icon: {fileID: 21300000, guid: 1c9313dba24caf345a0b196dc5d036ec, type: 3}
   iconWithFrame: {fileID: 21300000, guid: 6caf134f04391054381882f8549d5a9d, type: 3}
   itemWidth: 2

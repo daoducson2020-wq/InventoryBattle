@@ -365,7 +365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081f0fe7c9ee6b843bcb67a239515b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWallet
-  beginGold: 100
+  beginGold: 65
   goldText: {fileID: 0}
 --- !u!1 &5793991148872177808
 GameObject:
@@ -921,7 +921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9349e632fe50d0d40b716e74804a1a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  baseHealth: 200
+  baseHealth: 300
   healthBarUI: {fileID: 7074705176204393326}
   healthText: {fileID: 4594792504167306766}
   nameText: {fileID: 0}

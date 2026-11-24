@@ -694,8 +694,8 @@ MonoBehaviour:
   mobID: 2
   mobName: Archer
   mobType: 0
-  atkDamage: 20
-  atkCooldown: 4
+  atkDamage: 14
+  atkCooldown: 3.5
   playerHealth: {fileID: 0}
 --- !u!114 &1113063471019600573
 MonoBehaviour:
@@ -709,7 +709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9349e632fe50d0d40b716e74804a1a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  baseHealth: 125
+  baseHealth: 110
   healthBarUI: {fileID: 3387010820536888602}
   healthText: {fileID: 3278198919124327460}
   gameManager: {fileID: 0}
@@ -726,7 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca88557a93489b64b820f67daaad5c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyReward
-  goldReward: 45
+  goldReward: 35
   playerWallet: {fileID: 0}
 --- !u!1 &8972645202726329731
 GameObject:

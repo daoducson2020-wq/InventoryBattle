@@ -5,7 +5,7 @@ using System;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int baseHealth = 100;
+    [SerializeField] private int baseHealth = 300;
     [SerializeField] private Slider healthBarUI;
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private TMP_Text nameText;
@@ -26,6 +26,10 @@ public class Health : MonoBehaviour
     {
         enemyReward = GetComponent<EnemyReward>();
         itemGrid = GetComponent<ItemGrid>();
+        if (CompareTag("Player") && baseHealth < 300)
+        {
+            baseHealth = 300;
+        }
         maxHealth = baseHealth;
         mobSpawner = FindAnyObjectByType<MobSpawner>();
     }

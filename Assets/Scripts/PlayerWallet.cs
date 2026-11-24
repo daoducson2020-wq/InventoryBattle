@@ -7,7 +7,7 @@ public class PlayerWallet : MonoBehaviour
 
     [Header("Currency Settings")]
 
-    [SerializeField] private int beginGold = 100; // Số vàng khởi điểm của người chơi
+    [SerializeField] private int beginGold = 65; // Số vàng khởi điểm của người chơi
     private int currentGold;
     public TextMeshProUGUI goldText;
 
