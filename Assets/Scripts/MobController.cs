@@ -17,8 +17,11 @@ public class MobController : MonoBehaviour
 
     [SerializeField] private Health playerHealth;
 
+    private Health selfHealth;
+
     public void Start()
     {   
+        selfHealth = GetComponentInParent<Health>();
         if (playerHealth != null) return;
         foreach (Health h in FindObjectsByType<Health>())
         {
@@ -28,6 +31,11 @@ public class MobController : MonoBehaviour
 
     private void Update()
     {
+        if ((selfHealth != null && selfHealth.CurrentHealth <= 0) ||
+            (playerHealth != null && playerHealth.CurrentHealth <= 0))
+        {
+            return;
+        }
         if (waitTime >= startCombat)
         {
             if (Time.time >= nextATKTime)

@@ -10,6 +10,7 @@ public class BigEnemyManager : MonoBehaviour
     [SerializeField] private Health enemyHealth;
     [SerializeField] private GameObject enemyInventory;
     [SerializeField] private Image enemyImage;
+    [SerializeField] private TextAsset enemyConfigJson;
     [SerializeField] private Sprite[] enemyImages;
 
     private bool isShow = false;
@@ -50,26 +51,31 @@ public class BigEnemyManager : MonoBehaviour
         enemySaveData.AddData("Chad Cheems", datas);
         string json = JsonUtility.ToJson(enemySaveData, true);
 
-        string path = GetEnemyConfigPath();
-        if (!File.Exists(path))
-        {
-            Debug.Log("enenmy config path doesnt exists");
-            return;
-        }
+#if UNITY_EDITOR
+        string path = enemyConfigJson != null
+            ? UnityEditor.AssetDatabase.GetAssetPath(enemyConfigJson)
+            : Path.Combine(Application.dataPath, "EnemyConfig/enemies.json");
         File.WriteAllText(path, json);
+        UnityEditor.AssetDatabase.Refresh();
+        Debug.Log("Enemy data saved to: " + path);
+#endif
     }
 
     public EnemySaveData LoadEnemyData()
     {
-        string path = GetEnemyConfigPath();
-        if (!File.Exists(path))
+        if (enemyConfigJson != null)
         {
-            Debug.Log("enenmy config path doesnt exists");
-            return null;
+            return JsonUtility.FromJson<EnemySaveData>(enemyConfigJson.text);
         }
 
-        string json = File.ReadAllText(path);
-        return JsonUtility.FromJson<EnemySaveData>(json);
+        string fallbackPath = Path.Combine(Application.dataPath, "EnemyConfig/enemies.json");
+        if (File.Exists(fallbackPath))
+        {
+            return JsonUtility.FromJson<EnemySaveData>(File.ReadAllText(fallbackPath));
+        }
+
+        Debug.LogWarning("Enemy config TextAsset is not assigned!");
+        return null;
     }
 
     [ContextMenu("Load Enemy Data")]
@@ -91,12 +97,6 @@ public class BigEnemyManager : MonoBehaviour
             isShow = false;
             SetAlpha(0f);
         }
-    }
-
-    private static string GetEnemyConfigPath()
-    {
-        Debug.Log(Path.Combine(Application.persistentDataPath, "enemies.json"));
-        return Path.Combine(Application.persistentDataPath, "enemies.json");
     }
 
     private void SetAlpha(float value)

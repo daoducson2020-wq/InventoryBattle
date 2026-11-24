@@ -35,6 +35,11 @@ public class Damage : MonoBehaviour
         {
             return;
         }
+        if ((selfHealth != null && selfHealth.CurrentHealth <= 0) ||
+            (target != null && target.CurrentHealth <= 0))
+        {
+            return;
+        }
         if (waitTime >= startCombat)
         {
             if (itemData.Damage > 0 && target != null && cooldownTime >= itemData.AttackRate)

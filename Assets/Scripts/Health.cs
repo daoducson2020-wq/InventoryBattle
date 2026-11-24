@@ -116,6 +116,7 @@ public class Health : MonoBehaviour
 
     public void Heal(int amount)
     {
+        if (currentHealth <= 0) return;
         if (amount < 0)
         {
             Debug.Log("Heal Amount Cannot be Negative Number!");

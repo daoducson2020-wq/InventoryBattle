@@ -172,7 +172,7 @@ public class GameManager : MonoBehaviour
 
     public void WinStage()
     {
-        if (isGameOver || isPaused) return;
+        if (isGameOver || isPaused || isWin) return;
         isWin = true;
         StartCoroutine(PlayVictoryMusic());
         if (SceneManager.GetActiveScene().name == "BossScene")
