@@ -55,13 +55,14 @@ public class Damage : MonoBehaviour
                 }
                 selfHealth.Heal(itemData.HealAmount);
             }
-            if(itemData.GoldAmount > 0 && playerWallet != null && cooldownTime >= itemData.AttackRate)
+            if (itemData.GoldAmount > 0 && playerWallet != null && cooldownTime >= itemData.AttackRate)
             {
+                ResetFloat();
                 playerWallet.AddGold(itemData.GoldAmount);
             }
             cooldownTime += Time.deltaTime;
             float time = cooldownTime / itemData.AttackRate;
-            if(itemMaterial != null)
+            if (itemMaterial != null)
                 itemMaterial.SetFloat("_Cooldown", time);
         }
         waitTime += Time.deltaTime;
@@ -74,6 +75,7 @@ public class Damage : MonoBehaviour
         {
             case ItemType.Weapon:
             case ItemType.Accessory:
+            case ItemType.Core:
                 itemMaterial = new Material(cooldownAnimation);
                 Texture tex = ConvertSpriteToTexture(itemData.IconWithFrame);
                 itemMaterial.SetTexture("_ItemTexture", tex);
@@ -92,7 +94,9 @@ public class Damage : MonoBehaviour
             case "Player":
                 target = GameObject.FindGameObjectWithTag("Enemy")?.GetComponent<Health>();
                 selfHealth = GetComponentInParent<Health>();
-                playerWallet = GetComponentInParent<PlayerWallet>();
+                playerWallet = PlayerWallet.Instance != null
+                    ? PlayerWallet.Instance
+                    : transform.parent.GetComponentInChildren<PlayerWallet>();
                 break;
             case "Enemy":
                 target = GameObject.FindGameObjectWithTag("Player")?.GetComponent<Health>();
@@ -103,7 +107,8 @@ public class Damage : MonoBehaviour
 
     private void ResetFloat()
     {
-        itemMaterial.SetFloat("_Cooldown", 0f);
+        if (itemMaterial != null)
+            itemMaterial.SetFloat("_Cooldown", 0f);
         cooldownTime = 0f;
     }
 
@@ -112,15 +117,15 @@ public class Damage : MonoBehaviour
         if ((SceneManager.GetActiveScene().name == "ShopScene" ||
             SceneManager.GetActiveScene().name == "TreasureScene") && itemMaterial != null)
         {
-                itemMaterial.SetFloat("_Cooldown", 1f);
-        } 
+            itemMaterial.SetFloat("_Cooldown", 1f);
+        }
         else if ((SceneManager.GetActiveScene().name != "ShopScene" ||
                 SceneManager.GetActiveScene().name != "TreasureScene") && itemMaterial != null)
         {
-                itemMaterial.SetFloat("_Cooldown", 0f);
+            itemMaterial.SetFloat("_Cooldown", 0f);
         }
     }
-    
+
     private Texture2D ConvertSpriteToTexture(Sprite sprite)
     {
         try

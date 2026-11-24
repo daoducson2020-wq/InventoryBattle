@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: Dual Swords
   itemType: 0
-  damage: 12
+  damage: 20
   healthBonus: 0
-  healAmount: 0
+  healAmount: 5
+  goldAmount: 0
   attackRate: 4
   icon: {fileID: 21300000, guid: 672a708dbf9021c459355bacf8baed13, type: 3}
   iconWithFrame: {fileID: 21300000, guid: b16da95d9e7bd5341b679f209c440e63, type: 3}
   itemWidth: 2
   itemHeight: 3
   attackSound: 1
-  price: 25
+  price: 100

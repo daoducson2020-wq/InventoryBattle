@@ -367,8 +367,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 255.06372, y: -93.66696}
-  m_SizeDelta: {x: 190.4857, y: 187.33}
+  m_AnchoredPosition: {x: 270.0142, y: 31.251007}
+  m_SizeDelta: {x: 302.1329, y: 427.9982}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &704304601
 MonoBehaviour:
@@ -423,6 +423,7 @@ MonoBehaviour:
   playerHealth: {fileID: 1839551226}
   animator: {fileID: 704304604}
   healButton: {fileID: 1682519644}
+  clickDelay: 1
 --- !u!95 &704304604
 Animator:
   serializedVersion: 7
