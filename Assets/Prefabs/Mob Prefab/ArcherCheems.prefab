@@ -21,9 +21,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1113063471019600573, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 4083081985420654509}
+    - target: {fileID: 1113063471019600573, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
       propertyPath: hitResponse
       value: 
       objectReference: {fileID: 7055601670617475226}
+    - target: {fileID: 3654917039580497856, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -7132172409892320828, guid: 9659de3c69d9094489d455daf78de863, type: 3}
     - target: {fileID: 3654917039580497856, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -40,6 +48,22 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4413944378253949129, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 452.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4413944378253949129, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -868
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153069300306907181, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
+      propertyPath: mobName
+      value: Archer Cheems
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153069300306907181, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 4083081985420654509}
     - target: {fileID: 5153069300306907181, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
       propertyPath: atkDamage
       value: 15
@@ -139,6 +163,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7699827632038276350, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7055601670617475226}
+    - targetCorrespondingSourceObject: {fileID: 7699827632038276350, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4083081985420654509}
   m_SourcePrefab: {fileID: 100100000, guid: 2a96720af7513e74396a904e7a34580b, type: 3}
 --- !u!1 &3294055923833823653 stripped
 GameObject:
@@ -158,6 +185,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitResponseUI
   sprite: {fileID: 8490764869781801627}
+--- !u!95 &4083081985420654509
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3294055923833823653}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e1b3b0f3161563b4dba5c9f695d2fb2a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &8490764869781801627 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3654917039580497856, guid: 2a96720af7513e74396a904e7a34580b, type: 3}

@@ -4,13 +4,12 @@ using TMPro;
 
 public class MobSpawner : MonoBehaviour
 {
-    [SerializeField] private TMP_Text enemyNameText; // Kéo object EnemyName (TMP) trong scene vào đây
-    // Danh sách quái (child trong prefab hoặc prefab asset), mỗi quái có MobController với mobType đã set
+    [SerializeField] private TMP_Text enemyNameText;
     [SerializeField] private GameObject[] mobs;
-    [SerializeField] private Transform spawnPoint; // Dùng khi mob là prefab asset
+    [SerializeField] private Transform spawnPoint;
     public TMP_Text EnemyName => enemyNameText;
-    
-    
+
+
     private void Start()
     {
         int floor = GetCurrentFloor();
@@ -40,8 +39,6 @@ public class MobSpawner : MonoBehaviour
     public void SpawnForFloor(int floor)
     {
         MobType type = GetMobTypeForFloor(floor);
-
-        // Tắt toàn bộ quái nằm sẵn trong prefab
         foreach (var m in mobs)
             if (m != null && m.scene.IsValid()) m.SetActive(false);
 

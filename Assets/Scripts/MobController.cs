@@ -1,6 +1,5 @@
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public enum MobType { begin, middle, high }
 
@@ -11,6 +10,7 @@ public class MobController : MonoBehaviour
     public MobType mobType;
     [SerializeField] private int atkDamage;
     [SerializeField] private float atkCooldown;
+    [SerializeField] private Animator animator;
     private float nextATKTime;
     private float waitTime;
     private float startCombat = 3f;
@@ -20,7 +20,7 @@ public class MobController : MonoBehaviour
     private Health selfHealth;
 
     public void Start()
-    {   
+    {
         selfHealth = GetComponentInParent<Health>();
         if (playerHealth != null) return;
         foreach (Health h in FindObjectsByType<Health>())
@@ -40,8 +40,9 @@ public class MobController : MonoBehaviour
         {
             if (Time.time >= nextATKTime)
             {
-                playerHealth.TakeDamage(atkDamage);
                 nextATKTime = Time.time + atkCooldown;
+                animator.SetTrigger("Attack");
+                animator.SetBool("isAttacking", true);
             }
         }
         else
@@ -51,5 +52,20 @@ public class MobController : MonoBehaviour
         waitTime += Time.deltaTime;
     }
 
+    public void DealDamage()
+    {
+        if (selfHealth != null && selfHealth.CurrentHealth <= 0)
+        {
+            return;
+        }
+        playerHealth.TakeDamage(atkDamage);
+    }
 
+    public void EndAnimation()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("isAttacking", false);
+        }
+    }
 }
