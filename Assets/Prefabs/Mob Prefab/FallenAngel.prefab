@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5400156991864878847}
   - component: {fileID: 5076451166258108656}
   - component: {fileID: 8977881374402353849}
+  - component: {fileID: 8786805160339250089}
   m_Layer: 5
   m_Name: Mob
   m_TagString: Enemy
@@ -38,7 +39,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 462, y: -713}
+  m_AnchoredPosition: {x: 478, y: -782}
   m_SizeDelta: {x: 750.9648, y: 656.3845}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &690462663195255528
@@ -69,7 +70,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f0039917cae7337439d4bb3d758bb39f, type: 3}
+  m_Sprite: {fileID: 8483108505968343273, guid: 4f5185d4523198dbe2d78a9ae1f4b663, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -96,6 +97,7 @@ MonoBehaviour:
   mobType: 2
   atkDamage: 28
   atkCooldown: 3
+  animator: {fileID: 8786805160339250089}
   playerHealth: {fileID: 0}
 --- !u!114 &5400156991864878847
 MonoBehaviour:
@@ -116,6 +118,7 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   mobSpawner: {fileID: 0}
   hitResponse: {fileID: 8977881374402353849}
+  animator: {fileID: 8786805160339250089}
 --- !u!114 &5076451166258108656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +146,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitResponseUI
   sprite: {fileID: 417608864013090658}
+--- !u!95 &8786805160339250089
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6417293503173489957}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ca5568f556b7ba34680e5bff7f6077d1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &5146943703885155675
 PrefabInstance:
   m_ObjectHideFlags: 0

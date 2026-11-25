@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5400156991864878847}
   - component: {fileID: 5076451166258108656}
   - component: {fileID: 1155218312222068684}
+  - component: {fileID: 4910294227269257724}
   m_Layer: 5
   m_Name: Mob
   m_TagString: Enemy
@@ -38,8 +39,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 452.5, y: -862}
-  m_SizeDelta: {x: 578.043, y: 677.9997}
+  m_AnchoredPosition: {x: 436, y: -821}
+  m_SizeDelta: {x: 823.0131, y: 965.3306}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &690462663195255528
 CanvasRenderer:
@@ -69,7 +70,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 162a6c332a07e5542b7fb70dafbd45ee, type: 3}
+  m_Sprite: {fileID: -8856254004387537945, guid: 44af406bad0aa0755fd9ec8a8e7d98b6, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -96,6 +97,7 @@ MonoBehaviour:
   mobType: 0
   atkDamage: 10
   atkCooldown: 2
+  animator: {fileID: 4910294227269257724}
   playerHealth: {fileID: 0}
 --- !u!114 &5400156991864878847
 MonoBehaviour:
@@ -116,6 +118,7 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   mobSpawner: {fileID: 0}
   hitResponse: {fileID: 1155218312222068684}
+  animator: {fileID: 4910294227269257724}
 --- !u!114 &5076451166258108656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +146,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HitResponseUI
   sprite: {fileID: 417608864013090658}
+--- !u!95 &4910294227269257724
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6417293503173489957}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cda344a300218db429bf4e46e8740d7f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &5146943703885155675
 PrefabInstance:
   m_ObjectHideFlags: 0

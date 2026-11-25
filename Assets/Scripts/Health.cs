@@ -12,6 +12,7 @@ public class Health : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     [SerializeField] private MobSpawner mobSpawner;
     [SerializeField] private HitResponseUI hitResponse;
+    [SerializeField] private Animator animator;
     private int maxHealth;
 
     private EnemyReward enemyReward;
@@ -158,6 +159,11 @@ public class Health : MonoBehaviour
                 }
                 break;
         }
+        if (animator != null)
+        {
+            animator.SetBool("isAttacked", true);
+            animator.SetTrigger("Attacked");
+        }
         SaveHealth();
         RefreshHealthUI();
         if (currentHealth == 0) Die();
@@ -182,15 +188,9 @@ public class Health : MonoBehaviour
     {
         Debug.Log(gameObject.name + " Die!");
         if (gameManager == null) gameManager = FindAnyObjectByType<GameManager>();
-        if (gameManager == null)
+        if (animator != null)
         {
-            Debug.LogWarning("Health.Die: no GameManager found, GameOver/WinStage not called.", this);
-            return;
-        }
-        if (!CompareTag("Player") && !CompareTag("Enemy"))
-        {
-            Debug.LogWarning($"Health.Die: '{name}' has tag '{tag}', expected Player or Enemy.", this);
-            return;
+            animator.SetTrigger("Dead");
         }
         if (CompareTag("Player"))
         {
@@ -243,7 +243,6 @@ public class Health : MonoBehaviour
         }
     }
 
-    // Hàm public để BigEnemyManager (MiniBoss / Boss) hoặc các script khác gán tên trực tiếp
     public void SetUnitName(string unitName)
     {
         if (nameText != null)
@@ -256,9 +255,9 @@ public class Health : MonoBehaviour
     {
         switch (name)
         {
-            case "Archer":
+            case "Archer Cheems":
             case "Dark Triad":
-            case "Armored General":
+            case "Yasuo":
             case "Fallen Angel":
             case "Fighter Cheems":
             case "Guardian":
@@ -271,5 +270,11 @@ public class Health : MonoBehaviour
                 SoundManager.Instance.PlayMiniBossGetHit();
                 break;
         }
+    }
+
+    public void EndAttackedAnimation()
+    {
+        if (animator != null)
+            animator.SetBool("isAttacked", false);
     }
 }
