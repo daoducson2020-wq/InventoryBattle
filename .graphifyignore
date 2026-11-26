@@ -1,0 +1,29 @@
+# Exclude Unity boilerplate, lockfiles, and auto-generated metadata from Graphify knowledge graph
+Packages/
+ProjectSettings/
+Assets/TextMesh Pro/
+Assets/Welcome/
+Assets/Scripts/.vs/
+*.meta
+*.asset
+*.prefab
+*.unity
+*.mat
+*.controller
+*.anim
+*.overrideController
+*.shader
+*.shadergraph
+*.cginc
+*.ttf
+*.otf
+*.ogg
+*.wav
+*.mp3
+*.png
+*.jpg
+*.psd
+*.docx
+
+# Include project documentation and architecture report even though *.md is in .gitignore
+!Bao_Cao_Do_An_Inventory_Battle.md
