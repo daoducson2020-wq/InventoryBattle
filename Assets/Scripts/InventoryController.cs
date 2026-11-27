@@ -22,7 +22,9 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private GameObject tooltipPanel;
     [SerializeField] private TooltipPanelUI tooltipUI;
     [SerializeField] private Transform canvasTransform;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator animator1;
+    [SerializeField] private Animator animator2;
+    [SerializeField] private Animator animator3;
     [SerializeField] private GameManager gameManager;
 
     private InventoryItem selectedItem;
@@ -163,10 +165,14 @@ public class InventoryController : MonoBehaviour
             Debug.LogError("Cannot add the sale price to the player's gold.", wallet);
             return false;
         }
-        if (animator != null)
+        if (animator1 != null || animator2 != null || animator3 != null)
         {
-            animator.SetBool("isBurn", true);
-            animator.SetTrigger("Sell");
+            animator1.SetBool("isBurn", true);
+            animator1.SetTrigger("Sell"); 
+            animator2.SetBool("isBurn", true);
+            animator2.SetTrigger("Sell");
+            animator3.SetBool("isBurn", true);
+            animator3.SetTrigger("Sell");
             SoundManager.Instance.PlaySellItem();
         }
         Destroy(selectedItem.gameObject);

@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
-        Debug.Log("current state: " + currentState);
+        //Debug.Log("current state: " + currentState);
     }
 
     public void OpenInformationView()

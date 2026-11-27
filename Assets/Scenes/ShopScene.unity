@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SellPoint
   sellArea: {fileID: 284947368}
-  animator: {fileID: 284947372}
+  animator1: {fileID: 284947372}
 --- !u!1 &285898062
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,6 +639,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWallet
   beginGold: 60
+  animator1: {fileID: 410162908}
+  animator2: {fileID: 2007535030}
   goldText: {fileID: 401116823}
 --- !u!114 &401116823
 MonoBehaviour:
@@ -826,6 +828,8 @@ GameObject:
   - component: {fileID: 410162904}
   - component: {fileID: 410162906}
   - component: {fileID: 410162905}
+  - component: {fileID: 410162908}
+  - component: {fileID: 410162907}
   m_Layer: 0
   m_Name: PlayerSprite
   m_TagString: Untagged
@@ -849,8 +853,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -529, y: -376.5}
-  m_SizeDelta: {x: 340, y: 300}
+  m_AnchoredPosition: {x: -484.41684, y: -321.48492}
+  m_SizeDelta: {x: 518.1663, y: 490.4222}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &410162905
 MonoBehaviour:
@@ -866,13 +870,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5398188094922875512, guid: a425b6a10094641498e56270a765153f, type: 3}
+  m_Sprite: {fileID: -7533562481949697860, guid: 3d894e093267c3dc0a033d374bfd8e37, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -890,6 +894,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410162903}
   m_CullTransparentMesh: 1
+--- !u!114 &410162907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410162903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df677d0775f9a5245b7a0cf51cc722cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopEndAnimation
+  animator1: {fileID: 410162908}
+--- !u!95 &410162908
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410162903}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fd76cd3e21eb9904997c1449604fb451, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &435512174
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,7 +1768,9 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1379290621}
   tooltipUI: {fileID: 1379290625}
   canvasTransform: {fileID: 435512178}
-  animator: {fileID: 284947372}
+  animator1: {fileID: 284947372}
+  animator2: {fileID: 410162908}
+  animator3: {fileID: 2007535030}
   gameManager: {fileID: 1641754409}
 --- !u!114 &865506140
 MonoBehaviour:
@@ -4055,6 +4096,8 @@ GameObject:
   - component: {fileID: 2007535027}
   - component: {fileID: 2007535029}
   - component: {fileID: 2007535028}
+  - component: {fileID: 2007535030}
+  - component: {fileID: 2007535031}
   m_Layer: 0
   m_Name: MerchantSprite
   m_TagString: Untagged
@@ -4078,8 +4121,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 582.5, y: -343.03}
-  m_SizeDelta: {x: 433, y: 393.94}
+  m_AnchoredPosition: {x: 623.4674, y: -314.81}
+  m_SizeDelta: {x: 514.9292, y: 477.07}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2007535028
 MonoBehaviour:
@@ -4095,13 +4138,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 316862cfb6c26ab41a4e558f5850bfbf, type: 3}
+  m_Sprite: {fileID: 15043848190337642, guid: 55a8548bc2dc7da99973f84952f09c47, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4119,6 +4162,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2007535026}
   m_CullTransparentMesh: 1
+--- !u!95 &2007535030
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007535026}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 93d3717b7e86b5c4685c5181106a8ecc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2007535031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007535026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df677d0775f9a5245b7a0cf51cc722cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopEndAnimation
+  animator1: {fileID: 2007535030}
 --- !u!1001 &9120328581326911850
 PrefabInstance:
   m_ObjectHideFlags: 0

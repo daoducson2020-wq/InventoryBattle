@@ -1,11 +1,13 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Damage : MonoBehaviour
 {
     [SerializeField] private ItemData itemData;
     [SerializeField] private Material cooldownAnimation;
+    private Animator animator;
 
     private Health target;
     private Health selfHealth;
@@ -22,6 +24,7 @@ public class Damage : MonoBehaviour
         {
             IdentifySelfTag();
         }
+        animator = GameObject.Find("PlayerSprite")?.GetComponent<Animator>();
         CheckScene();
     }
 
@@ -49,6 +52,8 @@ public class Damage : MonoBehaviour
                 {
                     SoundManager.Instance.PlaySound(itemData.AttackSound.ToString());
                 }
+                animator.SetBool("isAttacking", true);
+                animator.SetTrigger("Attack");
                 target.TakeDamage(itemData.Damage);
             }
             if (itemData.HealAmount > 0 && selfHealth != null && cooldownTime >= itemData.AttackRate)

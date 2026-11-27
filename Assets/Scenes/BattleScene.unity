@@ -130,9 +130,11 @@ GameObject:
   - component: {fileID: 113021345}
   - component: {fileID: 113021344}
   - component: {fileID: 113021343}
+  - component: {fileID: 113021347}
+  - component: {fileID: 113021346}
   m_Layer: 5
   m_Name: PlayerSprite
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,7 +159,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5398188094922875512, guid: a425b6a10094641498e56270a765153f, type: 3}
+  m_Sprite: {fileID: -7533562481949697860, guid: 3d894e093267c3dc0a033d374bfd8e37, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -191,9 +193,44 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -529, y: -376.5}
-  m_SizeDelta: {x: 340, y: 300}
+  m_AnchoredPosition: {x: -507.5, y: -347.48}
+  m_SizeDelta: {x: 493.38, y: 463.86}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &113021346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113021342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df677d0775f9a5245b7a0cf51cc722cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopEndAnimation
+  animator1: {fileID: 113021347}
+--- !u!95 &113021347
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113021342}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 45795416f178d1f429c8c43b70c34c6d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &155255331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,7 +1627,9 @@ MonoBehaviour:
   tooltipPanel: {fileID: 1524661969}
   tooltipUI: {fileID: 1524661970}
   canvasTransform: {fileID: 1409518778}
-  animator: {fileID: 1355728034}
+  animator1: {fileID: 0}
+  animator2: {fileID: 0}
+  animator3: {fileID: 0}
   gameManager: {fileID: 1329857063}
 --- !u!1 &910328871
 GameObject:
@@ -3888,6 +3927,10 @@ PrefabInstance:
       propertyPath: sprite
       value: 
       objectReference: {fileID: 113021343}
+    - target: {fileID: 7821367796141938142, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 113021347}
     - target: {fileID: 7821367796141938142, guid: 83e322049fc89f04c95cecd6ca2a0cb1, type: 3}
       propertyPath: nameText
       value: 

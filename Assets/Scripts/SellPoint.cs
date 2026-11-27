@@ -3,7 +3,7 @@ using UnityEngine;
 public class SellPoint : MonoBehaviour
 {
     [SerializeField] private RectTransform sellArea;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator animator1;
 
     public bool IsPointerOverSellPoint(Vector2 screenPosition)
     {
@@ -26,9 +26,9 @@ public class SellPoint : MonoBehaviour
 
     public void EndBurnAnimation()
     {
-        if (animator != null)
+        if (animator1 != null)
         {
-            animator.SetBool("isBurn", false);
+            animator1.SetBool("isBurn", false);
         }
     }
 }

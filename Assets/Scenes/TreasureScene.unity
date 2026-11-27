@@ -9362,6 +9362,8 @@ GameObject:
   - component: {fileID: 1233442579}
   - component: {fileID: 1233442578}
   - component: {fileID: 1233442577}
+  - component: {fileID: 1233442581}
+  - component: {fileID: 1233442580}
   m_Layer: 5
   m_Name: PlayerSprite
   m_TagString: Untagged
@@ -9389,7 +9391,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5398188094922875512, guid: a425b6a10094641498e56270a765153f, type: 3}
+  m_Sprite: {fileID: -7533562481949697860, guid: 3d894e093267c3dc0a033d374bfd8e37, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9423,9 +9425,44 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -21.511963, y: -376.5}
-  m_SizeDelta: {x: 340, y: 300}
+  m_AnchoredPosition: {x: 7.2181, y: -333}
+  m_SizeDelta: {x: 503.5397, y: 475.5425}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1233442580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233442576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df677d0775f9a5245b7a0cf51cc722cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopEndAnimation
+  animator1: {fileID: 1233442581}
+--- !u!95 &1233442581
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233442576}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fd76cd3e21eb9904997c1449604fb451, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1252380700
 GameObject:
   m_ObjectHideFlags: 0
@@ -9898,6 +9935,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWallet
   beginGold: 65
+  animator1: {fileID: 0}
+  animator2: {fileID: 0}
   goldText: {fileID: 1282515857}
 --- !u!114 &1282515857
 MonoBehaviour:
@@ -12295,10 +12334,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1233442579}
   - {fileID: 2123439675}
   - {fileID: 1367525747}
   - {fileID: 1452330819}
+  - {fileID: 1233442579}
   m_Father: {fileID: 1835798781}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -14447,7 +14486,9 @@ MonoBehaviour:
   tooltipPanel: {fileID: 31409956}
   tooltipUI: {fileID: 31409957}
   canvasTransform: {fileID: 1835798781}
-  animator: {fileID: 0}
+  animator1: {fileID: 0}
+  animator2: {fileID: 0}
+  animator3: {fileID: 0}
   gameManager: {fileID: 432771748}
 --- !u!114 &2030737649
 MonoBehaviour:

@@ -8,6 +8,8 @@ public class PlayerWallet : MonoBehaviour
     [Header("Currency Settings")]
 
     [SerializeField] private int beginGold = 65; // Số vàng khởi điểm của người chơi
+    [SerializeField] private Animator animator1;
+    [SerializeField] private Animator animator2;
     private int currentGold;
     public TextMeshProUGUI goldText;
 
@@ -53,6 +55,13 @@ public class PlayerWallet : MonoBehaviour
         if (currentGold >= amount)
         {
             currentGold -= amount;
+            if(animator1 != null || animator2 != null)
+            {
+                animator1.SetBool("isBuying", true);
+                animator1.SetTrigger("Buy");
+                animator2.SetBool("isBuying", true);
+                animator2.SetTrigger("Buy");
+            }
             SaveGold();
             UpdateGoldUI();
             return true;
